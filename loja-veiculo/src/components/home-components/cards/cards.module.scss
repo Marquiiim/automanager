@@ -1,0 +1,53 @@
+@use '../../variables' as *;
+
+.container {
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 0.5rem;
+    padding: 0.875rem;
+    box-shadow: $shadow;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &:hover {
+        box-shadow: $shadow-hover;
+        border-color: $primary;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    height: 100%;
+    justify-content: center;
+
+    h2 {
+        margin: 0 0 0.125rem 0;
+        font-size: 1.5rem;
+        line-height: 1;
+        color: $primary;
+
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+
+    h3 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: $text-primary;
+        line-height: 1.2;
+    }
+
+    p {
+        margin: 0;
+        font-size: .88rem;
+        line-height: 1.3;
+        color: $text-secondary;
+    }
+}

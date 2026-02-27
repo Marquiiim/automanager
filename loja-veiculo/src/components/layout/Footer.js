@@ -7,7 +7,7 @@ function Footer() {
             <div className={styles.content}>
                 <div className={styles.logo_bottom}>
                     <span className={styles.logo}>
-                        Marcos Veículos
+                        AUTOMANAGER
                     </span>
                     <div className={styles.logo_others}>
                         <span>Uma empresa ###</span>
@@ -15,7 +15,7 @@ function Footer() {
                     </div>
                 </div>
                 <div className={styles.copyright}>
-                    &copy; 1995-2025 Marcos Veículos S.A. CNPJ: 00.000.000/0000-00 Todos os direitos reservados.
+                    &copy; 1995-2025 AUTOMANAGER S.A. CNPJ: 00.000.000/0000-00 Todos os direitos reservados.
                 </div>
             </div>
         </div>

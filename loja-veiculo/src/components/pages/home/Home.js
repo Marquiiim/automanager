@@ -1,17 +1,31 @@
+import Cards from '../../home-components/cards/cards'
 import styles from './Home.module.css'
 
-import Searched from './add-ons/Searched'
 
 function Home() {
     return (
         <section className={styles.container}>
             <div className={styles.content}>
-                <div className={styles.banner}>
-                    <p>
-                        Na <span>Marcos Veículos</span>, seu novo carro te espera! <span>Preço justo</span>, <span>qualidade</span> e <span>confiança</span>. Vem fazer um ótimo negócio!
-                    </p>
-                </div>
-                <Searched />
+                <Cards
+                    title="Controle Total"
+                    message="Gerencie todo o estoque em um único painel."
+                />
+                <Cards
+                    title="Localização"
+                    message="Saiba exatamente em qual vaga ou pátio o carro está."
+                />
+                <Cards
+                    title="Visual Rápido"
+                    message="Veja os carros em cards com fotos e status."
+                />
+                <Cards
+                    title="Busca Avançada"
+                    message="Encontre carros por modelo, cor ou localização."
+                />
+                <Cards
+                    title="Status Visuais"
+                    message="Disponível, Reservado, Vendido."
+                />
             </div>
         </section>
     )

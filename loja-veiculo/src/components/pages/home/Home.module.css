@@ -1,25 +1,10 @@
-.container {
-  height: 100%;
-}
-.container .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.container .content .banner {
-  background: url("../../../img/FrenteLoja.png") center/cover no-repeat;
-  width: 100%;
-  height: 40vh;
-}
-.container .content .banner p {
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-  padding: 2.5rem;
-  max-width: 30rem;
-}
-.container .content .banner p span {
-  color: #e74c3c;
-  background-color: white;
+.content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding: 1rem;
+  min-height: 100vh;
+  max-width: 900px;
+  margin: 0 auto;
+  align-content: start;
 }/*# sourceMappingURL=Home.module.css.map */
