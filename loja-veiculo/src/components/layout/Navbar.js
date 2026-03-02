@@ -45,9 +45,9 @@ function Navbar() {
                 <span>
                     <VscAccount /> Entrar
                 </span>
-                <a href=''>
+                <span>
                     <VscHeart size='20' />
-                </a>
+                </span>
             </div>
         </nav>
     )

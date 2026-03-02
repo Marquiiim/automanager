@@ -1,0 +1,134 @@
+.container {
+  width: 100%;
+  overflow-x: hidden;
+}
+.container .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.container .imageContainer {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+}
+.container .imageContainer .dealershipImage {
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+  filter: brightness(0.9);
+}
+.container .imageContainer .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.2) 100%);
+  z-index: 1;
+  backdrop-filter: blur(2px);
+}
+.container .imageContainer .overlayContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+}
+.container .imageContainer .brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+.container .imageContainer .brandName {
+  font-size: 4.5rem;
+  font-weight: 400;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 15px;
+  margin: 0;
+  font-family: "Playfair Display", "Times New Roman", serif;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.container .imageContainer .brandName::before, .container .imageContainer .brandName::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, white, transparent);
+  top: 50%;
+  transition: width 0.3s ease;
+}
+.container .imageContainer .brandName:hover::before, .container .imageContainer .brandName:hover::after {
+  width: 100px;
+}
+.container .imageContainer .brandName::before {
+  left: -100px;
+}
+.container .imageContainer .brandName::after {
+  right: -100px;
+}
+@media (max-width: 768px) {
+  .container .imageContainer .brandName {
+    font-size: 2.5rem;
+    letter-spacing: 8px;
+  }
+  .container .imageContainer .brandName::before, .container .imageContainer .brandName::after {
+    width: 40px;
+  }
+  .container .imageContainer .brandName::before {
+    left: -50px;
+  }
+  .container .imageContainer .brandName::after {
+    right: -50px;
+  }
+}
+.container .imageContainer .slogan {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 15px 25px;
+  display: inline-block;
+  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+@media (max-width: 768px) {
+  .container .imageContainer .slogan {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    padding: 10px 15px;
+  }
+}
+.container .cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 40px 70px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .container .cardsGrid {
+    padding: 20px 20px;
+    gap: 15px;
+  }
+}/*# sourceMappingURL=Home.module.css.map */
