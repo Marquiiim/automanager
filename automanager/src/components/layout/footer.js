@@ -1,6 +1,11 @@
-import styles from './Footer.module.css'
+import styles from './footer.module.css'
+
+import { useLocation } from 'react-router-dom'
 
 function Footer() {
+    const location = useLocation()
+    
+    if (location.pathname === '/auth') return null
 
     return (
         <div className={styles.container}>

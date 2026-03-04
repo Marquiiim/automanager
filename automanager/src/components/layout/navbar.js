@@ -1,10 +1,13 @@
-import styles from './Navbar.module.css'
+import styles from './navbar.module.css'
 
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { VscAccount, VscHeart } from "react-icons/vsc";
 
-function Navbar() {
+function NavBar() {
+    const location = useLocation()
+
+    if (location.pathname === '/auth') return null
 
     return (
         <nav>
@@ -43,14 +46,18 @@ function Navbar() {
 
             <div className={styles.options_right}>
                 <span>
-                    <VscAccount /> Entrar
+                    <Link to='/auth'>
+                        <VscAccount /> Entrar
+                    </Link>
                 </span>
                 <span>
-                    <VscHeart size='20' />
+                    <Link to='/favorites'>
+                        <VscHeart size='20' />
+                    </Link>
                 </span>
             </div>
         </nav>
     )
 }
 
-export default Navbar
+export default NavBar

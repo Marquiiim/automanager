@@ -99,27 +99,31 @@ nav {
 .options_right span {
   display: flex;
   align-items: center;
+}
+.options_right span a {
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
   color: #475569;
   font-weight: 500;
-  cursor: pointer;
+  text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   transition: all 0.3s ease;
   border: 1px solid transparent;
 }
-.options_right span svg {
+.options_right span a svg {
   font-size: 1.2rem;
   color: #64748b;
   transition: color 0.3s ease;
 }
-.options_right span:hover {
+.options_right span a:hover {
   background-color: #f8fafc;
   color: #2563eb;
   border-color: #e2e8f0;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
-.options_right span:hover svg {
+.options_right span a:hover svg {
   color: #2563eb;
 }
 .options_right a {

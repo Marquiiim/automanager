@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { routeConfig, basename } from './routes';
-import Navbar from "./components/layout/Navbar";
-import Footer from './components/layout/Footer'
+import { routeConfig, basename } from './routes/routes';
+import Navbar from "./components/layout/navbar";
+import Footer from './components/layout/footer'
 
 function App() {
 

@@ -116,29 +116,34 @@ nav {
     span {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        color: $text-secondary;
-        font-weight: 500;
-        cursor: pointer;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        border: 1px solid transparent;
 
-        svg {
-            font-size: 1.2rem;
-            color: $text-tertiary;
-            transition: color 0.3s ease;
-        }
-
-        &:hover {
-            background-color: $surface-hover;
-            color: $primary;
-            border-color: $border;
-            box-shadow: $shadow;
+        a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: $text-secondary;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
 
             svg {
+                font-size: 1.2rem;
+                color: $text-tertiary;
+                transition: color 0.3s ease;
+            }
+
+            &:hover {
+                background-color: $surface-hover;
                 color: $primary;
+                border-color: $border;
+                box-shadow: $shadow;
+
+                svg {
+                    color: $primary;
+                }
             }
         }
     }

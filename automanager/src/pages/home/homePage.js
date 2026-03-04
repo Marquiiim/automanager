@@ -1,8 +1,8 @@
 import Cards from '../../components/home-components/cards/cards'
 import ImageHome from '../../img/ImageHome.jpg'
-import styles from './Home.module.css'
+import styles from './homepage.module.css'
 
-function Home() {
+function HomePage() {
     return (
         <section className={styles.container}>
             <div className={styles.content}>
@@ -49,4 +49,4 @@ function Home() {
     )
 }
 
-export default Home
+export default HomePage
