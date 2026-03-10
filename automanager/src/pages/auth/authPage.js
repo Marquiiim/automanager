@@ -1,8 +1,40 @@
 import styles from './authpage.module.css'
 
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function AuthPage() {
+
+    const [data, setData] = useState({
+        email: '',
+        password: '',
+        type: ''
+    })
+
+    const signIn = async (e) => {
+        e.preventDefault()
+        const signData = {
+            email: data.email,
+            password: data.password,
+            type: 'login'
+        }
+
+        try {
+            console.log(signData)
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
+
+    const onChangeSign = (e) => {
+        e.preventDefault()
+        const { name, value } = e.target
+
+        setData(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
 
     return (
         <div className={styles.container}>
@@ -16,26 +48,34 @@ function AuthPage() {
 
                 <form className={styles.form}>
                     <div className={styles.formGroup}>
-                        <label htmlFor="email" className={styles.label}>
+                        <label htmlFor='email' className={styles.label}>
                             E-mail
                         </label>
                         <input
-                            type="email"
-                            id="email"
+                            id='email'
+                            type='email'
+                            name='email'
+                            value={data.email}
+                            onChange={onChangeSign}
                             className={styles.input}
                             placeholder="seu@authmanager.com"
+                            required
                         />
                     </div>
 
                     <div className={styles.formGroup}>
-                        <label htmlFor="password" className={styles.label}>
+                        <label htmlFor='password' className={styles.label}>
                             Senha
                         </label>
                         <input
-                            type="password"
-                            id="password"
+                            id='password'
+                            type='password'
+                            name='password'
+                            value={data.password}
+                            onChange={onChangeSign}
                             className={styles.input}
                             placeholder="••••••••"
+                            required
                         />
                     </div>
 
@@ -49,7 +89,7 @@ function AuthPage() {
                         </Link>
                     </div>
 
-                    <button type="submit" className={styles.button}>
+                    <button onClick={(e) => signIn(e)} type="submit" className={styles.button}>
                         Entrar
                     </button>
                 </form>
