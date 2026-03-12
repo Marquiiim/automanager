@@ -1,6 +1,7 @@
 import styles from './authpage.module.css'
 
 import { useState } from 'react'
+import api from '../../services/apiInstance'
 import { Link } from 'react-router-dom'
 
 function AuthPage() {
@@ -21,6 +22,9 @@ function AuthPage() {
 
         try {
             console.log(signData)
+
+            const response = await api.post('/api/auth/login', {signData})
+            console.log(response)
         } catch (error) {
             console.error(error.message)
         }

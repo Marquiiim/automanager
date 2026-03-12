@@ -2,13 +2,16 @@ import axios from "axios"
 import { showToast } from './toastConfig'
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
     withCredentials: true,
     timeout: 10000
 })
 
 api.interceptors.request.use(
     config => {
+        console.log('URL completa:', `${config.baseURL}${config.url}`);
+        console.log('Método:', config.method?.toUpperCase());
+
         if (process.env.NODE_ENV === 'development') console.log(`${config.method?.toUpperCase()} ${config.url}`)
 
         return config

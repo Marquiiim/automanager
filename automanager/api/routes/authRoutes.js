@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-// const { controllerLogin } = require('./controllers/auth')
-// const { middlewareLogin } = require('./middlewares/auth')
+const { controllerLogin } = require('../controllers/controllerLogin')
+const { middlewareLogin } = require('../middlewares/middlewareLogin')
 
-// router.post('/login', middlewareLogin, controllerLogin)
+router.post('/login', middlewareLogin, controllerLogin)
 
 module.exports = router
