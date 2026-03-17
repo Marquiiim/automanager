@@ -1,8 +1,8 @@
-const express = require('express')
-const cors = require('cors')
-const cookieParser = require('cookie-parser')
-const rateLimiters = require('./middlewares/rateLimiters')
-const routes = require('./routes/index')
+import express from 'express'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import rateLimiters from './middlewares/rateLimiters.js'
+import routes from './routes/index.js'
 
 const app = express()
 
@@ -19,4 +19,4 @@ app.use('/api/auth/login', rateLimiters.authLimiter)
 
 app.use('/api', routes)
 
-module.exports = app
+export default app

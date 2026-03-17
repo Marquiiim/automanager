@@ -1,10 +1,14 @@
+import { userSchema } from "../schemas/user.schema.js"
+
 async function middlewareLogin(req, res, next) {
     const { email, password, type } = req.body.signData
 
-    console.log(email, password, type)
-    res.status(200).json({success: true, message: 'TESTE'})
+    const validatedData = userSchema.parse(req.body)
+
+    console.log(validatedData)
+    res.status(200).json({ success: true, message: 'TESTE' })
 }
 
-module.exports = {
+export {
     middlewareLogin
 }

@@ -1,7 +1,9 @@
-require('dotenv').config()
-const app = require('./app')
-const { pool } = require('./config/database/database')
+import dotenv from 'dotenv'
+import app from './app.js'
+import { pool } from './config/database/database.js'
 const PORT = process.env.PORT || 5000
+
+dotenv.config()
 
 pool.getConnection((err, connection) => {
     if (err) {

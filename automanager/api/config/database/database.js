@@ -1,5 +1,7 @@
-require('dotenv').config()
-const mysql = require('mysql2')
+import dotenv from 'dotenv'
+import mysql from 'mysql2'
+
+dotenv.config()
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -21,7 +23,7 @@ const query = (sql, params) => {
     })
 }
 
-module.exports = {
+export {
     query,
     pool
 }
