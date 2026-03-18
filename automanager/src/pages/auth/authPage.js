@@ -8,22 +8,20 @@ function AuthPage() {
 
     const [data, setData] = useState({
         email: '',
-        password: '',
-        type: ''
+        password: ''
     })
 
     const signIn = async (e) => {
         e.preventDefault()
         const signData = {
             email: data.email,
-            password: data.password,
-            type: 'login'
+            password: data.password
         }
 
         try {
             console.log(signData)
 
-            const response = await api.post('/api/auth/login', {signData})
+            const response = await api.post('/api/auth/login', { signData })
             console.log(response)
         } catch (error) {
             console.error(error.message)

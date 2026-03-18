@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import rateLimiters from './middlewares/rateLimiters.js'
+import { globalLimiter, authLimiter } from './middlewares/rateLimiters.js'
 import routes from './routes/index.js'
 
 const app = express()
@@ -11,11 +11,11 @@ app.use(cors({
     credentials: true
 }))
 
-app.use(cookieParser())
 app.use(express.json())
+app.use(cookieParser())
 
-app.use(rateLimiters.globalLimiter)
-app.use('/api/auth/login', rateLimiters.authLimiter)
+app.use(globalLimiter)
+app.use('/api/auth/login', authLimiter)
 
 app.use('/api', routes)
 
