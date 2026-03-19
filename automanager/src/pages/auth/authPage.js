@@ -19,12 +19,10 @@ function AuthPage() {
         }
 
         try {
-            console.log(signData)
-
             const response = await api.post('/api/auth/login', { signData })
             console.log(response)
         } catch (error) {
-            console.error(error.message)
+            console.error(error)
         }
     }
 
