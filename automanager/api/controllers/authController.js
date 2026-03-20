@@ -7,14 +7,14 @@ async function controllerLogin(req, res) {
         const user = await authService(req.body.signData, req.cookies)
 
         if (!req.cookiesExisting) {
-            const accessToken = jwttokens.generateAccessToken({
+            const accessToken = await jwttokens.generateAccessToken({
                 userId: user.info.id,
                 name: user.info.name,
                 email: user.info.email,
                 role: user.info.role
             })
 
-            const refreshToken = jwttokens.generateRefreshToken({
+            const refreshToken = await jwttokens.generateRefreshToken({
                 userId: user.info.id,
                 name: user.info.name,
                 email: user.info.email,
