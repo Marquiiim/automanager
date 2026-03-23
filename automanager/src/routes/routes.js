@@ -1,5 +1,6 @@
 import Home from '../pages/home/homePage'
 import Auth from '../pages/auth/authPage'
+import ForgetPassword from '../pages/auth/forgetPasswordPage'
 
 export const routeConfig = [
     {
@@ -12,11 +13,7 @@ export const routeConfig = [
     },
     {
         path: '/forget-password',
-        element: <Auth />
-    },
-    {
-        path: '/favorites',
-        element: <Auth />
+        element: <ForgetPassword />
     }
 ]
 

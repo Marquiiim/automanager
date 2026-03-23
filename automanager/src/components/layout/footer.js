@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom'
 
 function Footer() {
     const location = useLocation()
-    
-    if (location.pathname === '/auth') return null
+
+    if (location.pathname === '/auth' || '/forget-password') return null
 
     return (
         <div className={styles.container}>
