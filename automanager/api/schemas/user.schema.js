@@ -49,7 +49,7 @@ export const userSchema = z.object({
 })
 
 export const forgetPasswordSchema = z.object({
-    name: z.string()
+    fullName: z.string()
         .min(10, 'Nome completo deve ter no mínimo 10 caracteres ')
         .max(120, 'Nome completo deve ter no máximo 120 caracteres')
         .regex(/^[a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]+$/, 'Nome deve conter apenas letras e espaços')
@@ -66,7 +66,7 @@ export const forgetPasswordSchema = z.object({
 
     email: z.email('Email inválido')
         .max(255, 'Email  muito longo')
-        .transform(email => email.toLowerCase.trim())
+        .transform(email => email.toLowerCase().trim())
         .refine(
             (email) => {
                 const domain = email.split('@')[1]
@@ -75,10 +75,42 @@ export const forgetPasswordSchema = z.object({
 
     cpf: z.string()
         .transform((val) => val.replace(/\D/g, ''))
-        .refine((val) => val.length === 1, 'CPF deve conter 11 dígitos')
+        .refine((val) => val.length === 11, 'CPF deve conter 11 dígitos')
         .refine((val) => isValidCPF(val), 'CPF inválido'),
 
-    date_of_birth: z.string()
+    birthDate: z.string()
         .min(1, 'Data de nascimento é obrigatória')
         .regex(/^\d{4}-\d{2}-\d{2}$/, 'Formato inválido')
 })
+
+export const changePasswordSchema = z.object({
+    password: z.string({
+        required_error: 'Senha é obrigatória',
+        invalid_type_error: 'Senha deve ser uma string'
+    })
+        .min(6, 'Senha muito curta')
+        .max(50, 'Senha muito longa')
+        .refine(
+            (password) => {
+                const hasUpperCase = /[A-Z]/.test(password)
+                const hasLowerCase = /[a-z]/.test(password)
+                const hasNumbers = /\d/.test(password)
+                return hasUpperCase && hasLowerCase && hasNumbers
+            }, 'Senha não atende as regras do sistema.'),
+
+    confirmPassword: z.string({
+        required_error: 'Confirmação de senha é obrigatório',
+        invalid_type_error: 'Confirmação de senha deve ser uma string'
+    })
+        .min(6, 'Senha muito curta')
+        .max(50, 'Senha muito longa')
+        .refine(
+            (password) => {
+                const hasUpperCase = /[A-Z]/.test(password)
+                const hasLowerCase = /[a-z]/.test(password)
+                const hasNumbers = /\d/.test(password)
+                return hasUpperCase && hasLowerCase && hasNumbers
+            }, 'Senha não atende as regras do sistema.')
+}).refine(
+    (data) => data.password !== data.confirmPassword, 'As senha não coincidem'
+)

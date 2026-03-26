@@ -1,8 +1,47 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../../services/apiInstance';
 import styles from './forgetPasswordPage.module.css';
 
 const ForgetPasswordPage = () => {
+
+  const [data, setData] = useState({
+    fullName: '',
+    email: '',
+    cpf: '',
+    birthDate: ''
+  })
+
+  const forgetPassword = async (e) => {
+    e.preventDefault()
+
+    const forgetData = {
+      fullName: data.fullName,
+      email: data.email,
+      cpf: data.cpf,
+      birthDate: data.birthDate
+    }
+
+    try {
+      const response = await api.post('/api/auth/forget-password/verify', { forgetData })
+
+      if (response.data?.success === true || response?.status === 200) {
+        const changePassword = await api.post('/api/auth/forget-password/change', { changePasswordData })
+        console.log(changePassword)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const onChangeForgetPassword = (e) => {
+    const { name, value } = e.target
+
+    setData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
 
   return (
     <div className={styles.container}>
@@ -23,6 +62,8 @@ const ForgetPasswordPage = () => {
               id='fullName'
               type='text'
               name='fullName'
+              value={data.fullName}
+              onChange={onChangeForgetPassword}
               className={styles.input}
               placeholder="Digite seu nome completo"
               required
@@ -35,6 +76,8 @@ const ForgetPasswordPage = () => {
               id='email'
               type='email'
               name='email'
+              value={data.email}
+              onChange={onChangeForgetPassword}
               className={styles.input}
               placeholder="exemplo@automanager.com"
               required
@@ -47,6 +90,8 @@ const ForgetPasswordPage = () => {
               id='cpf'
               type='text'
               name='cpf'
+              value={data.cpf}
+              onChange={onChangeForgetPassword}
               className={styles.input}
               placeholder="XXX.XXX.XXX-XX"
               required
@@ -59,12 +104,14 @@ const ForgetPasswordPage = () => {
               id='birthDate'
               type='date'
               name='birthDate'
+              value={data.birthDate}
+              onChange={onChangeForgetPassword}
               className={styles.input}
               required
             />
           </div>
 
-          <button type="submit" className={styles.button}>
+          <button onClick={(e) => forgetPassword(e)} type="submit" className={styles.button}>
             Recuperar senha
           </button>
 

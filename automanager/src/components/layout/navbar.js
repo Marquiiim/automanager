@@ -7,7 +7,7 @@ import { VscAccount, VscHeart } from "react-icons/vsc";
 function NavBar() {
     const location = useLocation()
 
-    if (location.pathname === '/auth' || '/forget-password') return null
+    if (location.pathname === '/auth' || location.pathname === '/forget-password') return null
 
     return (
         <nav>

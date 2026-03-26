@@ -1,10 +1,10 @@
-import authService from "../services/authService.js"
+import { loginService, forgetPasswordService } from "../services/authService.js"
 import { cookies_options } from '../config/cookies/cookies.js'
 import { jwttokens } from '../utils/jwt.js'
 
-async function controllerLogin(req, res) {
+async function loginController(req, res) {
     try {
-        const user = await authService(req.body.signData, req.cookies)
+        const user = await loginService(req.body.signData, req.cookies)
 
         if (!req.cookiesExisting) {
             const accessToken = await jwttokens.generateAccessToken({
@@ -25,9 +25,11 @@ async function controllerLogin(req, res) {
             res.cookie('refresh_token', refreshToken, cookies_options.refresh_token)
         }
 
-        res.status(200).json({ success: true, message: 'Login realizado com sucesso' })
+        res.status(200).json({
+            success: true,
+            message: 'Login realizado com sucesso'
+        })
     } catch (error) {
-        console.log(error)
         res.status(401).json({
             success: false,
             message: error.message
@@ -35,4 +37,23 @@ async function controllerLogin(req, res) {
     }
 }
 
-export default controllerLogin
+async function forgetPasswordController(req, res) {
+    try {
+        await forgetPasswordService(req.body.forgetData)
+
+        res.status(200).json({
+            success: true,
+            message: 'Credenciais validadas, redefina sua senha'
+        })
+    } catch (error) {
+        res.status(422).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+export {
+    loginController,
+    forgetPasswordController
+}

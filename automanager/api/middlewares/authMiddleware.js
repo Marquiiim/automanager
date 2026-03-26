@@ -1,6 +1,7 @@
-import { userSchema } from "../schemas/user.schema.js"
+import { success } from "zod"
+import { userSchema, forgetPasswordSchema, changePasswordSchema } from "../schemas/user.schema.js"
 
-async function middlewareLogin(req, res, next) {
+async function loginMiddleware(req, res, next) {
     try {
         req.cookiesExisting = !!(req.cookies?.access_token && req.cookies?.refresh_token)
 
@@ -14,9 +15,37 @@ async function middlewareLogin(req, res, next) {
     } catch (error) {
         return res.status(422).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro de validar informações'
+            message: error.issues[0]?.message || 'Erro ao validar dados enviados'
         })
     }
 }
 
-export default middlewareLogin
+async function forgetPasswordMiddleware(req, res, next) {
+    try {
+        forgetPasswordSchema.parse(req.body.forgetData)
+        next()
+    } catch (error) {
+        res.status(422).json({
+            success: false,
+            message: error.issues[0]?.message || 'Erro ao validar dados enviados'
+        })
+    }
+}
+
+async function changePasswordMiddleware(req, res, next) {
+    try {
+        changePasswordSchema.parse(req.body.changePasswordData)
+        next()
+    } catch (error) {
+        res.status(422).json({
+            success: false,
+            message: error.issues[0]?.message || 'Erro ao validar dados enviados'
+        })
+    }
+}
+
+export {
+    loginMiddleware,
+    forgetPasswordMiddleware,
+    changePasswordMiddleware
+}

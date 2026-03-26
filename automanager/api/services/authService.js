@@ -2,7 +2,7 @@ import user from '../models/usermodels.js'
 import bcrypt from 'bcryptjs'
 import { jwttokens } from '../utils/jwt.js'
 
-async function serviceLogin(signData, token) {
+async function loginService(signData, token) {
     const { email, password } = signData
 
     const userInfo = await user.findByEmail(email)
@@ -33,4 +33,18 @@ async function serviceLogin(signData, token) {
     }
 }
 
-export default serviceLogin
+async function forgetPasswordService(forgetData) {
+    const { fullName, email, cpf, birthDate } = forgetData
+
+    const userInfo = await user.findByEmail(email)
+
+    if (fullName !== userInfo.name ||
+        email !== userInfo.email ||
+        cpf !== userInfo.cpf ||
+        birthDate !== new Date(userInfo.date_of_birth).toISOString().split('T')[0]) throw new Error('Credenciais inválidas, impossível redefinir senha')
+}
+
+export {
+    loginService,
+    forgetPasswordService
+}
