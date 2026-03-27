@@ -1,4 +1,3 @@
-import { success } from "zod"
 import { userSchema, forgetPasswordSchema, changePasswordSchema } from "../schemas/user.schema.js"
 
 async function loginMiddleware(req, res, next) {
@@ -33,6 +32,7 @@ async function forgetPasswordMiddleware(req, res, next) {
 }
 
 async function changePasswordMiddleware(req, res, next) {
+    console.log(req.body.changePasswordData)
     try {
         changePasswordSchema.parse(req.body.changePasswordData)
         next()

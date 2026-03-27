@@ -27,7 +27,6 @@ function AuthPage() {
     }
 
     const onChangeSign = (e) => {
-        e.preventDefault()
         const { name, value } = e.target
 
         setData(prev => ({
@@ -80,10 +79,6 @@ function AuthPage() {
                     </div>
 
                     <div className={styles.options}>
-                        <label className={styles.checkboxLabel}>
-                            <input type="checkbox" className={styles.checkbox} />
-                            <span className={styles.checkboxText}>Lembrar-me</span>
-                        </label>
                         <Link to='/forget-password' className={styles.forgotPassword}>
                             Esqueceu a senha?
                         </Link>

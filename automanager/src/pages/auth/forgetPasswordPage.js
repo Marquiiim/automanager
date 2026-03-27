@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../../services/apiInstance';
 import styles from './forgetPasswordPage.module.css';
 
 const ForgetPasswordPage = () => {
 
+  const navigate = useNavigate()
   const [data, setData] = useState({
     fullName: '',
     email: '',
@@ -24,10 +25,17 @@ const ForgetPasswordPage = () => {
 
     try {
       const response = await api.post('/api/auth/forget-password/verify', { forgetData })
-
       if (response.data?.success === true || response?.status === 200) {
-        const changePassword = await api.post('/api/auth/forget-password/change', { changePasswordData })
-        console.log(changePassword)
+
+        console.log(forgetData.email)
+
+        navigate('/change-password', {
+          replace: true,
+          state: {
+            email: forgetData.email,
+            fromForget: true
+          }
+        })
       }
     } catch (error) {
       console.log(error)

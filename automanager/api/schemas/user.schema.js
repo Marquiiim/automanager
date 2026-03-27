@@ -112,5 +112,5 @@ export const changePasswordSchema = z.object({
                 return hasUpperCase && hasLowerCase && hasNumbers
             }, 'Senha não atende as regras do sistema.')
 }).refine(
-    (data) => data.password !== data.confirmPassword, 'As senha não coincidem'
+    (data) => data.password === data.confirmPassword, 'As senha não coincidem'
 )

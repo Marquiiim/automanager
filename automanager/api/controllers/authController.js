@@ -1,6 +1,7 @@
 import { loginService, forgetPasswordService } from "../services/authService.js"
 import { cookies_options } from '../config/cookies/cookies.js'
 import { jwttokens } from '../utils/jwt.js'
+import { success } from "zod"
 
 async function loginController(req, res) {
     try {
@@ -53,7 +54,20 @@ async function forgetPasswordController(req, res) {
     }
 }
 
+async function changePasswordController(req, res) {
+    try {
+        console.log('Chegou no CONTROLLER!!!')
+
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 export {
     loginController,
-    forgetPasswordController
+    forgetPasswordController,
+    changePasswordController
 }

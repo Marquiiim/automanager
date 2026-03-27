@@ -44,7 +44,12 @@ async function forgetPasswordService(forgetData) {
         birthDate !== new Date(userInfo.date_of_birth).toISOString().split('T')[0]) throw new Error('Credenciais inválidas, impossível redefinir senha')
 }
 
+async function changePasswordService(passwordData) {
+    const { password, confirmPassword } = forgetData
+}
+
 export {
     loginService,
-    forgetPasswordService
+    forgetPasswordService,
+    changePasswordService
 }
