@@ -1,7 +1,0 @@
-function RouterCheck() {
-
-    return (
-        <>
-        </>
-    )
-}

@@ -1,11 +1,10 @@
-import { loginService, forgetPasswordService } from "../services/authService.js"
+import { login, forgetPassword, changePassword } from "../services/authService.js"
 import { cookies_options } from '../config/cookies/cookies.js'
 import { jwttokens } from '../utils/jwt.js'
-import { success } from "zod"
 
 async function loginController(req, res) {
     try {
-        const user = await loginService(req.body.signData, req.cookies)
+        const user = await login(req.body.signData, req.cookies)
 
         if (!req.cookiesExisting) {
             const accessToken = await jwttokens.generateAccessToken({
@@ -40,7 +39,7 @@ async function loginController(req, res) {
 
 async function forgetPasswordController(req, res) {
     try {
-        await forgetPasswordService(req.body.forgetData)
+        await forgetPassword(req.body.forgetData)
 
         res.status(200).json({
             success: true,
@@ -56,8 +55,12 @@ async function forgetPasswordController(req, res) {
 
 async function changePasswordController(req, res) {
     try {
-        console.log('Chegou no CONTROLLER!!!')
+        await changePassword(req.body.changePasswordData)
 
+        res.status(200).json({
+            success: true,
+            message: 'Senha alterada com sucesso'
+        })
     } catch (error) {
         res.status(400).json({
             success: false,

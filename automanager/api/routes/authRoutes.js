@@ -1,4 +1,5 @@
 import express from 'express'
+
 const router = express.Router()
 
 import { loginController, forgetPasswordController, changePasswordController } from '../controllers/authController.js'

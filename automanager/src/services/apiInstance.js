@@ -1,4 +1,5 @@
 import axios from "axios"
+import { Navigate } from "react-router-dom"
 import { showToast } from './toastConfig'
 
 const api = axios.create({
@@ -46,7 +47,7 @@ api.interceptors.response.use(
 
         if (status === 401 && !window.location.pathname.includes('/auth')) {
             setTimeout(() => {
-                window.location.href = '/auth'
+                return <Navigate to='/auth' replace />
             }, 2000)
         }
         return Promise.reject(error)

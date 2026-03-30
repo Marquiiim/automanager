@@ -26,9 +26,6 @@ const ForgetPasswordPage = () => {
     try {
       const response = await api.post('/api/auth/forget-password/verify', { forgetData })
       if (response.data?.success === true || response?.status === 200) {
-
-        console.log(forgetData.email)
-
         navigate('/change-password', {
           replace: true,
           state: {

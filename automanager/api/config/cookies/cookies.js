@@ -19,5 +19,12 @@ export const cookies_options = {
         sameSite: isProd ? 'strict' : 'lax',
         path: '/',
         maxAge: 7 * 24 * 60 * 60 * 1000
+    },
+
+    clear_options: {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? 'strict' : 'lax',
+        path: '/'
     }
 }

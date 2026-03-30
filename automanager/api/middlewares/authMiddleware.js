@@ -32,7 +32,6 @@ async function forgetPasswordMiddleware(req, res, next) {
 }
 
 async function changePasswordMiddleware(req, res, next) {
-    console.log(req.body.changePasswordData)
     try {
         changePasswordSchema.parse(req.body.changePasswordData)
         next()

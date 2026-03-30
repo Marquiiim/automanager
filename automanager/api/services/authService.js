@@ -2,13 +2,13 @@ import user from '../models/usermodels.js'
 import bcrypt from 'bcryptjs'
 import { jwttokens } from '../utils/jwt.js'
 
-async function loginService(signData, token) {
+async function login(signData, token) {
     const { email, password } = signData
 
     const userInfo = await user.findByEmail(email)
 
     const passwordValidate = await bcrypt.compare(password, userInfo?.password_hash)
-    if (!passwordValidate) throw new Error('Senha inválida')
+    if (!passwordValidate) throw new Error('Credenciais inválidas')
 
     if (token && Object.keys(token).length > 0) {
         const { access_token, refresh_token } = token
@@ -33,7 +33,7 @@ async function loginService(signData, token) {
     }
 }
 
-async function forgetPasswordService(forgetData) {
+async function forgetPassword(forgetData) {
     const { fullName, email, cpf, birthDate } = forgetData
 
     const userInfo = await user.findByEmail(email)
@@ -44,12 +44,20 @@ async function forgetPasswordService(forgetData) {
         birthDate !== new Date(userInfo.date_of_birth).toISOString().split('T')[0]) throw new Error('Credenciais inválidas, impossível redefinir senha')
 }
 
-async function changePasswordService(passwordData) {
-    const { password, confirmPassword } = forgetData
+async function changePassword(changePasswordData) {
+    const { email, password } = changePasswordData
+
+    const userInfo = await user.findByEmail(email)
+
+    const passwordValidate = await bcrypt.compare(password, userInfo.password_hash)
+    if (passwordValidate) throw new Error('A senha não pode coincidir com a atual')
+
+    const password_hash = await bcrypt.hash(password, 10)
+    await user.changePassword(email, password_hash)
 }
 
 export {
-    loginService,
-    forgetPasswordService,
-    changePasswordService
+    login,
+    forgetPassword,
+    changePassword
 }
