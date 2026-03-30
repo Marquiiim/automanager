@@ -3,7 +3,7 @@ import { jwttokens } from '../utils/jwt.js'
 export async function validate(access_token, refresh_token) {
     try {
         await jwttokens.verifyAccessToken(access_token)
-        return { valid: true }
+        return { validAccess: true }
     } catch (accessError) {
         try {
             const isValidRefresh = await jwttokens.verifyRefreshToken(refresh_token)
@@ -18,11 +18,11 @@ export async function validate(access_token, refresh_token) {
             })
 
             return {
-                valid: true,
+                validRefresh: true,
                 newAccess
             }
         } catch (refreshError) {
-            throw refreshError
+            throw new Error('Sessão expirada')
         }
     }
 }

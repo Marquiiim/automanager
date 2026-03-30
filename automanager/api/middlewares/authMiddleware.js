@@ -24,7 +24,7 @@ async function forgetPasswordMiddleware(req, res, next) {
         forgetPasswordSchema.parse(req.body.forgetData)
         next()
     } catch (error) {
-        res.status(422).json({
+        return res.status(422).json({
             success: false,
             message: error.issues[0]?.message || 'Erro ao validar dados enviados'
         })
@@ -36,7 +36,7 @@ async function changePasswordMiddleware(req, res, next) {
         changePasswordSchema.parse(req.body.changePasswordData)
         next()
     } catch (error) {
-        res.status(422).json({
+        return res.status(422).json({
             success: false,
             message: error.issues[0]?.message || 'Erro ao validar dados enviados'
         })

@@ -22,13 +22,12 @@ export const routeConfig = [
         element: <ChangePassword />
     },
     /*{
-        element: <ProtectedRoutes />
+        element: <ProtectedRoutes />,
         children: [
         {
-            path: '/profile'
+            path: '/profile',
             element: <Profile />
         }]
-        
     }*/
 ]
 

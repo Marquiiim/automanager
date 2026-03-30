@@ -10,27 +10,38 @@ async function validateSessionController(req, res) {
 
         if (isValid?.newAccess) res.cookie('access_token', isValid.newAccess, cookies_options.access_token)
 
-        res.status(200).json({ success: true })
+        return res.status(200).json({
+            success: true,
+            valid: true
+        })
     } catch (error) {
-        res.clearCookie('access_token', cookies_options.clear_options).status(200)
-        res.clearCookie('refresh_token', cookies_options.clear_options).status(200)
-        res.status(400).json({
+        res.clearCookie('access_token', cookies_options.clear_options)
+        res.clearCookie('refresh_token', cookies_options.clear_options)
+        return res.status(400).json({
             success: false,
-            message: error.message
+            valid: false,
+            message: error.message || 'Sessão inválida'
         })
     }
 }
 
 async function destroySessionController(req, res) {
     try {
+        const { access_token, refresh_token } = req.cookies
+
+        if (!access_token || !refresh_token) throw new Error('Sessão inválida')
+
         res.clearCookie('access_token', cookies_options.clear_options)
         res.clearCookie('refresh_token', cookies_options.clear_options)
 
-        res.status(204).json({ success: true })
+        return res.status(200).json({
+            success: true,
+            message: 'Logout realizado com sucesso'
+        })
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
-            message: error.message
+            message: error.message || 'Erro ao deslogar'
         })
     }
 }

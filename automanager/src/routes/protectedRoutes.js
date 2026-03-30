@@ -11,8 +11,8 @@ const ProtectedRoutes = () => {
     useEffect(() => {
         const validateSession = async () => {
             try {
-                const response = await api.post('/sessions/private-routes', {})
-                setLoggedIn(response?.data?.valid === true)
+                const response = await api.post('api/sessions/private-routes', {})
+                setLoggedIn(response.data?.valid === true)
             } catch (error) {
                 setLoggedIn(false)
             } finally {

@@ -25,12 +25,12 @@ async function loginController(req, res) {
             res.cookie('refresh_token', refreshToken, cookies_options.refresh_token)
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: 'Login realizado com sucesso'
         })
     } catch (error) {
-        res.status(401).json({
+        return res.status(401).json({
             success: false,
             message: error.message
         })
@@ -41,12 +41,12 @@ async function forgetPasswordController(req, res) {
     try {
         await forgetPassword(req.body.forgetData)
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: 'Credenciais validadas, redefina sua senha'
         })
     } catch (error) {
-        res.status(422).json({
+        return res.status(422).json({
             success: false,
             message: error.message
         })
@@ -57,12 +57,12 @@ async function changePasswordController(req, res) {
     try {
         await changePassword(req.body.changePasswordData)
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: 'Senha alterada com sucesso'
         })
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message: error.message
         })

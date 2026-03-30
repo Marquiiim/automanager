@@ -3,9 +3,12 @@ import styles from './authpage.module.css'
 import api from '../../services/apiInstance'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/authContext'
 
 function AuthPage() {
     const navigate = useNavigate()
+
+    const { setLoggedIn } = useAuth()
 
     const [data, setData] = useState({
         email: '',
@@ -21,9 +24,12 @@ function AuthPage() {
 
         try {
             const response = await api.post('/api/auth/login', { signData })
-            if (response.data.success === true || response.status === 200) navigate('/', { replace: true })
+            if (response.data.success === true || response.status === 200) {
+                navigate('/', { replace: true })
+                setLoggedIn(true)
+            }
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
