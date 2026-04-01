@@ -38,22 +38,22 @@ function NavBar() {
                 <div className={styles.options_website}>
                     <ul>
                         <li>
-                            <Link to='/buy'>
+                            <Link to='/stock'>
                                 Estoque
                             </Link>
                         </li>
                         <li>
-                            <Link to='/sell'>
+                            <Link to='/availables'>
                                 Disponíveis
                             </Link>
                         </li>
                         <li>
-                            <Link to='/services'>
+                            <Link to='/parts'>
                                 Peças
                             </Link>
                         </li>
                         <li>
-                            <Link to='/help'>
+                            <Link to='/reports'>
                                 Relatórios
                             </Link>
                         </li>

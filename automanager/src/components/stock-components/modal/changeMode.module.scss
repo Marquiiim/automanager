@@ -1,0 +1,228 @@
+@use '../../variables' as *;
+
+
+@mixin transition($property: all, $duration: 0.2s, $timing: ease) {
+    transition: $property $duration $timing;
+}
+
+@mixin focus-ring($color: $primary-light) {
+    &:focus {
+        outline: none;
+        border-color: $color;
+        box-shadow: 0 0 0 3px rgba($color, 0.1);
+    }
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+.modalContent {
+    background-color: $surface;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: $shadow-hover;
+    animation: slideUp 0.3s ease-out;
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $border-light;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $border;
+        border-radius: 4px;
+
+        &:hover {
+            background: $text-tertiary;
+        }
+    }
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    border-bottom: 1px solid $border-light;
+}
+
+.modalTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: $text-tertiary;
+    padding: 0.25rem;
+    line-height: 1;
+    @include transition();
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+
+    &:hover {
+        color: $text-primary;
+        background-color: $surface-hover;
+    }
+}
+
+.modalForm {
+    padding: 1.5rem;
+}
+
+.formGroup {
+    margin-bottom: 1.25rem;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.formLabel {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-secondary;
+    margin-bottom: 0.5rem;
+}
+
+.formInput,
+.formSelect {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    color: $text-primary;
+    border: 1px solid $border;
+    border-radius: 8px;
+    @include transition();
+    background-color: $surface;
+
+    &:focus {
+        @include focus-ring();
+    }
+
+    &:hover:not(:focus) {
+        border-color: $text-tertiary;
+    }
+}
+
+.formSelect {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25em 1.25em;
+    padding-right: 2.5rem;
+}
+
+.formInput[type="number"] {
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid $border-light;
+}
+
+%button-base {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    @include transition();
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.cancelButton {
+    @extend %button-base;
+    color: $text-secondary;
+    background-color: $surface;
+    border: 1px solid $border;
+
+    &:hover {
+        background-color: $surface-hover;
+        border-color: $text-tertiary;
+        color: $text-primary;
+    }
+}
+
+.saveButton {
+    @extend %button-base;
+    color: white;
+    background-color: $primary;
+    border: none;
+
+    &:hover {
+        background-color: $primary-dark;
+        transform: translateY(-1px);
+        box-shadow: $shadow-hover;
+    }
+}

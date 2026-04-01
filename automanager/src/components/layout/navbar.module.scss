@@ -14,14 +14,6 @@ nav {
     z-index: 1000;
     font-family: 'Inter', sans-serif;
     border-bottom: 1px solid $border-light;
-
-    @media (max-width: 768px) {
-        padding: 1rem 2rem;
-    }
-
-    @media (max-width: 480px) {
-        padding: 1rem;
-    }
 }
 
 .logo {

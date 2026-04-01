@@ -6,9 +6,9 @@ import {
     MdLabelImportant,
 } from 'react-icons/md';
 
-import styles from './cards.module.css'
+import styles from './card.module.css'
 
-function Cards({ title, message }) {
+function Card({ title, message }) {
 
     const icon = (title) => {
         switch (title) {
@@ -44,4 +44,4 @@ function Cards({ title, message }) {
     )
 }
 
-export default Cards
+export default Card

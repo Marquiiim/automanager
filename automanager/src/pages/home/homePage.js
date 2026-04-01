@@ -1,4 +1,4 @@
-import Cards from '../../components/home-components/cards/cards'
+import Card from '../../components/home-components/card/card.js'
 import ImageHome from '../../img/ImageHome.jpg'
 import styles from './homepage.module.css'
 
@@ -23,23 +23,23 @@ function HomePage() {
                     </div>
                 </div>
                 <div className={styles.cardsGrid}>
-                    <Cards
+                    <Card
                         title="Controle Total"
                         message="Gerencie todo o estoque em um único painel."
                     />
-                    <Cards
+                    <Card
                         title="Localização"
                         message="Saiba exatamente em qual vaga ou pátio o carro está."
                     />
-                    <Cards
+                    <Card
                         title="Visual Rápido"
                         message="Veja os carros em cards com fotos e status."
                     />
-                    <Cards
+                    <Card
                         title="Busca Avançada"
                         message="Encontre carros por modelo, cor ou localização."
                     />
-                    <Cards
+                    <Card
                         title="Status Visuais"
                         message="Disponível, Reservado, Vendido."
                     />
