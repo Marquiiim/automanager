@@ -1,6 +1,41 @@
 import styles from './changeMode.module.css';
+import { useState } from 'react';
+import api from '../../../services/apiInstance'
 
 function ChangeMode({ id }) {
+
+    const [itemData, setItemData] = useState([])
+    const [changeInfoData, setChangeInfoData] = useState({
+        name: '',
+        category: '',
+        supplier: '',
+        cost: '',
+        sale_price: '',
+        minimum_stock: ''
+    })
+
+    const editStockInfo = async () => {
+        try {
+            const response = await api.post('/api/stock/change', { changeInfoData })
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const fetchItem = async (id) => {
+        try {
+            const response = await api.post('/api/stock/fetch', { id })
+            setItemData(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    if (id) fetchItem(id)
+
+
+
     return (
         <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
@@ -18,15 +53,18 @@ function ChangeMode({ id }) {
                             type="text"
                             placeholder="Nome do produto"
                             className={styles.formInput}
+                            value={id ? itemData.name : changeInfoData.name}
                         />
                     </div>
 
                     <div className={styles.formGroup}>
                         <label className={styles.formLabel}>Categoria do produto</label>
                         <select
-                            name="categoria"
-                            id="categoria"
+                            name="category"
+                            id="category"
+                            value={id ? itemData.name : changeInfoData.name}
                             className={styles.formSelect}
+                            defaultValue={itemData ? itemData.category : ''}
                         >
                             <option value="">Selecione uma categoria</option>
                             <option value="manutencao">Manutenção & Lubrificação</option>
@@ -47,6 +85,9 @@ function ChangeMode({ id }) {
                             <label className={styles.formLabel}>Quantidade</label>
                             <input
                                 type="number"
+                                name="minimum_stock"
+                                id="minimum_stock"
+                                value={id ? itemData.minimum_stock : changeInfoData.minimum_stock}
                                 placeholder="Quantidade"
                                 className={styles.formInput}
                             />
@@ -56,6 +97,9 @@ function ChangeMode({ id }) {
                             <label className={styles.formLabel}>Preço Unitário</label>
                             <input
                                 type="number"
+                                name="sale_price"
+                                id="sale_price"
+                                value={id ? itemData.sale_price : changeInfoData.sale_price}
                                 placeholder="Preço unitário"
                                 className={styles.formInput}
                                 step="0.01"
@@ -71,6 +115,7 @@ function ChangeMode({ id }) {
                             Cancelar
                         </button>
                         <button
+                            onSubmit={editStockInfo}
                             type="submit"
                             className={styles.saveButton}
                         >
