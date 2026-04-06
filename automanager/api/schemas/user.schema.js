@@ -22,7 +22,6 @@ const isValidCPF = (cpf) => {
     return true
 }
 
-
 export const userSchema = z.object({
     email: z.email('Email inválido')
         .max(255, 'Email está muito longo')

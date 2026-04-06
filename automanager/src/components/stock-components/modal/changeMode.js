@@ -1,22 +1,34 @@
 import styles from './changeMode.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../../services/apiInstance'
 
 function ChangeMode({ id }) {
-
-    const [itemData, setItemData] = useState([])
-    const [changeInfoData, setChangeInfoData] = useState({
+    const [itemData, setItemData] = useState({
         name: '',
         category: '',
         supplier: '',
-        cost: '',
         sale_price: '',
         minimum_stock: ''
     })
 
-    const editStockInfo = async () => {
+    useEffect(() => {
+        if (id) fetchItem(id)
+    }, [id])
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+
+        setItemData(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
         try {
-            const response = await api.post('/api/stock/change', { changeInfoData })
+            const response = await api.post('/api/stock/change', itemData)
             console.log(response.data)
         } catch (error) {
             console.log(error)
@@ -27,15 +39,12 @@ function ChangeMode({ id }) {
         try {
             const response = await api.post('/api/stock/fetch', { id })
             setItemData(response.data)
+            console.log(response.data)
+            console.log(itemData)
         } catch (error) {
             console.log(error)
         }
     }
-
-    if (id) fetchItem(id)
-
-
-
     return (
         <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
@@ -46,14 +55,30 @@ function ChangeMode({ id }) {
                     <button className={styles.closeButton}>×</button>
                 </div>
 
-                <form className={styles.modalForm}>
+                <form className={styles.modalForm} onSubmit={handleSubmit}>
                     <div className={styles.formGroup}>
                         <label className={styles.formLabel}>Nome do produto</label>
                         <input
                             type="text"
+                            name='name'
                             placeholder="Nome do produto"
                             className={styles.formInput}
-                            value={id ? itemData.name : changeInfoData.name}
+                            value={itemData.name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Nome do fornecedor</label>
+                        <input
+                            type="text"
+                            name='supplier'
+                            placeholder="Nome do fornecedor"
+                            className={styles.formInput}
+                            value={itemData.supplier}
+                            onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -61,10 +86,10 @@ function ChangeMode({ id }) {
                         <label className={styles.formLabel}>Categoria do produto</label>
                         <select
                             name="category"
-                            id="category"
-                            value={id ? itemData.name : changeInfoData.name}
+                            value={itemData.category}
                             className={styles.formSelect}
-                            defaultValue={itemData ? itemData.category : ''}
+                            onChange={handleChange}
+                            required
                         >
                             <option value="">Selecione uma categoria</option>
                             <option value="manutencao">Manutenção & Lubrificação</option>
@@ -86,10 +111,11 @@ function ChangeMode({ id }) {
                             <input
                                 type="number"
                                 name="minimum_stock"
-                                id="minimum_stock"
-                                value={id ? itemData.minimum_stock : changeInfoData.minimum_stock}
-                                placeholder="Quantidade"
+                                value={itemData.minimum_stock}
                                 className={styles.formInput}
+                                onChange={handleChange}
+                                placeholder="Quantidade"
+                                required
                             />
                         </div>
 
@@ -98,11 +124,12 @@ function ChangeMode({ id }) {
                             <input
                                 type="number"
                                 name="sale_price"
-                                id="sale_price"
-                                value={id ? itemData.sale_price : changeInfoData.sale_price}
-                                placeholder="Preço unitário"
+                                value={itemData.sale_price}
                                 className={styles.formInput}
+                                onChange={handleChange}
+                                placeholder="Preço unitário"
                                 step="0.01"
+                                required
                             />
                         </div>
                     </div>
@@ -115,7 +142,6 @@ function ChangeMode({ id }) {
                             Cancelar
                         </button>
                         <button
-                            onSubmit={editStockInfo}
                             type="submit"
                             className={styles.saveButton}
                         >

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { /*useEffect,*/ useState } from 'react';
+// import api from '../../services/apiInstance';
 
 import styles from './stockPage.module.css';
 import ChangeMode from '../../components/stock-components/modal/changeMode';
@@ -6,6 +7,16 @@ import ChangeMode from '../../components/stock-components/modal/changeMode';
 const StockPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [itensData, setItensData] = useState([])
+
+    /*useEffect(() => {
+        try {
+            const response = api.post('/api/stock/in-stock', {})
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }, [])*/
 
     return (
         <section className={styles.container}>
