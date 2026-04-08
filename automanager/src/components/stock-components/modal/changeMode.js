@@ -1,8 +1,9 @@
 import styles from './changeMode.module.css';
 import { useEffect, useState } from 'react';
+import { getChangedFields } from '../../../utils/stock/changedFields'
 import api from '../../../services/apiInstance'
 
-function ChangeMode({ id }) {
+function ChangeMode({ id, onClose }) {
     const [itemData, setItemData] = useState({
         name: '',
         category: '',
@@ -11,7 +12,26 @@ function ChangeMode({ id }) {
         minimum_stock: ''
     })
 
+    const [originalItemData, setOriginalItemData] = useState({})
+
     useEffect(() => {
+        const fetchItem = async (itemId) => {
+            try {
+                const response = await api.post('/api/stock/fetch', { id: 1 })
+                const { name, category, supplier, sale_price, minimum_stock } = response.data.item
+                setOriginalItemData(response.data.item)
+                setItemData({
+                    name,
+                    category,
+                    supplier,
+                    sale_price,
+                    minimum_stock
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
         if (id) fetchItem(id)
     }, [id])
 
@@ -24,27 +44,29 @@ function ChangeMode({ id }) {
         }))
     }
 
+    const handleClose = () => {
+        if (onClose) onClose()
+    }
+
+    const handleCancel = () => {
+        handleClose()
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         try {
-            const response = await api.post('/api/stock/change', itemData)
+            const changedInfo = getChangedFields(originalItemData, itemData)
+            changedInfo.id = id
+            if (Object.keys(changedInfo).length === 1) return handleCancel()
+
+            const response = await api.post('/api/stock/change', changedInfo)
             console.log(response.data)
+            handleClose()
         } catch (error) {
             console.log(error)
         }
     }
 
-    const fetchItem = async (id) => {
-        try {
-            const response = await api.post('/api/stock/fetch', { id })
-            setItemData(response.data)
-            console.log(response.data)
-            console.log(itemData)
-        } catch (error) {
-            console.log(error)
-        }
-    }
     return (
         <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
@@ -52,7 +74,11 @@ function ChangeMode({ id }) {
                     <h2 className={styles.modalTitle}>
                         Gerênciamento de Produto
                     </h2>
-                    <button className={styles.closeButton}>×</button>
+                    <button className={styles.closeButton}
+                        onClick={handleClose}
+                    >
+                        ×
+                    </button>
                 </div>
 
                 <form className={styles.modalForm} onSubmit={handleSubmit}>
@@ -138,6 +164,7 @@ function ChangeMode({ id }) {
                         <button
                             type="button"
                             className={styles.cancelButton}
+                            onClick={handleCancel}
                         >
                             Cancelar
                         </button>

@@ -1,8 +1,22 @@
-import { stockSchema } from "../schemas/stock.schema.js";
+import { updateStockSchema, fetchStockSchema } from "../schemas/stock.schema.js";
 
 async function changeItemMiddleware(req, res, next) {
     try {
-        stockSchema.parse(req.body)
+        const { id, ...prev } = req.body
+
+        updateStockSchema.parse(prev)
+        next()
+    } catch (error) {
+        return res.status(422).json({
+            success: false,
+            message: error.issues[0]?.message || 'Erro ao alterar informações do produto'
+        })
+    }
+}
+
+async function fetchItemMiddleware(req, res, next) {
+    try {
+        fetchStockSchema.parse(req.body.id)
         next()
     } catch (error) {
         return res.status(422).json({
@@ -13,5 +27,6 @@ async function changeItemMiddleware(req, res, next) {
 }
 
 export {
-    changeItemMiddleware
+    changeItemMiddleware,
+    fetchItemMiddleware
 }

@@ -6,8 +6,12 @@ import ChangeMode from '../../components/stock-components/modal/changeMode';
 
 const StockPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [itensData, setItensData] = useState([])
+    const [modal, setModal] = useState({
+        open: false,
+        itemId: null
+    })
+
+    // const [itensData, setItensData] = useState([])
 
     /*useEffect(() => {
         try {
@@ -17,6 +21,20 @@ const StockPage = () => {
             console.log(error)
         }
     }, [])*/
+
+    const closeModal = () => {
+        setModal({
+            open: false,
+            itemId: null
+        })
+    }
+
+    const openModal = (id) => {
+        setModal({
+            open: true,
+            itemId: id
+        })
+    }
 
     return (
         <section className={styles.container}>
@@ -32,14 +50,14 @@ const StockPage = () => {
 
                     <div className={styles.buttonGroup}>
                         <button
-                            onClick={() => setIsModalOpen(true)}
+                            onClick={() => setModal(prev => ({ ...prev, open: true }))}
                             className={styles.entryButton}
                         >
                             Nova Entrada
                         </button>
 
                         <button
-                            onClick={() => setIsModalOpen(true)}
+                            onClick={() => setModal(prev => ({ ...prev, open: true }))}
                             className={styles.exitButton}
                         >
                             Nova Saída
@@ -141,13 +159,22 @@ const StockPage = () => {
                                     </td>
                                     <td className={styles.tdCenter}>
                                         <div className={styles.actionButtons}>
-                                            <button className={styles.editButton} title="Editar">
+                                            <button className={styles.editButton}
+                                                title="Editar"
+                                                onClick={() => openModal(1)}
+                                            >
                                                 ✏️
                                             </button>
-                                            <button className={styles.entryActionButton} title="Entrada">
+                                            <button className={styles.entryActionButton}
+                                                title="Entrada"
+                                                onClick={() => openModal(1)}
+                                            >
                                                 +
                                             </button>
-                                            <button className={styles.exitActionButton} title="Saída">
+                                            <button className={styles.exitActionButton}
+                                                title="Saída"
+                                                onClick={() => openModal(1)}
+                                            >
                                                 −
                                             </button>
                                         </div>
@@ -158,8 +185,8 @@ const StockPage = () => {
                     </div>
                 </div>
             </div>
-            {isModalOpen && (
-                <ChangeMode />
+            {modal.open && (
+                <ChangeMode id={modal.itemId} onClose={closeModal} />
             )}
         </section>
     );
