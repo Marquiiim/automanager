@@ -1,38 +1,60 @@
-import { /*useEffect,*/ useState } from 'react';
-// import api from '../../services/apiInstance';
+import { useEffect, useMemo, useState } from 'react';
+import api from '../../services/apiInstance';
 
 import styles from './stockPage.module.css';
-import ChangeMode from '../../components/stock-components/modal/changeMode';
+import ChangeMode from '../../components/stock-components/change-modal/changeMode';
+import StockMovement from '../../components/stock-components/stockmovement-modal/stockMovement';
 
 const StockPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [itemsData, setItemsData] = useState([])
+
     const [modal, setModal] = useState({
         open: false,
-        itemId: null
+        itemId: null,
+        type: null
     })
 
-    // const [itensData, setItensData] = useState([])
+    const filteredItems = useMemo(() => {
+        if (!searchTerm.trim()) return itemsData
 
-    /*useEffect(() => {
-        try {
-            const response = api.post('/api/stock/in-stock', {})
-            console.log(response.data)
-        } catch (error) {
-            console.log(error)
+        const term = searchTerm.toLowerCase()
+        return itemsData.filter(item =>
+            item.id.toString().includes(term) ||
+            item.name.toLowerCase().includes(term) ||
+            item.category_name?.toLowerCase().includes(term)
+        )
+    }, [itemsData, searchTerm])
+
+    const totalStockValue = useMemo(() => {
+        return itemsData.reduce((acc, item) => {
+            return acc + (parseFloat(item.sale_price) * item.current_stock)
+        }, 0).toFixed(2)
+    }, [itemsData])
+
+    const totalStockProducts = useMemo(() => {
+        return itemsData.reduce((acc, item) => {
+            return acc + item.current_stock
+        }, 0)
+    }, [itemsData])
+
+    useEffect(() => {
+        const fetchAllStock = async () => {
+            try {
+                const response = await api.post('/api/stock/in-stock', {})
+                setItemsData(response.data.items)
+            } catch (error) {
+                console.log(error)
+            }
         }
-    }, [])*/
+        fetchAllStock()
+    }, [])
 
     const closeModal = () => {
         setModal({
             open: false,
-            itemId: null
-        })
-    }
-
-    const openModal = (id) => {
-        setModal({
-            open: true,
-            itemId: id
+            itemId: null,
+            type: null
         })
     }
 
@@ -50,17 +72,10 @@ const StockPage = () => {
 
                     <div className={styles.buttonGroup}>
                         <button
-                            onClick={() => setModal(prev => ({ ...prev, open: true }))}
+                            onClick={() => setModal(prev => ({ ...prev, open: true, type: 'new' }))}
                             className={styles.entryButton}
                         >
                             Nova Entrada
-                        </button>
-
-                        <button
-                            onClick={() => setModal(prev => ({ ...prev, open: true }))}
-                            className={styles.exitButton}
-                        >
-                            Nova Saída
                         </button>
                     </div>
                 </div>
@@ -70,7 +85,7 @@ const StockPage = () => {
                         <div className={styles.statHeader}>
                             <div>
                                 <p className={styles.statLabel}>Total de Produtos</p>
-                                <p className={styles.statValue}>Quantidade de produtos</p>
+                                <p className={styles.statValue}>{totalStockProducts}</p>
                             </div>
                         </div>
                         <p className={styles.statTrend}>+12% este mês</p>
@@ -81,7 +96,7 @@ const StockPage = () => {
                             <div>
                                 <p className={styles.statLabel}>Valor Total em Estoque</p>
                                 <p className={styles.statValue}>
-                                    R$ Valor total do estoque
+                                    R$ {totalStockValue}
                                 </p>
                             </div>
                         </div>
@@ -92,7 +107,7 @@ const StockPage = () => {
                         <div className={styles.statHeader}>
                             <div>
                                 <p className={styles.statLabel}>Itens Baixos</p>
-                                <p className={styles.statValueWarning}>37</p>
+                                <p className={styles.statValueWarning}>{itemsData.filter(item => item.current_stock <= item.low_stock_threshold).length}</p>
                             </div>
                         </div>
                         <p className={styles.warningText}>Atenção necessária</p>
@@ -102,7 +117,7 @@ const StockPage = () => {
                         <div className={styles.statHeader}>
                             <div>
                                 <p className={styles.statLabel}>Sem Estoque</p>
-                                <p className={styles.statValueDanger}>14</p>
+                                <p className={styles.statValueDanger}>{itemsData.filter(item => item.current_stock <= 0).length}</p>
                             </div>
                         </div>
                         <p className={styles.dangerText}>Urgente</p>
@@ -142,52 +157,83 @@ const StockPage = () => {
                                 </tr>
                             </thead>
                             <tbody className={styles.tableBody}>
-                                <tr className={styles.tableRow}>
-                                    <td className={styles.tdCode}>Id</td>
-                                    <td className={styles.tdName}>Nome</td>
-                                    <td className={styles.tdCategory}>Categoria</td>
-                                    <td className={styles.tdCenter}>
-                                        <span className={styles.quantity}>
-                                            Quantidade un
-                                        </span>
-                                    </td>
-                                    <td className={styles.tdRight}>
-                                        R$ Preço
-                                    </td>
-                                    <td className={styles.tdTotal}>
-                                        R$ Valor total
-                                    </td>
-                                    <td className={styles.tdCenter}>
-                                        <div className={styles.actionButtons}>
-                                            <button className={styles.editButton}
-                                                title="Editar"
-                                                onClick={() => openModal(1)}
-                                            >
-                                                ✏️
-                                            </button>
-                                            <button className={styles.entryActionButton}
-                                                title="Entrada"
-                                                onClick={() => openModal(1)}
-                                            >
-                                                +
-                                            </button>
-                                            <button className={styles.exitActionButton}
-                                                title="Saída"
-                                                onClick={() => openModal(1)}
-                                            >
-                                                −
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                {filteredItems.length > 0 ? (
+                                    filteredItems.map((item) => (
+                                        <tr key={item.id} className={styles.tableRow}>
+                                            <td className={styles.tdCode}>{item.id}</td>
+                                            <td className={styles.tdName}>{item.name}</td>
+                                            <td className={styles.tdCategory}>{item.category_name}</td>
+                                            <td className={styles.tdCenter}>
+                                                <span className={styles.quantity}>
+                                                    {item.current_stock}
+                                                </span>
+                                            </td>
+                                            <td className={styles.tdRight}>
+                                                R$ {parseFloat(item.sale_price).toFixed(2)}
+                                            </td>
+                                            <td className={styles.tdTotal}>
+                                                R$ {(parseFloat(item.sale_price) * item.current_stock).toFixed(2)}
+                                            </td>
+                                            <td className={styles.tdCenter}>
+                                                <div className={styles.actionButtons}>
+                                                    <button className={styles.editButton}
+                                                        title="Editar"
+                                                        onClick={() => setModal({
+                                                            open: true,
+                                                            itemId: item.id,
+                                                            type: 'edit'
+                                                        })}
+                                                    >
+                                                        ✏️
+                                                    </button>
+                                                    <button className={styles.entryActionButton}
+                                                        title="Entrada"
+                                                        onClick={() => setModal({
+                                                            open: true,
+                                                            itemId: item.id,
+                                                            type: 'entry'
+                                                        })}
+                                                    >
+                                                        +
+                                                    </button>
+                                                    <button className={styles.exitActionButton}
+                                                        title="Saída"
+                                                        onClick={() => setModal({
+                                                            open: true,
+                                                            itemId: item.id,
+                                                            type: 'exit'
+                                                        })}
+                                                    >
+                                                        −
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
+                                    )
+                                ) : (
+                                    <tr className={styles.tableNotFound}>
+                                        <td colSpan="7" className={styles.notFound}>
+                                            NENHUM ITEM ENCONTRADO EM ESTOQUE
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             {modal.open && (
-                <ChangeMode id={modal.itemId} onClose={closeModal} />
+                (modal.type === 'entry' || modal.type === 'exit') ? (
+                    <StockMovement id={modal.itemId}
+                        type={modal.type}
+                        onClose={closeModal} />
+                ) : (
+                    <ChangeMode id={modal.itemId}
+                        onClose={closeModal} />
+                )
             )}
+
         </section>
     );
 };

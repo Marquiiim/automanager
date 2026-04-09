@@ -6,23 +6,23 @@ export async function validate(access_token, refresh_token) {
         return { validAccess: true }
     } catch (accessError) {
         try {
-            const isValidRefresh = await jwttokens.verifyRefreshToken(refresh_token)
+            const refreshPayload = await jwttokens.verifyRefreshToken(refresh_token)
 
-            if (!isValidRefresh) throw new Error('Sessão expirada')
+            if (!refreshPayload || !refreshPayload.id) throw new Error('Sessão expirada')
 
-            const newAccess = await jwttokens.generateAccessToken({
-                userId: isValidRefresh.id,
-                name: isValidRefresh.name,
-                email: isValidRefresh.email,
-                role: isValidRefresh.role
+            const newAccessToken = await jwttokens.generateAccessToken({
+                userId: refreshPayload.id,
+                name: refreshPayload.name,
+                email: refreshPayload.email,
+                role: refreshPayload.role
             })
 
             return {
                 validRefresh: true,
-                newAccess
+                newAccessToken
             }
         } catch (refreshError) {
-            throw new Error('Sessão expirada')
+            throw new Error('Sessão expirada. Faça login novamente')
         }
     }
 }

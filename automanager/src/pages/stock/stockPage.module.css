@@ -398,4 +398,21 @@
 .exitActionButton:hover {
   color: rgb(234.9802955665, 21.0197044335, 21.0197044335);
   transform: scale(1.1);
+}
+
+.tableNotFound {
+  transition: background-color 0.2s ease;
+}
+.tableNotFound:hover {
+  background-color: #f8fafc;
+}
+
+.notFound {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #64748b;
+  background-color: #ffffff;
 }/*# sourceMappingURL=stockPage.module.css.map */

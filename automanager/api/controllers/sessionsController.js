@@ -8,7 +8,7 @@ async function validateSessionController(req, res) {
         if (!access_token || !refresh_token) throw new Error('Sessão inválida')
         const isValid = await validate(access_token, refresh_token)
 
-        if (isValid?.newAccess) res.cookie('access_token', isValid.newAccess, cookies_options.access_token)
+        if (isValid.newAccessToken) res.cookie('access_token', isValid.newAccessToken, cookies_options.access_token)
 
         return res.status(200).json({
             success: true,
@@ -27,10 +27,6 @@ async function validateSessionController(req, res) {
 
 async function destroySessionController(req, res) {
     try {
-        const { access_token, refresh_token } = req.cookies
-
-        if (!access_token || !refresh_token) throw new Error('Sessão inválida')
-
         res.clearCookie('access_token', cookies_options.clear_options)
         res.clearCookie('refresh_token', cookies_options.clear_options)
 

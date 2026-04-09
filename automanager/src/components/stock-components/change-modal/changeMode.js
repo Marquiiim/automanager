@@ -4,28 +4,28 @@ import { getChangedFields } from '../../../utils/stock/changedFields'
 import api from '../../../services/apiInstance'
 
 function ChangeMode({ id, onClose }) {
+    const [originalItemData, setOriginalItemData] = useState({})
     const [itemData, setItemData] = useState({
         name: '',
-        category: '',
+        category_name: '',
         supplier: '',
         sale_price: '',
-        minimum_stock: ''
+        current_stock: ''
     })
-
-    const [originalItemData, setOriginalItemData] = useState({})
 
     useEffect(() => {
         const fetchItem = async (itemId) => {
             try {
-                const response = await api.post('/api/stock/fetch', { id: 1 })
-                const { name, category, supplier, sale_price, minimum_stock } = response.data.item
+                const response = await api.post('/api/stock/fetch', { id: itemId })
+                const { name, category_name, supplier, sale_price, current_stock, updated_at } = response.data.item
                 setOriginalItemData(response.data.item)
                 setItemData({
                     name,
-                    category,
+                    category_name,
                     supplier,
                     sale_price,
-                    minimum_stock
+                    current_stock,
+                    updated_at
                 })
             } catch (error) {
                 console.log(error)
@@ -59,8 +59,7 @@ function ChangeMode({ id, onClose }) {
             changedInfo.id = id
             if (Object.keys(changedInfo).length === 1) return handleCancel()
 
-            const response = await api.post('/api/stock/change', changedInfo)
-            console.log(response.data)
+            await api.post('/api/stock/change', changedInfo)
             handleClose()
         } catch (error) {
             console.log(error)
@@ -111,8 +110,8 @@ function ChangeMode({ id, onClose }) {
                     <div className={styles.formGroup}>
                         <label className={styles.formLabel}>Categoria do produto</label>
                         <select
-                            name="category"
-                            value={itemData.category}
+                            name="category_name"
+                            value={itemData.category_name}
                             className={styles.formSelect}
                             onChange={handleChange}
                             required
@@ -136,8 +135,8 @@ function ChangeMode({ id, onClose }) {
                             <label className={styles.formLabel}>Quantidade</label>
                             <input
                                 type="number"
-                                name="minimum_stock"
-                                value={itemData.minimum_stock}
+                                name="current_stock"
+                                value={itemData.current_stock}
                                 className={styles.formInput}
                                 onChange={handleChange}
                                 placeholder="Quantidade"
@@ -158,6 +157,11 @@ function ChangeMode({ id, onClose }) {
                                 required
                             />
                         </div>
+                    </div>
+
+                    <div className={styles.lastUpdateInfo}>
+                        <span className={styles.lastUpdateLabel}>Última atualização:</span>
+                        <span className={styles.lastUpdateDate}>{itemData.updated_at ? new Date(itemData.updated_at).toLocaleString('pt-BR') : 'Item sem data'}</span>
                     </div>
 
                     <div className={styles.modalActions}>

@@ -2,7 +2,13 @@ import stock from '../models/stockModels.js'
 
 async function changeItem(itemData) {
     try {
-        console.log('CHEGOU NO SERVICE!!!')
+        await stock.updateItem(itemData)
+
+        return {
+            id: itemData.id,
+            name: itemData.name
+        }
+
     } catch (error) {
         throw error
     }
@@ -17,7 +23,18 @@ async function fetchItem(id) {
     }
 }
 
+async function findAll() {
+    try {
+        const itemsFound = stock.findAll()
+
+        return itemsFound
+    } catch (error) {
+        throw error
+    }
+}
+
 export {
     changeItem,
-    fetchItem
+    fetchItem,
+    findAll
 }

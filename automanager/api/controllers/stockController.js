@@ -1,12 +1,12 @@
-import { changeItem, fetchItem } from '../services/stockService.js'
+import { changeItem, fetchItem, findAll } from '../services/stockService.js'
 
 async function changeItemController(req, res) {
     try {
-        const changeItemInfo = await changeItem(req.body)
+        await changeItem(req.body)
 
         return res.status(200).json({
             success: true,
-            message: `Item (${changeItemInfo.id}) - ${changeItemInfo.name} atualizado com sucesso`
+            message: `Item atualizado com sucesso`
         })
     } catch (error) {
         return res.status(404).json({
@@ -32,7 +32,24 @@ async function fetchItemController(req, res) {
     }
 }
 
+async function fetchAllController(req, res) {
+    try {
+        const itemsFound = await findAll()
+
+        return res.status(200).json({
+            success: true,
+            items: itemsFound
+        })
+    } catch (error) {
+        return res.status(404).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 export {
     changeItemController,
-    fetchItemController
+    fetchItemController,
+    fetchAllController
 }

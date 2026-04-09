@@ -405,3 +405,21 @@
         transform: scale(1.1);
     }
 }
+
+.tableNotFound {
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: $surface-hover;
+    }
+}
+
+.notFound {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: $text-tertiary;
+    background-color: $surface;
+}
