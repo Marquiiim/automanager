@@ -3,20 +3,26 @@ import api from '../../../services/apiInstance';
 import styles from './stockMovement.module.css';
 
 function StockMovement({ id, type, onClose }) {
-    const [quantity, setQuantity] = useState(1);
-    const [reason, setReason] = useState('');
+    const [dataStockMovement, setDataStockMovement] = useState({
+        id: id,
+        quantity: 1,
+        reason: '',
+        type: type
+    })
 
-    const isEntry = type === 'entry';
-    const title = isEntry ? 'Entrada de Produto' : 'Saída de Produto';
-
-    const handleQuantityChange = (e) => {
-        setQuantity(parseInt(e.target.value) || 1);
-    };
+    const title = type === 'input' ? 'Entrada de produto' : type === 'output' && 'Saída de produto'
+    const isEntry = type === 'input' ? true : type === 'output' && false
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert(`Produto ${id}: ${isEntry ? 'Entrada' : 'Saída'} de ${quantity} unidades`);
-        onClose();
+        try {
+            const response = api.post(`/api/stock/movement/${type}`, dataStockMovement)
+            console.log(response.data)
+            onClose();
+        } catch (error) {
+            console.log(error)
+            onClose();
+        }
     };
 
     return (
@@ -41,8 +47,11 @@ function StockMovement({ id, type, onClose }) {
                         </label>
                         <input
                             type="number"
-                            value={quantity}
-                            onChange={handleQuantityChange}
+                            value={dataStockMovement.quantity}
+                            onChange={e => setDataStockMovement(prev => ({
+                                ...prev,
+                                quantity: parseInt(e.target.value) || 1
+                            }))}
                             className={styles.quantityInput}
                             min="1"
                             step="1"
@@ -55,8 +64,11 @@ function StockMovement({ id, type, onClose }) {
                             Motivo (opcional)
                         </label>
                         <textarea
-                            value={reason}
-                            onChange={(e) => setReason(e.target.value)}
+                            value={dataStockMovement.reason}
+                            onChange={e => setDataStockMovement(prev => ({
+                                ...prev,
+                                reason: e.target.value
+                            }))}
                             className={styles.reasonInput}
                             placeholder={isEntry ?
                                 "Ex: Compra de fornecedor, Devolução de cliente..." :

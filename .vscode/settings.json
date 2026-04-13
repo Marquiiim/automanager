@@ -58,5 +58,15 @@
         "Wagon",
         "Walking",
         "Wash"
-    ]
+    ],
+    "github.copilot.enable": {
+        "*": false
+    },
+    "editor.inlineSuggest.enabled": false,
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
+    "editor.suggestOnTriggerCharacters": false
 }

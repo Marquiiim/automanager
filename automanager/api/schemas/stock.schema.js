@@ -40,6 +40,17 @@ export const updateStockSchema = z.object({
         .optional()
 })
 
+export const stockMovementSchema = z.object({
+    quantity: z.coerce.number()
+        .min(1, 'A quantidade de itens deve ser maior que 1')
+        .int('A quantidade de item deve ser um número')
+        .positive('A quantidade de item deve ser positivo'),
+
+    reason: z.string()
+        .trim()
+        .optional()
+})
+
 export const fetchStockSchema = z.coerce.number({
     required_error: 'Identificação é obrigatório',
     invalid_type_error: 'Id deve ser um número'

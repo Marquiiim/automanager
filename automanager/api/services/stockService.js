@@ -33,8 +33,28 @@ async function findAll() {
     }
 }
 
+async function inputStock(inputData) {
+    try {
+        console.log('CHEGOU AQUI AQUI NO INPUTSTOCK!!!')
+        console.log('Informações coletadas pelo service:', inputData)
+    } catch (error) {
+        throw error
+    }
+}
+
+async function outputStock(outputData) {
+    try {
+        console.log('CHEGOU AQUI AQUI NO OUTPUTSTOCK!!!')
+        console.log('Informações coletadas pelo service:', outputData)
+    } catch (error) {
+        throw error
+    }
+}
+
 export {
     changeItem,
     fetchItem,
-    findAll
+    findAll,
+    inputStock,
+    outputStock
 }

@@ -44,23 +44,15 @@ function ChangeMode({ id, onClose }) {
         }))
     }
 
-    const handleClose = () => {
-        if (onClose) onClose()
-    }
-
-    const handleCancel = () => {
-        handleClose()
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             const changedInfo = getChangedFields(originalItemData, itemData)
             changedInfo.id = id
-            if (Object.keys(changedInfo).length === 1) return handleCancel()
+            if (Object.keys(changedInfo).length === 1) return onClose()
 
             await api.post('/api/stock/change', changedInfo)
-            handleClose()
+            onClose()
         } catch (error) {
             console.log(error)
         }
@@ -74,7 +66,7 @@ function ChangeMode({ id, onClose }) {
                         Gerênciamento de Produto
                     </h2>
                     <button className={styles.closeButton}
-                        onClick={handleClose}
+                        onClick={onClose}
                     >
                         ×
                     </button>
@@ -168,7 +160,7 @@ function ChangeMode({ id, onClose }) {
                         <button
                             type="button"
                             className={styles.cancelButton}
-                            onClick={handleCancel}
+                            onClick={onClose}
                         >
                             Cancelar
                         </button>

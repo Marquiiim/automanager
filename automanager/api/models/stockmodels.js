@@ -7,7 +7,7 @@ const stock = {
             `SELECT p.*,
                 c.name AS category_name,
                 c.low_stock_threshold
-            FROM products p
+            FROM stock p
                 LEFT JOIN categories c ON p.category_id = c.id
             WHERE p.id = ? `, [id]
         )
@@ -22,7 +22,7 @@ const stock = {
             `SELECT p.*,
                 c.name AS category_name, 
                 c.low_stock_threshold
-            FROM products p
+            FROM stock p
                 LEFT JOIN categories c ON p.category_id = c.id`
         )
 
@@ -35,7 +35,7 @@ const stock = {
         const { id, ...updateData } = itemData
 
         const rows = await query(
-            `UPDATE products SET ${Object.keys(updateData)
+            `UPDATE stock SET ${Object.keys(updateData)
                 .filter(key => key !== 'id')
                 .map(key => `${key} = ?`).join(', ')} 
             WHERE id = ?`, [...Object.values(updateData), id]

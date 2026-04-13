@@ -181,7 +181,7 @@ const StockPage = () => {
                                                         onClick={() => setModal({
                                                             open: true,
                                                             itemId: item.id,
-                                                            type: 'edit'
+                                                            type: 'adjustment'
                                                         })}
                                                     >
                                                         ✏️
@@ -191,7 +191,7 @@ const StockPage = () => {
                                                         onClick={() => setModal({
                                                             open: true,
                                                             itemId: item.id,
-                                                            type: 'entry'
+                                                            type: 'input'
                                                         })}
                                                     >
                                                         +
@@ -201,7 +201,7 @@ const StockPage = () => {
                                                         onClick={() => setModal({
                                                             open: true,
                                                             itemId: item.id,
-                                                            type: 'exit'
+                                                            type: 'output'
                                                         })}
                                                     >
                                                         −
@@ -224,7 +224,8 @@ const StockPage = () => {
                 </div>
             </div>
             {modal.open && (
-                (modal.type === 'entry' || modal.type === 'exit') ? (
+                (modal.type === 'input' ||
+                    modal.type === 'output') ? (
                     <StockMovement id={modal.itemId}
                         type={modal.type}
                         onClose={closeModal} />
