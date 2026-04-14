@@ -63,8 +63,43 @@ const stock = {
         if (rows.affectedRows === 0) throw new Error('Não foi possível alterar o item')
 
         return rows[0] || null
-    }
+    },
 
+    stockMovement: async (itemData, userId) => {
+        let newQuantity
+
+        const currentStock = await query(
+            `SELECT current_stock FROM stock WHERE id = ?`, [itemData.id]
+        )
+
+        if (itemData.type === 'input') {
+            newQuantity = currentStock[0].current_stock + itemData.quantity
+        } else if (itemData.type === 'output') {
+            if (currentStock[0].current_stock < itemData.quantity)
+                throw new Error('Quantidade insuficiente em estoque')
+            newQuantity = currentStock[0].current_stock - itemData.quantity
+        } else {
+            throw new Error('Tipo de movimentação inválida')
+        }
+
+        const movement = await query(
+            `INSERT INTO stock_movement (item_id, type_movement, quantity, user_id, notes)
+            VALUES (?, ?, ?, ?, ?)`, [itemData.id, itemData.type, itemData.quantity, userId, itemData.reason]
+        )
+
+        if (movement.affectedRows === 0) throw new Error('Não foi possível fazer essa movimentação do item')
+
+        const itemMoved = await query(
+            `UPDATE stock SET current_stock = ?
+            WHERE id = ?`, [newQuantity, itemData.id]
+        )
+
+        if (itemMoved.affectedRows === 0) throw new Error('Não foi possível fazer essa movimentação do item')
+
+        return {
+            success: true,
+        }
+    },
 }
 
 export default stock

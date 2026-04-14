@@ -42,19 +42,9 @@ async function findAll(page, limit) {
     }
 }
 
-async function inputStock(inputData) {
+async function stockMovement(movementData, userId) {
     try {
-        console.log('CHEGOU AQUI NO INPUTSTOCK!!!')
-        console.log('Informações coletadas pelo service:', inputData)
-    } catch (error) {
-        throw error
-    }
-}
-
-async function outputStock(outputData) {
-    try {
-        console.log('CHEGOU AQUI NO OUTPUTSTOCK!!!')
-        console.log('Informações coletadas pelo service:', outputData)
+        await stock.stockMovement(movementData, userId)
     } catch (error) {
         throw error
     }
@@ -64,6 +54,5 @@ export {
     changeItem,
     fetchItem,
     findAll,
-    inputStock,
-    outputStock
+    stockMovement
 }

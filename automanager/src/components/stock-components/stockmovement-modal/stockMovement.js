@@ -10,14 +10,13 @@ function StockMovement({ id, type, onClose }) {
         type: type
     })
 
-    const title = type === 'input' ? 'Entrada de produto' : type === 'output' && 'Saída de produto'
-    const isEntry = type === 'input' ? true : type === 'output' && false
+    const title = type === 'input' ? 'Entrada de produto' : type === 'output' ? 'Saída de produto' : ''
+    const isEntry = type === 'input' ? true : type === 'output' ? false : null
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = api.post(`/api/stock/movement/${type}`, dataStockMovement)
-            console.log(response.data)
+            await api.post(`/api/stock/movement/${type}`, dataStockMovement)
             onClose();
         } catch (error) {
             console.log(error)

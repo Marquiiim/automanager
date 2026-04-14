@@ -1,10 +1,11 @@
+import { jwttokens } from '../utils/jwt.js'
 import { updateStockSchema, fetchStockSchema, stockMovementSchema } from "../schemas/stock.schema.js";
 
 async function changeItemMiddleware(req, res, next) {
     try {
-        const { id, ...prev } = req.body
+        const { id, ...data } = req.body
 
-        updateStockSchema.parse(prev)
+        updateStockSchema.parse(data)
         next()
     } catch (error) {
         return res.status(422).json({
@@ -28,9 +29,16 @@ async function fetchItemMiddleware(req, res, next) {
 
 async function stockMovementMiddleware(req, res, next) {
     try {
-        const { id, ...prev } = req.body
+        const { id, ...data } = req.body
+        const { access_token } = req.cookies
 
-        stockMovementSchema.parse(prev)
+        if (!access_token) return res.status(401).json({ success: false, message: 'Você não está autenticado' })
+
+        const payload = await jwttokens.verifyAccessToken(access_token)
+        if (!payload?.userId) return res.status(401).json({ success: false, message: 'Sessão inválida' })
+        req.user = payload.userId
+
+        stockMovementSchema.parse(data)
         next()
     } catch (error) {
         return res.status(422).json({

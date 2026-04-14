@@ -1,4 +1,4 @@
-import { changeItem, fetchItem, findAll, inputStock, outputStock } from '../services/stockService.js'
+import { changeItem, fetchItem, findAll, stockMovement } from '../services/stockService.js'
 
 async function changeItemController(req, res) {
     try {
@@ -52,14 +52,11 @@ async function fetchAllController(req, res) {
 
 async function stockMovementController(req, res) {
     try {
-        const { type, ...prev } = req.body
-
-        type === 'input' ? await inputStock(prev) :
-            type === 'output' && await outputStock(prev)
+        await stockMovement(req.body, req.user)
 
         return res.status(200).json({
             success: true,
-            message: 'Movimento feito com sucesso'
+            message: 'Movimentação feito com sucesso'
         })
     } catch (error) {
         return res.status(400).json({
