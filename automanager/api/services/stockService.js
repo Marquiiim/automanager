@@ -1,4 +1,5 @@
-import stock from '../models/stockModels.js'
+import stock from '../models/stockmodels.js'
+import dataBaseMetrics from '../utils/databaseMetrics.js'
 
 async function changeItem(itemData) {
     try {
@@ -23,11 +24,19 @@ async function fetchItem(id) {
     }
 }
 
-async function findAll() {
+async function findAll(page, limit) {
     try {
-        const itemsFound = stock.findAll()
+        const offset = (page - 1) * limit
 
-        return itemsFound
+        const itemsForPagination = await stock.findByPagination(limit, offset)
+        const itemsForMetricsCalculation = await stock.findByMetrics()
+
+        const calculationsMetrics = await dataBaseMetrics(itemsForMetricsCalculation)
+
+        return {
+            paginatedItems: itemsForPagination,
+            metricsResult: calculationsMetrics
+        }
     } catch (error) {
         throw error
     }
@@ -35,7 +44,7 @@ async function findAll() {
 
 async function inputStock(inputData) {
     try {
-        console.log('CHEGOU AQUI AQUI NO INPUTSTOCK!!!')
+        console.log('CHEGOU AQUI NO INPUTSTOCK!!!')
         console.log('Informações coletadas pelo service:', inputData)
     } catch (error) {
         throw error
@@ -44,7 +53,7 @@ async function inputStock(inputData) {
 
 async function outputStock(outputData) {
     try {
-        console.log('CHEGOU AQUI AQUI NO OUTPUTSTOCK!!!')
+        console.log('CHEGOU AQUI NO OUTPUTSTOCK!!!')
         console.log('Informações coletadas pelo service:', outputData)
     } catch (error) {
         throw error

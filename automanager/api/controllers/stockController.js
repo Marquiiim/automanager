@@ -22,7 +22,7 @@ async function fetchItemController(req, res) {
 
         return res.status(200).json({
             success: true,
-            item: itemInfo
+            result: itemInfo
         })
     } catch (error) {
         return res.status(404).json({
@@ -34,11 +34,13 @@ async function fetchItemController(req, res) {
 
 async function fetchAllController(req, res) {
     try {
-        const itemsFound = await findAll()
+        const { page, limit } = req.body
+
+        const itemsFound = await findAll(page, limit)
 
         return res.status(200).json({
             success: true,
-            items: itemsFound
+            result: itemsFound
         })
     } catch (error) {
         return res.status(404).json({

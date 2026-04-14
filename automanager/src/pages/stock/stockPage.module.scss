@@ -230,26 +230,6 @@
     }
 }
 
-.filterButton {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: $surface;
-    border: 1px solid $border;
-    padding: 0.75rem 1.25rem;
-    border-radius: 1rem;
-    transition: all 0.2s;
-    cursor: pointer;
-    color: $text-secondary;
-    font-weight: 500;
-
-    &:hover {
-        background-color: $surface-hover;
-        border-color: $primary;
-        color: $primary;
-    }
-}
-
 .tableWrapper {
     overflow-x: auto;
 }
@@ -422,4 +402,44 @@
     letter-spacing: 0.03em;
     color: $text-tertiary;
     background-color: $surface;
+}
+
+.paginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem;
+}
+
+.paginationBtn {
+    background-color: $primary;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: $shadow;
+
+    &:hover:not(:disabled) {
+        background-color: $primary-dark;
+        transform: scale(0.97);
+    }
+
+    &:disabled {
+        background-color: $border;
+        color: $text-tertiary;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+}
+
+.paginationInfostyles {
+    color: $text-secondary;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0 0.5rem;
 }

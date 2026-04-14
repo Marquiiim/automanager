@@ -17,7 +17,21 @@ const stock = {
         return rows[0] || null
     },
 
-    findAll: async () => {
+    findByPagination: async (limit, offset) => {
+        const rows = await query(
+            `SELECT p.*,
+                c.name AS category_name
+            FROM stock p
+                LEFT JOIN categories c ON p.category_id = c.id
+            ORDER BY p.id LIMIT ? OFFSET ?`, [limit, offset]
+        )
+
+        if (rows.affectedRows === 0) throw new Error('Nenhum item encontrado')
+
+        return rows || null
+    },
+
+    findByMetrics: async () => {
         const rows = await query(
             `SELECT p.*,
                 c.name AS category_name, 
@@ -26,9 +40,14 @@ const stock = {
                 LEFT JOIN categories c ON p.category_id = c.id`
         )
 
-        if (rows.affectedRows === 0) throw new Error('Nenhum item encontrado')
+        const totalRows = await query(
+            `SELECT * FROM stock`
+        )
 
-        return rows || null
+        return {
+            rows: rows || null,
+            totalItems: totalRows.length
+        }
     },
 
     updateItem: async (itemData) => {

@@ -230,25 +230,6 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.filterButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  padding: 0.75rem 1.25rem;
-  border-radius: 1rem;
-  transition: all 0.2s;
-  cursor: pointer;
-  color: #475569;
-  font-weight: 500;
-}
-.filterButton:hover {
-  background-color: #f8fafc;
-  border-color: #2563eb;
-  color: #2563eb;
-}
-
 .tableWrapper {
   overflow-x: auto;
 }
@@ -415,4 +396,42 @@
   letter-spacing: 0.03em;
   color: #64748b;
   background-color: #ffffff;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem;
+}
+
+.paginationBtn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+.paginationBtn:hover:not(:disabled) {
+  background-color: #1d4ed8;
+  transform: scale(0.97);
+}
+.paginationBtn:disabled {
+  background-color: #e2e8f0;
+  color: #64748b;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.paginationInfostyles {
+  color: #475569;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0 0.5rem;
 }/*# sourceMappingURL=stockPage.module.css.map */

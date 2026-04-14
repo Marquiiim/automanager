@@ -8,6 +8,15 @@ import StockMovement from '../../components/stock-components/stockmovement-modal
 const StockPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [itemsData, setItemsData] = useState([])
+    const [metricsAndInfo, setMetricsAndInfo] = useState({
+        totalItems: 0,
+        metrics: {}
+    })
+
+    const [pagination, setPagination] = useState({
+        page: 1,
+        limit: 15
+    })
 
     const [modal, setModal] = useState({
         open: false,
@@ -26,29 +35,15 @@ const StockPage = () => {
         )
     }, [itemsData, searchTerm])
 
-    const totalStockValue = useMemo(() => {
-        return itemsData.reduce((acc, item) => {
-            return acc + (parseFloat(item.sale_price) * item.current_stock)
-        }, 0).toFixed(2)
-    }, [itemsData])
-
-    const totalStockProducts = useMemo(() => {
-        return itemsData.reduce((acc, item) => {
-            return acc + item.current_stock
-        }, 0)
-    }, [itemsData])
-
-    useEffect(() => {
-        const fetchAllStock = async () => {
-            try {
-                const response = await api.post('/api/stock/in-stock', {})
-                setItemsData(response.data.items)
-            } catch (error) {
-                console.log(error)
-            }
+    const fetchAllStock = async (pagination) => {
+        try {
+            const response = await api.post(`/api/stock/in-stock`, pagination)
+            setItemsData(response.data.result.paginatedItems)
+            setMetricsAndInfo({ totalItems: response.data.result.metricsResult.totalItems, metrics: response.data.result.metricsResult.metrics })
+        } catch (error) {
+            console.log(error)
         }
-        fetchAllStock()
-    }, [])
+    }
 
     const closeModal = () => {
         setModal({
@@ -57,6 +52,10 @@ const StockPage = () => {
             type: null
         })
     }
+
+    useEffect(() => {
+        fetchAllStock(pagination)
+    }, [pagination])
 
     return (
         <section className={styles.container}>
@@ -85,10 +84,10 @@ const StockPage = () => {
                         <div className={styles.statHeader}>
                             <div>
                                 <p className={styles.statLabel}>Total de Produtos</p>
-                                <p className={styles.statValue}>{totalStockProducts}</p>
+                                <p className={styles.statValue}>{metricsAndInfo.metrics.totalProductsStock}</p>
                             </div>
                         </div>
-                        <p className={styles.statTrend}>+12% este mês</p>
+                        <p className={styles.statTrend}>+0% este mês</p>
                     </div>
 
                     <div className={styles.statCard}>
@@ -96,7 +95,7 @@ const StockPage = () => {
                             <div>
                                 <p className={styles.statLabel}>Valor Total em Estoque</p>
                                 <p className={styles.statValue}>
-                                    R$ {totalStockValue}
+                                    R$ {metricsAndInfo.metrics.totalStockValue}
                                 </p>
                             </div>
                         </div>
@@ -107,7 +106,7 @@ const StockPage = () => {
                         <div className={styles.statHeader}>
                             <div>
                                 <p className={styles.statLabel}>Itens Baixos</p>
-                                <p className={styles.statValueWarning}>{itemsData.filter(item => item.current_stock <= item.low_stock_threshold).length}</p>
+                                <p className={styles.statValueWarning}>{metricsAndInfo.metrics.lowStockItems}</p>
                             </div>
                         </div>
                         <p className={styles.warningText}>Atenção necessária</p>
@@ -117,7 +116,7 @@ const StockPage = () => {
                         <div className={styles.statHeader}>
                             <div>
                                 <p className={styles.statLabel}>Sem Estoque</p>
-                                <p className={styles.statValueDanger}>{itemsData.filter(item => item.current_stock <= 0).length}</p>
+                                <p className={styles.statValueDanger}>{metricsAndInfo.metrics.outStockItems}</p>
                             </div>
                         </div>
                         <p className={styles.dangerText}>Urgente</p>
@@ -137,10 +136,6 @@ const StockPage = () => {
                                 className={styles.searchInput}
                             />
                         </div>
-
-                        <button className={styles.filterButton}>
-                            Filtros
-                        </button>
                     </div>
 
                     <div className={styles.tableWrapper}>
@@ -220,6 +215,27 @@ const StockPage = () => {
                                 )}
                             </tbody>
                         </table>
+
+                        <div className={styles.paginationContainer}>
+                            <button
+                                className={styles.paginationBtn}
+                                onClick={() => setPagination(prev => ({ ...prev, page: Math.max(prev.page - 1, 1) }))}
+                                disabled={pagination.page === 1}
+                            >
+                                Anterior
+                            </button>
+                            <span className={styles.paginationInfostyles}>
+                                Página {pagination.page} de {Math.ceil(metricsAndInfo.totalItems / pagination.limit) || 1}
+                            </span>
+                            <button
+                                className={styles.paginationBtn}
+                                onClick={() => setPagination(prev => ({ ...prev, page: prev.page + 1 }))}
+                                disabled={pagination.page >= Math.ceil(metricsAndInfo.totalItems / pagination.limit)}
+                            >
+                                Próxima
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
