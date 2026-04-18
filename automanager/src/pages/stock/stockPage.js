@@ -71,7 +71,11 @@ const StockPage = () => {
 
                     <div className={styles.buttonGroup}>
                         <button
-                            onClick={() => setModal(prev => ({ ...prev, open: true, type: 'new' }))}
+                            onClick={() => setModal({
+                                open: true,
+                                itemId: null,
+                                type: 'create'
+                            })}
                             className={styles.entryButton}
                         >
                             Nova Entrada

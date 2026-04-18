@@ -31,7 +31,7 @@ const stock = {
         return rows || null
     },
 
-    findByMetrics: async () => {
+    searchForMetrics: async () => {
         const rows = await query(
             `SELECT p.*,
                 c.name AS category_name, 
@@ -52,6 +52,13 @@ const stock = {
 
     updateItem: async (itemData) => {
         const { id, ...updateData } = itemData
+
+        const locationVerify = await query(
+            `SELECT COUNT(*) FROM stock
+            WHERE location = ?`, [itemData.location]
+        )
+
+        if (locationVerify > 0) throw new Error('Localização já ocupada por um item')
 
         const rows = await query(
             `UPDATE stock SET ${Object.keys(updateData)
@@ -100,6 +107,35 @@ const stock = {
             success: true,
         }
     },
+
+    createItem: async (itemData) => {
+        const itemExisting = await query(
+            `SELECT COUNT(*) as total 
+            FROM stock s
+            JOIN categories c ON s.category_id = c.id
+            WHERE s.name = ? AND s.supplier = ? AND c.name = ?`, [itemData.name, itemData.supplier, itemData.category_name]
+        )
+
+        if (itemExisting[0].total > 0) throw new Error('Item já existente no sistema, faça uma busca e verifique')
+
+        const locationVerify = await query(
+            `SELECT COUNT(*) FROM stock
+            WHERE location = ?`, [itemData.location]
+        )
+
+        if (locationVerify > 0) throw new Error('Localização já ocupada por um item')
+
+        const createItem = await query(
+            `INSERT INTO stock (name, category_id, supplier, sale_price, current_stock)
+            SELECT ?, c.id, ?, ?, ?
+            FROM categories c
+            WHERE c.name = ?`, [itemData.name, itemData.supplier, itemData.sale_price, itemData.current_stock, itemData.category_name]
+        )
+
+        if (createItem.affectedRows === 0) throw new Error('Não foi possível criar este item')
+
+        return createdItem[0] || null
+    }
 }
 
 export default stock

@@ -29,7 +29,7 @@ async function findAll(page, limit) {
         const offset = (page - 1) * limit
 
         const itemsForPagination = await stock.findByPagination(limit, offset)
-        const itemsForMetricsCalculation = await stock.findByMetrics()
+        const itemsForMetricsCalculation = await stock.searchForMetrics()
 
         const calculationsMetrics = await dataBaseMetrics(itemsForMetricsCalculation)
 
@@ -50,9 +50,18 @@ async function stockMovement(movementData, userId) {
     }
 }
 
+async function createItem(itemData) {
+    try {
+        await stock.createItem(itemData)
+    } catch (error) {
+        throw error
+    }
+}
+
 export {
     changeItem,
     fetchItem,
     findAll,
-    stockMovement
+    stockMovement,
+    createItem
 }

@@ -10,21 +10,24 @@ function ChangeMode({ id, onClose }) {
         category_name: '',
         supplier: '',
         sale_price: '',
-        current_stock: ''
+        current_stock: '',
+        location: ''
     })
 
     useEffect(() => {
         const fetchItem = async (itemId) => {
             try {
                 const response = await api.post('/api/stock/fetch', { id: itemId })
-                const { name, category_name, supplier, sale_price, current_stock, updated_at } = response.data.item
-                setOriginalItemData(response.data.item)
+                console.log(response.data.result)
+                const { name, category_name, supplier, sale_price, current_stock, location, updated_at } = response.data.result
+                setOriginalItemData(response.data.result)
                 setItemData({
                     name,
                     category_name,
                     supplier,
                     sale_price,
                     current_stock,
+                    location,
                     updated_at
                 })
             } catch (error) {
@@ -51,7 +54,10 @@ function ChangeMode({ id, onClose }) {
             changedInfo.id = id
             if (Object.keys(changedInfo).length === 1) return onClose()
 
-            await api.post('/api/stock/change', changedInfo)
+            const whichEndpoint = id ? 'change' : 'create'
+            const whichData = id ? changedInfo : itemData
+
+            await api.post(`/api/stock/${whichEndpoint}`, whichData)
             onClose()
         } catch (error) {
             console.log(error)
@@ -123,6 +129,19 @@ function ChangeMode({ id, onClose }) {
                     </div>
 
                     <div className={styles.formRow}>
+                        <div className={styles.formGroup}>
+                            <label className={styles.formLabel}>Localizaçao</label>
+                            <input
+                                type="text"
+                                name="location"
+                                value={itemData.location}
+                                className={styles.formInput}
+                                onChange={handleChange}
+                                placeholder="Localização em estoque"
+                                required
+                            />
+                        </div>
+
                         <div className={styles.formGroup}>
                             <label className={styles.formLabel}>Quantidade</label>
                             <input

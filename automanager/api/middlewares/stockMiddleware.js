@@ -1,5 +1,5 @@
 import { jwttokens } from '../utils/jwt.js'
-import { updateStockSchema, fetchStockSchema, stockMovementSchema } from "../schemas/stock.schema.js";
+import { updateStockSchema, fetchStockSchema, stockMovementSchema, createItemSchema } from "../schemas/stock.schema.js";
 
 async function changeItemMiddleware(req, res, next) {
     try {
@@ -48,8 +48,21 @@ async function stockMovementMiddleware(req, res, next) {
     }
 }
 
+async function createItemMiddleware(req, res, next) {
+    try {
+        createItemSchema.parse(req.body)
+        next()
+    } catch (error) {
+        return res.status(422).json({
+            success: false,
+            message: error.issues[0]?.message || 'Erro ao alterar informações do produto'
+        })
+    }
+}
+
 export {
     changeItemMiddleware,
     fetchItemMiddleware,
-    stockMovementMiddleware
+    stockMovementMiddleware,
+    createItemMiddleware
 }

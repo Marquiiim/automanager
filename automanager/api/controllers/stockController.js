@@ -1,4 +1,10 @@
-import { changeItem, fetchItem, findAll, stockMovement } from '../services/stockService.js'
+import {
+    changeItem,
+    fetchItem,
+    findAll,
+    stockMovement,
+    createItem
+} from '../services/stockService.js'
 
 async function changeItemController(req, res) {
     try {
@@ -66,9 +72,26 @@ async function stockMovementController(req, res) {
     }
 }
 
+async function createItemController(req, res) {
+    try {
+        const response = await createItem(req.body)
+
+        return res.status(200).json({
+            success: true,
+            message: 'Item criado com sucesso'
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 export {
     changeItemController,
     fetchItemController,
     fetchAllController,
-    stockMovementController
+    stockMovementController,
+    createItemController
 }
