@@ -2,42 +2,44 @@ import { query } from "../config/database/database.js"
 
 const stock = {
 
-    findById: async (id) => {
-        const rows = await query(
+    findById: async (itemId) => {
+        const result = await query(
             `SELECT p.*,
                 c.name AS category_name,
                 c.low_stock_threshold
             FROM stock p
                 LEFT JOIN categories c ON p.category_id = c.id
-            WHERE p.id = ? `, [id]
+            WHERE p.id = ? `, [itemId]
         )
 
-        if (rows.affectedRows === 0) throw new Error('Item não encontrado')
+        if (result.affectedRows === 0) throw new Error('Item não encontrado')
 
-        return rows[0] || null
+        return result[0] || null
     },
 
     findByPagination: async (limit, offset) => {
-        const rows = await query(
+        const result = await query(
             `SELECT p.*,
                 c.name AS category_name
             FROM stock p
                 LEFT JOIN categories c ON p.category_id = c.id
+            WHERE p.status = 'ativo'
             ORDER BY p.id LIMIT ? OFFSET ?`, [limit, offset]
         )
 
-        if (rows.affectedRows === 0) throw new Error('Nenhum item encontrado')
+        if (result.affectedRows === 0) throw new Error('Nenhum item encontrado')
 
-        return rows || null
+        return result || null
     },
 
     searchForMetrics: async () => {
-        const rows = await query(
+        const result = await query(
             `SELECT p.*,
                 c.name AS category_name, 
                 c.low_stock_threshold
             FROM stock p
-                LEFT JOIN categories c ON p.category_id = c.id`
+                LEFT JOIN categories c ON p.category_id = c.id
+            WHERE status = 'ativo'`
         )
 
         const totalRows = await query(
@@ -45,7 +47,7 @@ const stock = {
         )
 
         return {
-            rows: rows || null,
+            result: result || null,
             totalItems: totalRows.length
         }
     },
@@ -53,23 +55,28 @@ const stock = {
     updateItem: async (itemData) => {
         const { id, ...updateData } = itemData
 
+        const getLocation = await query(
+            `SELECT location FROM stock
+            WHERE id = ?`, [id]
+        )
+
         const locationVerify = await query(
             `SELECT COUNT(*) FROM stock
-            WHERE location = ?`, [itemData.location]
+            WHERE location = ?`, [getLocation[0].location]
         )
 
         if (locationVerify > 0) throw new Error('Localização já ocupada por um item')
 
-        const rows = await query(
+        const result = await query(
             `UPDATE stock SET ${Object.keys(updateData)
                 .filter(key => key !== 'id')
                 .map(key => `${key} = ?`).join(', ')} 
             WHERE id = ?`, [...Object.values(updateData), id]
         )
 
-        if (rows.affectedRows === 0) throw new Error('Não foi possível alterar o item')
+        if (result.affectedRows === 0) throw new Error('Não foi possível alterar o item')
 
-        return rows[0] || null
+        return result[0] || null
     },
 
     stockMovement: async (itemData, userId) => {
@@ -126,15 +133,40 @@ const stock = {
         if (locationVerify > 0) throw new Error('Localização já ocupada por um item')
 
         const createItem = await query(
-            `INSERT INTO stock (name, category_id, supplier, sale_price, current_stock)
-            SELECT ?, c.id, ?, ?, ?
+            `INSERT INTO stock (name, category_id, supplier, sale_price, current_stock, location)
+            SELECT ?, c.id, ?, ?, ?, ?
             FROM categories c
-            WHERE c.name = ?`, [itemData.name, itemData.supplier, itemData.sale_price, itemData.current_stock, itemData.category_name]
+            WHERE c.name = ?`, [itemData.name, itemData.supplier, itemData.sale_price, itemData.current_stock, itemData.location, itemData.category_name]
         )
 
         if (createItem.affectedRows === 0) throw new Error('Não foi possível criar este item')
 
-        return createdItem[0] || null
+        return createItem[0] || null
+    },
+
+    deleteItem: async (itemId) => {
+        const check = await query(
+            `SELECT status, deleted_in FROM stock
+            WHERE id = ?`, [itemId]
+        )
+
+        if (!check || check.lenght === 0) throw new Error('Item não encontrado')
+        if (check[0].status !== 'ativo') throw new Error('Item já está inativo')
+        if (check[0].deleted_in !== null) throw new Error('Item já foi deletado anteriormente')
+
+        const result = await query(
+            `UPDATE stock
+                SET status = 'inativo',
+                    deleted_in = NOW(),
+                    location = null
+            WHERE id = ?
+                AND status = 'ativo'
+                AND deleted_in IS NULL`, [itemId]
+        )
+
+        if (result.affectedRows === 0) throw new Error('Não foi possível deletar este item')
+
+        return result || null
     }
 }
 

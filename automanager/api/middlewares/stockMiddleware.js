@@ -1,7 +1,13 @@
 import { jwttokens } from '../utils/jwt.js'
-import { updateStockSchema, fetchStockSchema, stockMovementSchema, createItemSchema } from "../schemas/stock.schema.js";
+import {
+    updateStockSchema,
+    fetchStockSchema,
+    stockMovementSchema,
+    createItemSchema,
+    deleteItemSchema
+} from "../schemas/stock.schema.js";
 
-async function changeItemMiddleware(req, res, next) {
+async function updateItemMiddleware(req, res, next) {
     try {
         const { id, ...data } = req.body
 
@@ -10,7 +16,7 @@ async function changeItemMiddleware(req, res, next) {
     } catch (error) {
         return res.status(422).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao alterar informações do produto'
+            message: error.issues[0]?.message || 'Erro ao alterar informações do item'
         })
     }
 }
@@ -22,7 +28,7 @@ async function fetchItemMiddleware(req, res, next) {
     } catch (error) {
         return res.status(422).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao alterar informações do produto'
+            message: error.issues[0]?.message || 'Erro ao buscar item'
         })
     }
 }
@@ -43,7 +49,7 @@ async function stockMovementMiddleware(req, res, next) {
     } catch (error) {
         return res.status(422).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao alterar informações do produto'
+            message: error.issues[0]?.message || 'Erro ao movimentar item'
         })
     }
 }
@@ -55,14 +61,27 @@ async function createItemMiddleware(req, res, next) {
     } catch (error) {
         return res.status(422).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao alterar informações do produto'
+            message: error.issues[0]?.message || 'Erro ao criar item'
+        })
+    }
+}
+
+async function deleteItemMiddleware(req, res, next) {
+    try {
+        deleteItemSchema.parse(req.body.id)
+        next()
+    } catch (error) {
+        return res.status(422).json({
+            success: false,
+            message: error.issues[0]?.message || 'Erro ao deletar item'
         })
     }
 }
 
 export {
-    changeItemMiddleware,
+    updateItemMiddleware,
     fetchItemMiddleware,
     stockMovementMiddleware,
-    createItemMiddleware
+    createItemMiddleware,
+    deleteItemMiddleware
 }

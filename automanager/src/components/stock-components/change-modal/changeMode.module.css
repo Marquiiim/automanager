@@ -166,7 +166,7 @@
   border-top: 1px solid #f1f5f9;
 }
 
-.saveButton, .cancelButton {
+.saveButton, .deleteButton, .cancelButton {
   padding: 0.625rem 1.25rem;
   font-size: 0.875rem;
   font-weight: 500;
@@ -174,7 +174,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.saveButton:active, .cancelButton:active {
+.saveButton:active, .deleteButton:active, .cancelButton:active {
   transform: translateY(0);
 }
 
@@ -211,6 +211,17 @@
   background-color: #f8fafc;
   border-color: #64748b;
   color: #0f172a;
+}
+
+.deleteButton {
+  color: white;
+  background-color: #c0392b;
+  border: none;
+}
+.deleteButton:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .saveButton {

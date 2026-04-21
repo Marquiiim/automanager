@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getChangedFields } from '../../../utils/stock/changedFields'
 import api from '../../../services/apiInstance'
 
-function ChangeMode({ id, onClose }) {
+function ChangeMode({ itemId, onClose }) {
     const [originalItemData, setOriginalItemData] = useState({})
     const [itemData, setItemData] = useState({
         name: '',
@@ -18,7 +18,6 @@ function ChangeMode({ id, onClose }) {
         const fetchItem = async (itemId) => {
             try {
                 const response = await api.post('/api/stock/fetch', { id: itemId })
-                console.log(response.data.result)
                 const { name, category_name, supplier, sale_price, current_stock, location, updated_at } = response.data.result
                 setOriginalItemData(response.data.result)
                 setItemData({
@@ -35,8 +34,8 @@ function ChangeMode({ id, onClose }) {
             }
         }
 
-        if (id) fetchItem(id)
-    }, [id])
+        if (itemId) fetchItem(itemId)
+    }, [itemId])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -47,15 +46,26 @@ function ChangeMode({ id, onClose }) {
         }))
     }
 
+    const handleDelete = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await api.post('/api/stock/delete', { id: itemId })
+            console.log(response.data)
+            onClose()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             const changedInfo = getChangedFields(originalItemData, itemData)
-            changedInfo.id = id
+            changedInfo.id = itemId
             if (Object.keys(changedInfo).length === 1) return onClose()
 
-            const whichEndpoint = id ? 'change' : 'create'
-            const whichData = id ? changedInfo : itemData
+            const whichEndpoint = itemId ? 'change' : 'create'
+            const whichData = itemId ? changedInfo : itemData
 
             await api.post(`/api/stock/${whichEndpoint}`, whichData)
             onClose()
@@ -183,6 +193,17 @@ function ChangeMode({ id, onClose }) {
                         >
                             Cancelar
                         </button>
+
+                        {itemId &&
+                            <button
+                                type="button"
+                                className={styles.deleteButton}
+                                onClick={(e) => handleDelete(e)}
+                            >
+                                Excluir
+                            </button>
+                        }
+
                         <button
                             type="submit"
                             className={styles.saveButton}

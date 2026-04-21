@@ -246,11 +246,11 @@ const StockPage = () => {
             {modal.open && (
                 (modal.type === 'input' ||
                     modal.type === 'output') ? (
-                    <StockMovement id={modal.itemId}
+                    <StockMovement itemId={modal.itemId}
                         type={modal.type}
                         onClose={closeModal} />
                 ) : (
-                    <ChangeMode id={modal.itemId}
+                    <ChangeMode itemId={modal.itemId}
                         onClose={closeModal} />
                 )
             )}

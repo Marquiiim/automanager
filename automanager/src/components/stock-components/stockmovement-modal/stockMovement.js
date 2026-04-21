@@ -2,9 +2,9 @@ import { useState } from 'react';
 import api from '../../../services/apiInstance';
 import styles from './stockMovement.module.css';
 
-function StockMovement({ id, type, onClose }) {
+function StockMovement({ itemId, type, onClose }) {
     const [dataStockMovement, setDataStockMovement] = useState({
-        id: id,
+        id: itemId,
         quantity: 1,
         reason: '',
         type: type

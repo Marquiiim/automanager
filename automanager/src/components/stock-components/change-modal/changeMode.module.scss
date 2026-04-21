@@ -238,6 +238,19 @@
     }
 }
 
+.deleteButton {
+    @extend %button-base;
+    color: white;
+    background-color: $delete-button;
+    border: none;
+
+    &:hover {
+        background-color: $delete-button-bg-hover;
+        transform: translateY(-1px);
+        box-shadow: $shadow-hover;
+    }
+}
+
 .saveButton {
     @extend %button-base;
     color: white;

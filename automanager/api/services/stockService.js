@@ -4,20 +4,14 @@ import dataBaseMetrics from '../utils/databaseMetrics.js'
 async function changeItem(itemData) {
     try {
         await stock.updateItem(itemData)
-
-        return {
-            id: itemData.id,
-            name: itemData.name
-        }
-
     } catch (error) {
         throw error
     }
 }
 
-async function fetchItem(id) {
+async function fetchItem(itemId) {
     try {
-        const ItemInfo = stock.findById(id)
+        const ItemInfo = stock.findById(itemId)
         return ItemInfo
     } catch (error) {
         throw error
@@ -30,7 +24,6 @@ async function findAll(page, limit) {
 
         const itemsForPagination = await stock.findByPagination(limit, offset)
         const itemsForMetricsCalculation = await stock.searchForMetrics()
-
         const calculationsMetrics = await dataBaseMetrics(itemsForMetricsCalculation)
 
         return {
@@ -58,10 +51,19 @@ async function createItem(itemData) {
     }
 }
 
+async function deleteItem(itemId) {
+    try {
+        await stock.deleteItem(itemId)
+    } catch (error) {
+        throw error
+    }
+}
+
 export {
     changeItem,
     fetchItem,
     findAll,
     stockMovement,
-    createItem
+    createItem,
+    deleteItem
 }
