@@ -1,11 +1,22 @@
-import { useEffect, useMemo, useState } from 'react';
+import {
+    MdSearchOff,
+    MdEdit,
+    MdAdd,
+    MdRemove
+} from 'react-icons/md'
+
+import {
+    useEffect,
+    useMemo,
+    useState
+} from 'react';
 import api from '../../services/apiInstance';
 
 import styles from './stockPage.module.css';
 import ChangeMode from '../../components/stock-components/change-modal/changeMode';
 import StockMovement from '../../components/stock-components/stockmovement-modal/stockMovement';
 
-const StockPage = () => {
+export default function StockPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [itemsData, setItemsData] = useState([])
     const [metricsAndInfo, setMetricsAndInfo] = useState({
@@ -183,7 +194,7 @@ const StockPage = () => {
                                                             type: 'adjustment'
                                                         })}
                                                     >
-                                                        ✏️
+                                                        <MdEdit size={18} />
                                                     </button>
                                                     <button className={styles.entryActionButton}
                                                         title="Entrada"
@@ -193,7 +204,7 @@ const StockPage = () => {
                                                             type: 'input'
                                                         })}
                                                     >
-                                                        +
+                                                        <MdAdd size={18} />
                                                     </button>
                                                     <button className={styles.exitActionButton}
                                                         title="Saída"
@@ -203,7 +214,7 @@ const StockPage = () => {
                                                             type: 'output'
                                                         })}
                                                     >
-                                                        −
+                                                        <MdRemove size={18} />
                                                     </button>
                                                 </div>
                                             </td>
@@ -212,8 +223,9 @@ const StockPage = () => {
                                     )
                                 ) : (
                                     <tr className={styles.tableNotFound}>
-                                        <td colSpan="7" className={styles.notFound}>
-                                            NENHUM ITEM ENCONTRADO EM ESTOQUE
+                                        <td colSpan="7" className={styles.notFoundCell}>
+                                            <MdSearchOff size={48} className={styles.notFoundIcon} />
+                                            <span className={styles.notFoundText}>NENHUM ITEM ENCONTRADO EM ESTOQUE</span>
                                         </td>
                                     </tr>
                                 )}
@@ -254,9 +266,6 @@ const StockPage = () => {
                         onClose={closeModal} />
                 )
             )}
-
         </section>
     );
 };
-
-export default StockPage;

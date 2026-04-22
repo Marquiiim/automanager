@@ -3,7 +3,7 @@ import api from '../../services/apiInstance'
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 
-function ChangePassword() {
+export default function ChangePassword() {
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -106,5 +106,3 @@ function ChangePassword() {
         </div>
     )
 }
-
-export default ChangePassword

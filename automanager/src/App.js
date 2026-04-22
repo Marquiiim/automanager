@@ -6,7 +6,7 @@ import { AuthProvider } from "./context/authContext.js";
 import Navbar from "./components/layout/navbar.js";
 import Footer from './components/layout/footer.js'
 
-function App() {
+export default function App() {
     const renderRoutes = (routes) => {
         return routes.map((route, index) => (
             <Route
@@ -43,5 +43,3 @@ function App() {
         </AuthProvider>
     )
 }
-
-export default App

@@ -8,7 +8,7 @@ import {
 
 import styles from './card.module.css'
 
-function Card({ title, message }) {
+export default function Card({ title, message }) {
 
     const icon = (title) => {
         switch (title) {
@@ -43,5 +43,3 @@ function Card({ title, message }) {
         </div>
     )
 }
-
-export default Card

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getChangedFields } from '../../../utils/stock/changedFields'
 import api from '../../../services/apiInstance'
 
-function ChangeMode({ itemId, onClose }) {
+export default function ChangeMode({ itemId, onClose }) {
     const [originalItemData, setOriginalItemData] = useState({})
     const [itemData, setItemData] = useState({
         name: '',
@@ -216,5 +216,3 @@ function ChangeMode({ itemId, onClose }) {
         </div>
     )
 }
-
-export default ChangeMode

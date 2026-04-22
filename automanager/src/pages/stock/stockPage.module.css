@@ -388,14 +388,26 @@
   background-color: #f8fafc;
 }
 
-.notFound {
+.notFoundCell {
   text-align: center;
   padding: 3rem 1.5rem;
+  background-color: #ffffff;
+}
+
+.notFoundIcon {
+  color: #64748b;
+  margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notFoundText {
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.03em;
   color: #64748b;
-  background-color: #ffffff;
+  display: block;
 }
 
 .paginationContainer {

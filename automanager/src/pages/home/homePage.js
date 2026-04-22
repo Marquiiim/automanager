@@ -2,7 +2,7 @@ import Card from '../../components/home-components/card/card.js'
 import ImageHome from '../../img/ImageHome.jpg'
 import styles from './homepage.module.css'
 
-function HomePage() {
+export default function HomePage() {
     return (
         <section className={styles.container}>
             <div className={styles.content}>
@@ -48,5 +48,3 @@ function HomePage() {
         </section>
     )
 }
-
-export default HomePage

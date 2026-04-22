@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/authContext'
 
-function AuthPage() {
+export default function AuthPage() {
     const navigate = useNavigate()
 
     const { setLoggedIn } = useAuth()
@@ -99,5 +99,3 @@ function AuthPage() {
         </div>
     )
 }
-
-export default AuthPage

@@ -2,7 +2,7 @@ import styles from './footer.module.css'
 
 import { useLocation } from 'react-router-dom'
 
-function Footer() {
+export default function Footer() {
     const location = useLocation()
 
     if (location.pathname === '/auth' ||
@@ -24,5 +24,3 @@ function Footer() {
         </div>
     )
 }
-
-export default Footer

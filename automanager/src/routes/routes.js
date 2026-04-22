@@ -4,7 +4,9 @@ import ForgetPassword from '../pages/auth/forgetPasswordPage'
 import ChangePassword from '../pages/auth/changePasswordPage'
 
 import ProtectedRoutes from './protectedRoutes'
+
 import StockPage from '../pages/stock/stockPage'
+import AvailablePage from '../pages/available/availablePage'
 
 export const routeConfig = [
     {
@@ -29,11 +31,11 @@ export const routeConfig = [
             {
                 path: '/stock',
                 element: <StockPage />
-            }/*,
-            {
-                path: '/available',
-                element: < AvailablePage/>
             },
+            {
+                path: '/availables',
+                element: <AvailablePage />
+            }/*,
             {
                 path: '/parts',
                 element: < PartsPage/>

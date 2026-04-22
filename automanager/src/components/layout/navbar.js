@@ -5,7 +5,7 @@ import { useAuth } from '../../context/authContext';
 import { Link, useLocation } from 'react-router-dom'
 import { VscAccount, VscHeart, VscSignOut } from "react-icons/vsc";
 
-function NavBar() {
+export default function NavBar() {
     const auth = useAuth()
     const location = useLocation()
 
@@ -84,5 +84,3 @@ function NavBar() {
         </nav>
     )
 }
-
-export default NavBar

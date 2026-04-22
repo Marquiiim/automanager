@@ -2,7 +2,7 @@ import { useState } from 'react';
 import api from '../../../services/apiInstance';
 import styles from './stockMovement.module.css';
 
-function StockMovement({ itemId, type, onClose }) {
+export default function StockMovement({ itemId, type, onClose }) {
     const [dataStockMovement, setDataStockMovement] = useState({
         id: itemId,
         quantity: 1,
@@ -97,5 +97,3 @@ function StockMovement({ itemId, type, onClose }) {
         </div>
     );
 }
-
-export default StockMovement;

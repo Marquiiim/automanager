@@ -3,8 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../../services/apiInstance';
 import styles from './forgetPasswordPage.module.css';
 
-const ForgetPasswordPage = () => {
-
+export default function ForgetPasswordPage() {
   const navigate = useNavigate()
   const [data, setData] = useState({
     fullName: '',
@@ -130,5 +129,3 @@ const ForgetPasswordPage = () => {
     </div>
   );
 };
-
-export default ForgetPasswordPage;
