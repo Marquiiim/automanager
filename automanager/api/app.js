@@ -3,8 +3,16 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { globalLimiter, authLimiter } from './middlewares/rateLimiters.js'
 import routes from './routes/index.js'
+import qs from 'qs'
 
 const app = express()
+
+app.set('query parser', (str) => {
+    return qs.parse(str, {
+        allowPrototypes: false,
+        depth: 10
+    });
+});
 
 app.use(cors({
     origin: 'http://localhost:3000',

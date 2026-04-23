@@ -223,3 +223,75 @@
     font-size: 14px;
     color: $text-tertiary;
 }
+
+.paginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem;
+}
+
+.paginationBtn {
+    background-color: $primary;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: $shadow;
+
+    &:hover:not(:disabled) {
+        background-color: $primary-dark;
+        transform: scale(0.97);
+    }
+
+    &:disabled {
+        background-color: $border;
+        color: $text-tertiary;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+}
+
+.paginationInfostyles {
+    color: $text-secondary;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0 0.5rem;
+}
+
+.clearFiltersBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: $danger;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.clearFiltersBtn:hover:not(:disabled) {
+    background: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: $shadow-hover;
+}
+
+.clearFiltersBtn:disabled {
+    background: $text-tertiary;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+}
+
+.clearFiltersBtn svg {
+    font-size: 1rem;
+}

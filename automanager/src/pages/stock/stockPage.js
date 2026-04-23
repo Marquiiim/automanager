@@ -171,7 +171,7 @@ export default function StockPage() {
                             </thead>
                             <tbody className={styles.tableBody}>
                                 {filteredItems.length > 0 ? (
-                                    filteredItems.map((item) => (
+                                    filteredItems.map(item => (
                                         <tr key={item.id} className={styles.tableRow}>
                                             <td className={styles.tdCode}>{item.id}</td>
                                             <td className={styles.tdName}>{item.name}</td>

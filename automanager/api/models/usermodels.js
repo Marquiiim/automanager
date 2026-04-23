@@ -6,9 +6,9 @@ const user = {
             `SELECT * FROM users WHERE email = ?`, [email]
         )
 
-        if (rows.affectedRows === 0) throw new Error('Usuário não encontrado')
+        if (rows.length === 0) throw new Error('Usuário não encontrado')
 
-        return rows[0] || null
+        return rows[0]
     },
 
     findById: async (id) => {
@@ -16,9 +16,9 @@ const user = {
             `SELECT * FROM users WHERE id = ?`, [id]
         )
 
-        if (rows.affectedRows === 0) throw new Error('Usuário não encontrado')
+        if (rows.length === 0) throw new Error('Usuário não encontrado')
 
-        return rows[0] || null
+        return rows[0]
     },
 
     changePassword: async (email, password_hash) => {
@@ -28,7 +28,7 @@ const user = {
 
         if (rows.affectedRows === 0) throw new Error('Não foi possível fazer a alteração da senha')
 
-        return rows[0] || null
+        return rows[0]
     }
 }
 

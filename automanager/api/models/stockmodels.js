@@ -11,7 +11,7 @@ const stock = {
             WHERE p.id = ? `, [itemId]
         )
 
-        if (result.affectedRows === 0) throw new Error('Item não encontrado')
+        if (result.length === 0) throw new Error('Item não encontrado')
 
         return result[0]
     },
@@ -26,7 +26,7 @@ const stock = {
             ORDER BY p.id LIMIT ? OFFSET ?`, [limit, offset]
         )
 
-        if (result.affectedRows === 0) throw new Error('Nenhum item encontrado')
+        if (result.length === 0) throw new Error('Nenhum item encontrado')
 
         return result
     },

@@ -1,11 +1,18 @@
 import axios from "axios"
-import { Navigate } from "react-router-dom"
 import { showToast } from './toastConfig'
+import qs from 'qs'
 
 const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
     withCredentials: true,
-    paramsSerializer: { indexes: null },
+    paramsSerializer: (params) => {
+        return qs.stringify(params, {
+            arrayFormat: 'indices',
+            allowPrototypes: false,
+            encode: true,
+            encodeValuesOnly: true
+        })
+    },
     timeout: 10000
 })
 
@@ -34,7 +41,7 @@ api.interceptors.response.use(
     error => {
         const errorData = error.response?.data
         const status = error.response?.status
-        const errorMessage = errorData.message
+        const errorMessage = errorData.message || 'Erro na requisição'
 
         showToast.error(errorMessage)
 
@@ -48,7 +55,7 @@ api.interceptors.response.use(
 
         if (status === 401 && !window.location.pathname.includes('/auth')) {
             setTimeout(() => {
-                return <Navigate to='/auth' replace />
+                window.location.href = '/auth'
             }, 2000)
         }
         return Promise.reject(error)

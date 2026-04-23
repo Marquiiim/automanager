@@ -3,16 +3,15 @@ import { MdClose } from 'react-icons/md';
 import styles from './filter.module.css'
 import api from '../../../services/apiInstance'
 
-export default function Filter({ filters, onClose }) {
+export default function Filter({ filters, itemsData, onClose }) {
     const [selectedFilters, setSelectedFilters] = useState([])
 
     const fetchItems = async () => {
         try {
-            console.log(selectedFilters)
             const response = await api.get('/api/available/filtered-items', {
                 params: { selectedFilters }
             })
-            console.log(response.data)
+            itemsData(response.data.items)
             onClose()
         } catch (error) {
             console.log(error)
@@ -34,8 +33,13 @@ export default function Filter({ filters, onClose }) {
                         <label key={option.id} className={styles.checkboxLabel}>
                             <input
                                 type="checkbox"
-                                checked={selectedFilters.includes(option.name)}
-                                onChange={() => setSelectedFilters(filters => [...filters, option.name])}
+                                checked={selectedFilters.some(item => item.name === option.name)}
+                                onChange={() => {
+                                    if (selectedFilters.some(item => item.name === option.name))
+                                        setSelectedFilters(selectedFilters.filter(item => item.name !== option.name))
+                                    else
+                                        setSelectedFilters(filters => [...filters, { id: option.id, name: option.name }])
+                                }}
                             />
                             {option.name}
                         </label>

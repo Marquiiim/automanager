@@ -1,4 +1,7 @@
-import { getFilters } from '../services/availableService.js'
+import {
+    getFilters,
+    fetchItemsFilter
+} from '../services/availableService.js'
 
 async function getFiltersController(req, res) {
     try {
@@ -18,11 +21,11 @@ async function getFiltersController(req, res) {
 
 async function filteredItemsController(req, res) {
     try {
-        console.log('CHEGOU NO CONTROLLER')
+        const filteredItems = await fetchItemsFilter(req.query.selectedFilters)
 
         return res.status(200).json({
             success: true,
-            items: ''
+            items: filteredItems.found
         })
     } catch (error) {
         return res.status(500).json({

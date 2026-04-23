@@ -12,6 +12,19 @@ async function getFilters() {
     }
 }
 
+async function fetchItemsFilter(filters) {
+    try {
+        const data = await available.fetchItemsFilter(filters)
+
+        return {
+            found: data
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
 export {
-    getFilters
+    getFilters,
+    fetchItemsFilter
 }
