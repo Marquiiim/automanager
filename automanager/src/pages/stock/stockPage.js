@@ -10,11 +10,13 @@ import {
     useMemo,
     useState
 } from 'react';
-import api from '../../services/apiInstance';
 
-import styles from './stockPage.module.css';
+import api from '../../services/apiInstance';
+import { textFormat } from '../../utils/general/formatTextBd'
+
 import ChangeMode from '../../components/stock-components/change-modal/changeMode';
 import StockMovement from '../../components/stock-components/stockmovement-modal/stockMovement';
+import styles from './stockPage.module.css';
 
 export default function StockPage() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -49,7 +51,8 @@ export default function StockPage() {
     const fetchAllStock = async (pagination) => {
         try {
             const response = await api.post(`/api/stock/in-stock`, pagination)
-            setItemsData(response.data.result.paginatedItems)
+            const formattedData = textFormat(response.data.result.paginatedItems, ['category_name'])
+            setItemsData(formattedData)
             setMetricsAndInfo({ totalItems: response.data.result.metricsResult.totalItems, metrics: response.data.result.metricsResult.metrics })
         } catch (error) {
             console.log(error)

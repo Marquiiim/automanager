@@ -1,7 +1,6 @@
 import { query } from "../config/database/database.js"
 
 const stock = {
-
     findById: async (itemId) => {
         const result = await query(
             `SELECT p.*,
@@ -14,7 +13,7 @@ const stock = {
 
         if (result.affectedRows === 0) throw new Error('Item não encontrado')
 
-        return result[0] || null
+        return result[0]
     },
 
     findByPagination: async (limit, offset) => {
@@ -29,7 +28,7 @@ const stock = {
 
         if (result.affectedRows === 0) throw new Error('Nenhum item encontrado')
 
-        return result || null
+        return result
     },
 
     searchForMetrics: async () => {
@@ -47,7 +46,7 @@ const stock = {
         )
 
         return {
-            result: result || null,
+            result: result,
             totalItems: totalRows.length
         }
     },
@@ -76,7 +75,7 @@ const stock = {
 
         if (result.affectedRows === 0) throw new Error('Não foi possível alterar o item')
 
-        return result[0] || null
+        return result[0]
     },
 
     stockMovement: async (itemData, userId) => {
@@ -141,7 +140,7 @@ const stock = {
 
         if (createItem.affectedRows === 0) throw new Error('Não foi possível criar este item')
 
-        return createItem[0] || null
+        return createItem[0]
     },
 
     deleteItem: async (itemId) => {
@@ -166,7 +165,7 @@ const stock = {
 
         if (result.affectedRows === 0) throw new Error('Não foi possível deletar este item')
 
-        return result || null
+        return result
     }
 }
 

@@ -46,7 +46,7 @@ async function forgetPasswordController(req, res) {
             message: 'Credenciais validadas, redefina sua senha'
         })
     } catch (error) {
-        return res.status(422).json({
+        return res.status(500).json({
             success: false,
             message: error.message
         })
@@ -62,7 +62,7 @@ async function changePasswordController(req, res) {
             message: 'Senha alterada com sucesso'
         })
     } catch (error) {
-        return res.status(400).json({
+        return res.status(500).json({
             success: false,
             message: error.message
         })

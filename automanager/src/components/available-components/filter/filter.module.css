@@ -5,11 +5,12 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  animation: fadeIn 0.2s ease;
+  animation: fadeIn 0.2s ease-out;
 }
 
 .modalContent {
@@ -18,7 +19,7 @@
   width: 320px;
   max-width: 90%;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  animation: slideIn 0.2s ease;
+  animation: slideUp 0.3s ease-out;
 }
 
 .modalHeader {
@@ -118,7 +119,7 @@
     opacity: 1;
   }
 }
-@keyframes slideIn {
+@keyframes slideUp {
   from {
     transform: translateY(-20px);
     opacity: 0;

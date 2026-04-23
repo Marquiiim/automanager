@@ -1,47 +1,43 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import styles from './filter.module.css'
 import api from '../../../services/apiInstance'
 
-export default function Filter() {
-    const [isOpen, setIsOpen] = useState(true)
+export default function Filter({ filters, onClose }) {
     const [selectedFilters, setSelectedFilters] = useState([])
-    const [filterOptions, setFilterOptions] = useState([])
 
-    const getFilterOptions = async () => {
+    const fetchItems = async () => {
         try {
-            const response = await api.get('/api/available/stock-items')
+            console.log(selectedFilters)
+            const response = await api.get('/api/available/filtered-items', {
+                params: { selectedFilters }
+            })
             console.log(response.data)
+            onClose()
         } catch (error) {
             console.log(error)
         }
     }
 
-    useEffect(() => {
-        getFilterOptions()
-    }, [])
-
-    if (!isOpen) return null
-
     return (
-        <div className={styles.modalOverlay} onClick={() => setIsOpen(false)}>
+        <div className={styles.modalOverlay} onClick={onClose}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.modalHeader}>
                     <h3>Filtrar</h3>
-                    <button onClick={() => setIsOpen(false)}>
+                    <button onClick={onClose}>
                         <MdClose size={20} />
                     </button>
                 </div>
 
                 <div className={styles.modalBody}>
-                    {filterOptions.map(option => (
-                        <label key={option} className={styles.checkboxLabel}>
+                    {filters.map(option => (
+                        <label key={option.id} className={styles.checkboxLabel}>
                             <input
                                 type="checkbox"
-                                checked={selectedFilters.includes(option)}
-                                onChange={(e) => e.preventDefault()}
+                                checked={selectedFilters.includes(option.name)}
+                                onChange={() => setSelectedFilters(filters => [...filters, option.name])}
                             />
-                            {option}
+                            {option.name}
                         </label>
                     ))}
                 </div>
@@ -50,7 +46,7 @@ export default function Filter() {
                     <button onClick={() => setSelectedFilters([])}>
                         Limpar
                     </button>
-                    <button onClick={() => setIsOpen(false)}>
+                    <button onClick={fetchItems}>
                         Aplicar
                     </button>
                 </div>

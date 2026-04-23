@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { textFormat } from '../../utils/general/formatTextBd'
+import api from '../../services/apiInstance'
 
 import styles from './availablePage.module.css'
 import {
@@ -12,7 +14,27 @@ import Filter from '../../components/available-components/filter/filter'
 
 export default function AvailablePage() {
 
-    const [showFilter, setShowFilter] = useState(false)
+    const [availableFilters, setAvailableFilters] = useState({
+        show: false,
+        data: []
+    })
+
+    const handleFilter = async () => {
+        try {
+            const response = await api.get('/api/available/getfilters')
+            const formattedData = textFormat(response.data.filters, ['name'])
+            setAvailableFilters({ show: true, data: formattedData })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const closeModal = () => {
+        setAvailableFilters({
+            show: false,
+            data: []
+        })
+    }
 
     return (
         <section className={styles.container}>
@@ -45,7 +67,7 @@ export default function AvailablePage() {
                 </div>
 
                 <div className={styles.filtersContainer}>
-                    <button onClick={() => setShowFilter(true)}
+                    <button onClick={handleFilter}
                         className={`${styles.filterButton} ${styles.filterButtonActive}`}>
                         <MdFilterList /> Filtrar
                     </button>
@@ -82,7 +104,7 @@ export default function AvailablePage() {
 
                 </div>
             </div>
-            {showFilter && <Filter />}
+            {availableFilters.show && <Filter filters={availableFilters.data} onClose={closeModal} />}
         </section>
     )
 }
