@@ -1,11 +1,23 @@
-import styles from './changePasswordPage.module.css'
+import {
+    useState,
+    useEffect,
+    useCallback
+} from 'react'
+import {
+    useNavigate,
+    useLocation
+} from 'react-router-dom'
 import api from '../../services/apiInstance'
-import { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import styles from './changePasswordPage.module.css'
 
 export default function ChangePassword() {
     const navigate = useNavigate()
     const location = useLocation()
+    const [data, setData] = useState({
+        email: location.state?.email,
+        password: '',
+        confirmPassword: ''
+    })
 
     useEffect(() => {
         if (!location.state?.fromForget) {
@@ -14,32 +26,24 @@ export default function ChangePassword() {
         }
     }, [location, navigate])
 
-    const [data, setData] = useState({
-        email: location.state?.email,
-        password: '',
-        confirmPassword: ''
-    })
 
-    const changePassword = async (e) => {
+    const changePassword = useCallback(async (e) => {
         e.preventDefault()
-
         const changePasswordData = {
             email: data.email,
             password: data.password,
             confirmPassword: data.confirmPassword
         }
-
         try {
             const response = await api.post('/api/auth/forget-password/change', { changePasswordData })
             if (response.data?.success === true || response?.status === 200) navigate('/auth', { replace: true })
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [navigate, data])
 
     const onChangePassword = (e) => {
         const { name, value } = e.target
-
         setData(prev => ({
             ...prev,
             [name]: value

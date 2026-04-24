@@ -180,21 +180,61 @@
 .productActions {
   display: flex;
   gap: 12px;
+  align-items: stretch;
 }
 
 .buyButton {
-  flex: 1;
+  flex: 3;
   background-color: #2563eb;
   color: #ffffff;
   border: none;
-  padding: 12px;
+  padding: 12px 20px;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 .buyButton:hover {
   background-color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.favoriteButton {
+  flex: 1;
+  background-color: #ffffff;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.favoriteButton svg {
+  width: 20px;
+  height: 20px;
+  transition: all 0.2s;
+}
+.favoriteButton:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  transform: scale(1.02);
+}
+
+.favoriteButtonActive {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+.favoriteButtonActive svg {
+  fill: #ef4444;
 }
 
 .emptyState {

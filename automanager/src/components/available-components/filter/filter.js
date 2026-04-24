@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import {
+    useState,
+    useCallback
+} from 'react';
 import { MdClose } from 'react-icons/md';
 import styles from './filter.module.css'
 import api from '../../../services/apiInstance'
@@ -6,7 +9,7 @@ import api from '../../../services/apiInstance'
 export default function Filter({ filters, itemsData, onClose }) {
     const [selectedFilters, setSelectedFilters] = useState([])
 
-    const fetchItems = async () => {
+    const fetchItems = useCallback(async () => {
         try {
             const response = await api.get('/api/available/filtered-items', {
                 params: { selectedFilters }
@@ -16,7 +19,7 @@ export default function Filter({ filters, itemsData, onClose }) {
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [selectedFilters, onClose, itemsData])
 
     return (
         <div className={styles.modalOverlay} onClick={onClose}>

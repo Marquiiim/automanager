@@ -8,7 +8,8 @@ import {
 import {
     useEffect,
     useMemo,
-    useState
+    useState,
+    useCallback
 } from 'react';
 
 import api from '../../services/apiInstance';
@@ -19,23 +20,21 @@ import StockMovement from '../../components/stock-components/stockmovement-modal
 import styles from './stockPage.module.css';
 
 export default function StockPage() {
-    const [searchTerm, setSearchTerm] = useState('');
     const [itemsData, setItemsData] = useState([])
     const [metricsAndInfo, setMetricsAndInfo] = useState({
         totalItems: 0,
         metrics: {}
     })
-
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 15
     })
-
     const [modal, setModal] = useState({
         open: false,
         itemId: null,
         type: null
     })
+    const [searchTerm, setSearchTerm] = useState('');
 
     const filteredItems = useMemo(() => {
         if (!searchTerm.trim()) return itemsData
@@ -48,7 +47,7 @@ export default function StockPage() {
         )
     }, [itemsData, searchTerm])
 
-    const fetchAllStock = async (pagination) => {
+    const fetchAllStock = useCallback(async (pagination) => {
         try {
             const response = await api.post(`/api/stock/in-stock`, pagination)
             const formattedData = textFormat(response.data.result.paginatedItems, ['category_name'])
@@ -57,19 +56,19 @@ export default function StockPage() {
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [])
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setModal({
             open: false,
             itemId: null,
             type: null
         })
-    }
+    }, [])
 
     useEffect(() => {
         fetchAllStock(pagination)
-    }, [pagination])
+    }, [fetchAllStock, pagination])
 
     return (
         <section className={styles.container}>

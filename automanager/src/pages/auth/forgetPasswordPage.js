@@ -1,5 +1,11 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+  useState,
+  useCallback
+} from 'react';
+import {
+  Link,
+  useNavigate
+} from 'react-router-dom';
 import api from '../../services/apiInstance';
 import styles from './forgetPasswordPage.module.css';
 
@@ -12,16 +18,14 @@ export default function ForgetPasswordPage() {
     birthDate: ''
   })
 
-  const forgetPassword = async (e) => {
+  const forgetPassword = useCallback(async (e) => {
     e.preventDefault()
-
     const forgetData = {
       fullName: data.fullName,
       email: data.email,
       cpf: data.cpf,
       birthDate: data.birthDate
     }
-
     try {
       const response = await api.post('/api/auth/forget-password/verify', { forgetData })
       if (response.data?.success === true || response?.status === 200) {
@@ -36,11 +40,10 @@ export default function ForgetPasswordPage() {
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [navigate, data])
 
   const onChangeForgetPassword = (e) => {
     const { name, value } = e.target
-
     setData(prev => ({
       ...prev,
       [name]: value

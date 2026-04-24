@@ -185,21 +185,64 @@
 .productActions {
     display: flex;
     gap: 12px;
+    align-items: stretch; // Alinha os botões na mesma altura
 }
 
 .buyButton {
-    flex: 1;
+    flex: 3; // 3 partes do espaço disponível
     background-color: $primary;
     color: $surface;
     border: none;
-    padding: 12px;
+    padding: 12px 20px;
     border-radius: 8px;
     font-weight: 600;
+    font-size: 16px;
     cursor: pointer;
     transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 
     &:hover {
         background-color: $primary-dark;
+        transform: translateY(-2px);
+    }
+}
+
+.favoriteButton {
+    flex: 1;
+    background-color: $surface;
+    color: $text-secondary;
+    border: 1px solid $border;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    svg {
+        width: 20px;
+        height: 20px;
+        transition: all 0.2s;
+    }
+
+    &:hover {
+        border-color: $danger;
+        color: $danger;
+        transform: scale(1.02);
+    }
+}
+
+.favoriteButtonActive {
+    background-color: rgba($danger, 0.1);
+    border-color: $danger;
+    color: $danger;
+
+    svg {
+        fill: $danger;
     }
 }
 

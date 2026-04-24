@@ -1,27 +1,29 @@
-import styles from './authpage.module.css'
-
+import {
+    useState,
+    useCallback
+} from 'react'
+import {
+    Link,
+    useNavigate
+} from 'react-router-dom'
 import api from '../../services/apiInstance'
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/authContext'
+import styles from './authpage.module.css'
 
 export default function AuthPage() {
     const navigate = useNavigate()
-
     const { setLoggedIn } = useAuth()
-
     const [data, setData] = useState({
         email: '',
         password: ''
     })
 
-    const signIn = async (e) => {
+    const signIn = useCallback(async (e) => {
         e.preventDefault()
         const signData = {
             email: data.email,
             password: data.password
         }
-
         try {
             const response = await api.post('/api/auth/login', { signData })
             if (response.data.success === true || response.status === 200) {
@@ -31,11 +33,10 @@ export default function AuthPage() {
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [navigate, setLoggedIn, data])
 
     const onChangeSign = (e) => {
         const { name, value } = e.target
-
         setData(prev => ({
             ...prev,
             [name]: value

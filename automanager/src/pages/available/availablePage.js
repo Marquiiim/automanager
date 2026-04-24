@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
-import { textFormat } from '../../utils/general/formatTextBd'
-import api from '../../services/apiInstance'
-
-import styles from './availablePage.module.css'
+import {
+    useState,
+    useEffect,
+    useMemo,
+    useCallback,
+    useRef
+} from 'react'
 import {
     MdShoppingCart,
     MdFilterList,
@@ -10,7 +12,11 @@ import {
     MdSearchOff,
     MdClear
 } from 'react-icons/md'
+import { textFormat } from '../../utils/general/formatTextBd'
+import api from '../../services/apiInstance'
+import styles from './availablePage.module.css'
 
+import Cart from '../../components/available-components/cart/cart'
 import Filter from '../../components/available-components/filter/filter'
 
 export default function AvailablePage() {
@@ -30,8 +36,21 @@ export default function AvailablePage() {
         data: [],
         hasActiveFilters: false
     })
+    const [searchTerm, setSearchTerm] = useState('');
+    const [finalizePurchase, setFinalizePurchase] = useState(false)
+    const [cartItemCount, setCartItemCount] = useState(0)
+    const cartRef = useRef(null)
 
-    const fetchItemsStock = async (pagination) => {
+    const filteredItems = useMemo(() => {
+        if (!searchTerm.trim()) return itemsData.data
+
+        const term = searchTerm.toLowerCase()
+        return itemsData.data.filter(item =>
+            item.name.toLowerCase().includes(term) ||
+            item.category_name?.toLowerCase().includes(term))
+    }, [itemsData.data, searchTerm])
+
+    const fetchItemsStock = useCallback(async (pagination) => {
         try {
             const response = await api.post('/api/stock/in-stock', pagination)
             const formattedData = textFormat(response.data.result.paginatedItems, ['category_name'])
@@ -46,9 +65,9 @@ export default function AvailablePage() {
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [])
 
-    const handleFilter = async () => {
+    const handleFilter = useCallback(async () => {
         try {
             const response = await api.get('/api/available/getfilters')
             const formattedData = textFormat(response.data.filters, ['name'])
@@ -56,25 +75,37 @@ export default function AvailablePage() {
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [])
 
-    const collectData = (data) => {
+    const handleCart = useCallback((item) => {
+        if (cartRef.current) cartRef.current.addToCart(item)
+    }, [])
+
+    const handleCartUpdate = useCallback((total) => {
+        setCartItemCount(total)
+    }, [])
+
+    const collectData = useCallback((data) => {
         setItemsData({
             data: data,
             hasActiveFilters: true
         })
-    }
+    }, [])
 
-    const closeModal = () => {
-        setAvailableFilters({
-            show: false,
-            data: []
-        })
-    }
+    const closeModal = useCallback(() => {
+        if (availableFilters.show) {
+            setAvailableFilters({
+                show: false,
+                data: []
+            })
+        } else if (finalizePurchase) {
+            setFinalizePurchase(false)
+        }
+    }, [availableFilters.show, finalizePurchase])
 
     useEffect(() => {
         if (!itemsData.hasActiveFilters) fetchItemsStock(pagination)
-    }, [pagination, itemsData.hasActiveFilters])
+    }, [fetchItemsStock, itemsData.hasActiveFilters, pagination])
 
     return (
         <section className={styles.container}>
@@ -88,8 +119,9 @@ export default function AvailablePage() {
                     </div>
 
                     <div className={styles.buttonGroup}>
-                        <button className={styles.cartButton}>
-                            <MdShoppingCart /> Carrinho
+                        <button onClick={() => setFinalizePurchase(true)}
+                            className={styles.cartButton}>
+                            <MdShoppingCart /> Carrinho ({cartItemCount})
                         </button>
                     </div>
                 </div>
@@ -101,6 +133,8 @@ export default function AvailablePage() {
                         <input
                             type="text"
                             placeholder="Buscar por produto..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             className={styles.searchInput}
                         />
                     </div>
@@ -114,16 +148,17 @@ export default function AvailablePage() {
                     <button onClick={() => {
                         setItemsData({ data: [], hasActiveFilters: false })
                         setPagination({ page: 1, limit: 15 })
+                        setSearchTerm('')
                     }}
-                        disabled={!itemsData.hasActiveFilters}
+                        disabled={!itemsData.hasActiveFilters && !searchTerm}
                         className={styles.clearFiltersBtn}>
                         <MdClear /> Limpar
                     </button>
                 </div>
 
                 <div className={styles.productsGrid}>
-                    {itemsData.data.length > 0 ? (
-                        itemsData.data.map(item => (
+                    {filteredItems.length > 0 ? (
+                        filteredItems.map(item => (
                             <div key={item.id} className={styles.productCard}>
                                 <div className={styles.productInfo}>
                                     <span className={styles.productCategory}>
@@ -139,7 +174,8 @@ export default function AvailablePage() {
                                         R$ {item.sale_price}
                                     </div>
                                     <div className={styles.productActions}>
-                                        <button className={styles.buyButton}>
+                                        <button onClick={() => handleCart(item)}
+                                            className={styles.buyButton}>
                                             <MdShoppingBag /> Comprar
                                         </button>
                                     </div>
@@ -159,12 +195,12 @@ export default function AvailablePage() {
                     <button
                         className={styles.paginationBtn}
                         onClick={() => setPagination(prev => ({ ...prev, page: Math.max(prev.page - 1, 1) }))}
-                        disabled={pagination.page === 1 || itemsData.hasActiveFilters}
+                        disabled={pagination.page === 1 || itemsData.hasActiveFilters || searchTerm}
                     >
                         Anterior
                     </button>
                     <span className={styles.paginationInfo}>
-                        {itemsData.hasActiveFilters ? (
+                        {itemsData.hasActiveFilters || searchTerm ? (
                             'Paginação desativada durante filtragem'
                         ) : (
                             `Página ${pagination.page} de ${Math.ceil(metricsAndInfo.totalItems / pagination.limit) || 1}`
@@ -174,12 +210,19 @@ export default function AvailablePage() {
                     <button
                         className={styles.paginationBtn}
                         onClick={() => setPagination(prev => ({ ...prev, page: prev.page + 1 }))}
-                        disabled={pagination.page >= Math.ceil(metricsAndInfo.totalItems / pagination.limit) || itemsData.hasActiveFilters}
+                        disabled={pagination.page >= Math.ceil(metricsAndInfo.totalItems / pagination.limit) || itemsData.hasActiveFilters || searchTerm}
                     >
                         Próxima
                     </button>
                 </div>
             </div>
+
+            <Cart
+                ref={cartRef}
+                onClose={closeModal}
+                isOpen={finalizePurchase}
+                onCartUpdate={handleCartUpdate}
+            />
 
             {availableFilters.show && (
                 <Filter
