@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -14,8 +14,9 @@
 }
 
 .modalContent {
-  background-color: #ffffff;
-  border-radius: 1rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
   width: 320px;
   max-width: 90%;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -26,14 +27,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.25rem;
+  padding: 16px 20px;
   border-bottom: 1px solid #e2e8f0;
 }
 .modalHeader h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   color: #0f172a;
   margin: 0;
+  letter-spacing: -0.3px;
 }
 .modalHeader button {
   background: none;
@@ -42,19 +44,21 @@
   color: #64748b;
   display: flex;
   align-items: center;
-  padding: 0.25rem;
-  transition: all 0.2s;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.15s;
 }
 .modalHeader button:hover {
   color: #ef4444;
   transform: scale(1.1);
+  background: #f8fafc;
 }
 
 .modalBody {
-  padding: 1.25rem;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 12px;
   max-height: 300px;
   overflow-y: auto;
 }
@@ -62,53 +66,57 @@
 .checkboxLabel {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   cursor: pointer;
   color: #475569;
-  font-size: 0.875rem;
-  transition: color 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.15s;
 }
 .checkboxLabel:hover {
   color: #2563eb;
 }
 .checkboxLabel input {
-  width: 1rem;
-  height: 1rem;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
   accent-color: #2563eb;
 }
 
 .modalFooter {
   display: flex;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
+  gap: 12px;
+  padding: 16px 20px;
   border-top: 1px solid #e2e8f0;
 }
 .modalFooter button {
   flex: 1;
-  padding: 0.5rem 0.75rem;
+  padding: 8px 12px;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  font-family: inherit;
+  transition: all 0.15s;
 }
 .modalFooter button:first-child {
-  background-color: #f8fafc;
+  background: #f8fafc;
   color: #475569;
 }
 .modalFooter button:first-child:hover {
-  background-color: #e2e8f0;
+  background: #e2e8f0;
   color: #0f172a;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 .modalFooter button:last-child {
-  background-color: #2563eb;
+  background: #2563eb;
   color: white;
 }
 .modalFooter button:last-child:hover {
-  background-color: #1d4ed8;
+  background: #1d4ed8;
   transform: scale(0.98);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes fadeIn {

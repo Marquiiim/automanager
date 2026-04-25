@@ -5,7 +5,8 @@
 }
 
 .content {
-  background-color: #ffffff;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 32px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -25,6 +26,7 @@
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 8px;
+  letter-spacing: -0.5px;
 }
 
 .subtitle {
@@ -38,17 +40,20 @@
 }
 
 .cartButton {
-  background-color: #2563eb;
+  background: #2563eb;
   color: #ffffff;
   border: none;
-  padding: 10px 24px;
   border-radius: 8px;
+  padding: 10px 24px;
   font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
-  transition: all 0.2s;
+  font-family: inherit;
+  transition: background 0.15s, box-shadow 0.15s;
 }
 .cartButton:hover {
-  background-color: #1d4ed8;
+  background: #1d4ed8;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .productsHeader {
@@ -62,8 +67,9 @@
 
 .productsTitle {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
   color: #0f172a;
+  letter-spacing: -0.3px;
 }
 
 .searchWrapper {
@@ -76,13 +82,15 @@
   padding: 10px 16px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
   color: #0f172a;
-  background-color: #ffffff;
+  background: #ffffff;
+  font-family: inherit;
+  transition: border-color 0.15s;
 }
 .searchInput:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #3b82f6;
 }
 .searchInput::-moz-placeholder {
   color: #64748b;
@@ -99,14 +107,16 @@
 }
 
 .filterButton {
-  background-color: #ffffff;
+  background: #ffffff;
   color: #475569;
   border: 1px solid #e2e8f0;
-  padding: 8px 20px;
   border-radius: 20px;
-  font-size: 14px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  font-family: inherit;
+  transition: all 0.15s;
 }
 .filterButton:hover {
   border-color: #2563eb;
@@ -114,13 +124,14 @@
 }
 
 .filterButtonActive {
-  background-color: #2563eb;
+  background: #2563eb;
   color: #ffffff;
   border-color: #2563eb;
 }
 .filterButtonActive:hover {
-  background-color: #1d4ed8;
+  background: #1d4ed8;
   color: #ffffff;
+  border-color: #1d4ed8;
 }
 
 .productsGrid {
@@ -131,7 +142,7 @@
 }
 
 .productCard {
-  background-color: #ffffff;
+  background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   overflow: hidden;
@@ -148,12 +159,13 @@
 }
 
 .productCategory {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   color: #2563eb;
   text-transform: uppercase;
   margin-bottom: 8px;
   display: inline-block;
+  letter-spacing: 0.5px;
 }
 
 .productName {
@@ -164,7 +176,7 @@
 }
 
 .productDescription {
-  font-size: 14px;
+  font-size: 13px;
   color: #64748b;
   margin-bottom: 16px;
   line-height: 1.5;
@@ -172,9 +184,10 @@
 
 .productPrice {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 800;
   color: #2563eb;
   margin-bottom: 16px;
+  letter-spacing: -0.8px;
 }
 
 .productActions {
@@ -185,33 +198,35 @@
 
 .buyButton {
   flex: 3;
-  background-color: #2563eb;
+  background: #2563eb;
   color: #ffffff;
   border: none;
-  padding: 12px 20px;
   border-radius: 8px;
+  padding: 12px 20px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s;
+  font-family: inherit;
+  transition: all 0.15s;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 }
 .buyButton:hover {
-  background-color: #1d4ed8;
+  background: #1d4ed8;
   transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .favoriteButton {
   flex: 1;
-  background-color: #ffffff;
+  background: #ffffff;
   color: #475569;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -220,16 +235,17 @@
 .favoriteButton svg {
   width: 20px;
   height: 20px;
-  transition: all 0.2s;
+  transition: all 0.15s;
 }
 .favoriteButton:hover {
   border-color: #ef4444;
   color: #ef4444;
   transform: scale(1.02);
+  background: #f8fafc;
 }
 
 .favoriteButtonActive {
-  background-color: rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.1);
   border-color: #ef4444;
   color: #ef4444;
 }
@@ -241,20 +257,20 @@
   grid-column: 1/-1;
   text-align: center;
   padding: 60px 20px;
-  background-color: #f8fafc;
+  background: #f8fafc;
   border-radius: 12px;
   border: 1px solid #f1f5f9;
 }
 
 .emptyText {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   color: #475569;
   margin-bottom: 8px;
 }
 
 .emptySubtext {
-  font-size: 14px;
+  font-size: 13px;
   color: #64748b;
 }
 
@@ -262,68 +278,70 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin: 1.5rem;
+  gap: 16px;
+  margin: 24px;
 }
 
 .paginationBtn {
-  background-color: #2563eb;
+  background: #2563eb;
   color: white;
   border: none;
-  border-radius: 1rem;
-  padding: 0.5rem 1.5rem;
-  font-weight: 500;
-  font-size: 1rem;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  font-family: inherit;
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 .paginationBtn:hover:not(:disabled) {
-  background-color: #1d4ed8;
+  background: #1d4ed8;
   transform: scale(0.97);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 .paginationBtn:disabled {
-  background-color: #e2e8f0;
+  background: #e2e8f0;
   color: #64748b;
   cursor: not-allowed;
   box-shadow: none;
+  transform: none;
 }
 
 .paginationInfostyles {
   color: #475569;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0 0.5rem;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0 12px;
 }
 
 .clearFiltersBtn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   background: #ef4444;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
+  border-radius: 8px;
+  padding: 8px 16px;
   cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.15s ease;
 }
-
+.clearFiltersBtn svg {
+  font-size: 14px;
+}
 .clearFiltersBtn:hover:not(:disabled) {
   background: #dc2626;
   transform: translateY(-1px);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
-
 .clearFiltersBtn:disabled {
   background: #64748b;
   cursor: not-allowed;
   opacity: 0.6;
   transform: none;
-}
-
-.clearFiltersBtn svg {
-  font-size: 1rem;
+  box-shadow: none;
 }/*# sourceMappingURL=availablePage.module.css.map */

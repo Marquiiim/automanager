@@ -7,6 +7,7 @@ import ProtectedRoutes from './protectedRoutes'
 
 import StockPage from '../pages/stock/stockPage'
 import AvailablePage from '../pages/available/availablePage'
+import DashboardPage from '../pages/dashboard/dashboard'
 
 export const routeConfig = [
     {
@@ -35,15 +36,11 @@ export const routeConfig = [
             {
                 path: '/availables',
                 element: <AvailablePage />
-            }/*,
-            {
-                path: '/parts',
-                element: < PartsPage/>
             },
             {
-                path: '/reports',
-                element: < ReportsPage/>
-            }*/
+                path: '/dashboard',
+                element: <DashboardPage />
+            }
         ]
     }
 ]

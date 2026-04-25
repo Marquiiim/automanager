@@ -2,13 +2,12 @@
 
 .container {
     min-height: 100vh;
-    background-color: $surface-hover;
     color: $text-primary;
-    padding: 1.5rem;
+    padding: 24px;
 }
 
 .content {
-    max-width: 80rem;
+    max-width: 1280px;
     margin: 0 auto;
 }
 
@@ -17,8 +16,8 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 2rem;
-    gap: 1rem;
+    margin-bottom: 32px;
+    gap: 16px;
 
     @media (min-width: 768px) {
         flex-direction: row;
@@ -27,67 +26,75 @@
 }
 
 .title {
-    font-size: 2.25rem;
-    font-weight: 700;
+    font-size: 36px;
+    font-weight: 800;
     color: $text-primary;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 12px;
+    letter-spacing: -0.5px;
 }
 
 .subtitle {
     color: $text-tertiary;
-    margin-top: 0.25rem;
+    margin-top: 4px;
+    font-size: 14px;
 }
 
 .buttonGroup {
     display: flex;
-    gap: 0.75rem;
+    gap: 12px;
 }
 
 .entryButton {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    background-color: $success;
-    padding: 0.75rem 1.5rem;
-    border-radius: 1rem;
-    font-weight: 500;
-    transition: all 0.2s;
+    gap: 8px;
+    background: $success;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.15s;
     cursor: pointer;
     border: none;
     color: white;
+    font-family: inherit;
 
     &:hover {
-        background-color: darken($success, 10%);
-        transform: scale(0.95);
+        background: darken($success, 10%);
+        transform: translateY(-2px);
+        box-shadow: $shadow-hover;
     }
 }
 
 .exitButton {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    background-color: $warning;
-    padding: 0.75rem 1.5rem;
-    border-radius: 1rem;
-    font-weight: 500;
-    transition: all 0.2s;
+    gap: 8px;
+    background: $warning;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.15s;
     cursor: pointer;
     border: none;
     color: white;
+    font-family: inherit;
 
     &:hover {
-        background-color: darken($warning, 10%);
-        transform: scale(0.95);
+        background: darken($warning, 10%);
+        transform: translateY(-2px);
+        box-shadow: $shadow-hover;
     }
 }
 
 .statsGrid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    gap: 24px;
+    margin-bottom: 40px;
 
     @media (min-width: 640px) {
         grid-template-columns: repeat(2, 1fr);
@@ -99,15 +106,16 @@
 }
 
 .statCard {
-    background-color: $surface;
+    background: $surface;
     border: 1px solid $border;
-    border-radius: 1.5rem;
-    padding: 1.5rem;
+    border-radius: 20px;
+    padding: 24px;
     transition: all 0.2s;
     box-shadow: $shadow;
 
     &:hover {
         box-shadow: $shadow-hover;
+        transform: translateY(-2px);
     }
 }
 
@@ -119,76 +127,84 @@
 
 .statLabel {
     color: $text-tertiary;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .statValue {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-top: 0.75rem;
+    font-size: 36px;
+    font-weight: 800;
+    margin-top: 12px;
     color: $text-primary;
+    letter-spacing: -1.2px;
+    line-height: 1;
 }
 
 .statValueWarning {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-top: 0.75rem;
+    font-size: 36px;
+    font-weight: 800;
+    margin-top: 12px;
     color: $warning;
+    letter-spacing: -1.2px;
+    line-height: 1;
 }
 
 .statValueDanger {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-top: 0.75rem;
+    font-size: 36px;
+    font-weight: 800;
+    margin-top: 12px;
     color: $danger;
+    letter-spacing: -1.2px;
+    line-height: 1;
 }
 
 .statTrend {
     color: $success;
-    font-size: 0.875rem;
-    margin-top: 1rem;
+    font-size: 13px;
+    margin-top: 16px;
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    font-weight: 500;
+    gap: 4px;
+    font-weight: 600;
 }
 
 .statUpdate {
     color: $success;
-    font-size: 0.875rem;
-    margin-top: 1rem;
-    font-weight: 500;
+    font-size: 13px;
+    margin-top: 16px;
+    font-weight: 600;
 }
 
 .warningText {
     color: $warning;
-    font-size: 0.875rem;
-    margin-top: 1rem;
-    font-weight: 500;
+    font-size: 13px;
+    margin-top: 16px;
+    font-weight: 600;
 }
 
 .dangerText {
     color: $danger;
-    font-size: 0.875rem;
-    margin-top: 1rem;
-    font-weight: 500;
+    font-size: 13px;
+    margin-top: 16px;
+    font-weight: 600;
 }
 
 .tableContainer {
-    background-color: $surface;
+    background: $surface;
     border: 1px solid $border;
-    border-radius: 1.5rem;
+    border-radius: 20px;
     overflow: hidden;
     box-shadow: $shadow;
 }
 
 .tableHeader {
-    padding: 1.5rem;
+    padding: 24px;
     border-bottom: 1px solid $border;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 16px;
     align-items: center;
     justify-content: space-between;
 
@@ -198,34 +214,37 @@
 }
 
 .tableTitle {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 700;
     color: $text-primary;
+    letter-spacing: -0.3px;
 }
 
 .searchWrapper {
     flex: 1;
-    max-width: 28rem;
+    max-width: 448px;
     position: relative;
 }
 
 .searchInput {
     width: 100%;
-    background-color: $surface;
+    background: $surface;
     border: 1px solid $border;
-    padding: 0.75rem 1rem;
-    padding-left: 2.75rem;
-    border-radius: 1rem;
+    padding: 12px 16px;
+    padding-left: 44px;
+    border-radius: 12px;
     outline: none;
-    transition: all 0.2s;
+    transition: all 0.15s;
     color: $text-primary;
+    font-family: inherit;
+    font-size: 13px;
 
     &::placeholder {
         color: $text-tertiary;
     }
 
     &:focus {
-        border-color: $primary;
+        border-color: $primary-light;
         box-shadow: 0 0 0 3px rgba($primary, 0.1);
     }
 }
@@ -240,44 +259,50 @@
 }
 
 .tableHead {
-    background-color: $surface-hover;
+    background: $surface-hover;
     border-bottom: 1px solid $border;
 }
 
 .thLeft {
     text-align: left;
-    padding: 1rem 1.5rem;
-    font-weight: 600;
-    color: $text-secondary;
-    font-size: 0.875rem;
+    padding: 16px 24px;
+    font-weight: 700;
+    color: $text-tertiary;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .thCenter {
     text-align: center;
-    padding: 1rem 1.5rem;
-    font-weight: 600;
-    color: $text-secondary;
-    font-size: 0.875rem;
+    padding: 16px 24px;
+    font-weight: 700;
+    color: $text-tertiary;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .thRight {
     text-align: right;
-    padding: 1rem 1.5rem;
-    font-weight: 600;
-    color: $text-secondary;
-    font-size: 0.875rem;
+    padding: 16px 24px;
+    font-weight: 700;
+    color: $text-tertiary;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .tableBody {
-    background-color: $surface;
+    background: $surface;
 }
 
 .tableRow {
-    transition: all 0.2s;
+    transition: all 0.15s;
     border-bottom: 1px solid $border-light;
 
     &:hover {
-        background-color: $surface-hover;
+        background: $surface-hover;
     }
 
     &:last-child {
@@ -286,71 +311,78 @@
 }
 
 .tdCode {
-    padding: 1rem 1.5rem;
+    padding: 14px 24px;
     font-family: monospace;
     color: $text-tertiary;
-    font-size: 0.875rem;
+    font-size: 13px;
 }
 
 .tdName {
-    padding: 1rem 1.5rem;
-    font-weight: 500;
+    padding: 14px 24px;
+    font-weight: 600;
     color: $text-primary;
+    font-size: 13px;
 }
 
 .tdCategory {
-    padding: 1rem 1.5rem;
+    padding: 14px 24px;
     color: $text-secondary;
+    font-size: 13px;
 }
 
 .tdCenter {
-    padding: 1rem 1.5rem;
+    padding: 14px 24px;
     text-align: center;
+    font-size: 13px;
 }
 
 .tdRight {
-    padding: 1rem 1.5rem;
+    padding: 14px 24px;
     text-align: right;
     color: $text-primary;
+    font-size: 13px;
 }
 
 .tdTotal {
-    padding: 1rem 1.5rem;
+    padding: 14px 24px;
     text-align: right;
     font-weight: 600;
     color: $text-primary;
+    font-size: 13px;
 }
 
 .quantity {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.25rem 0.75rem;
-    border-radius: 2rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    background-color: $surface-hover;
+    padding: 4px 12px;
+    border-radius: 32px;
+    font-size: 12px;
+    font-weight: 600;
+    background: $surface-hover;
     color: $text-secondary;
 }
 
 .actionButtons {
     display: flex;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 12px;
 }
 
 .editButton {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.25rem;
-    transition: all 0.2s;
+    font-size: 18px;
+    transition: all 0.15s;
     color: $primary;
-    padding: 0.25rem;
+    padding: 4px;
+    border-radius: 6px;
 
     &:hover {
         color: $primary-dark;
         transform: scale(1.1);
+        background: $surface-hover;
     }
 }
 
@@ -358,15 +390,17 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.25rem;
-    transition: all 0.2s;
+    font-size: 18px;
+    transition: all 0.15s;
     color: $success;
-    padding: 0.25rem;
+    padding: 4px;
+    border-radius: 6px;
     font-weight: bold;
 
     &:hover {
         color: darken($success, 10%);
         transform: scale(1.1);
+        background: $surface-hover;
     }
 }
 
@@ -374,44 +408,48 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.25rem;
-    transition: all 0.2s;
+    font-size: 18px;
+    transition: all 0.15s;
     color: $danger;
-    padding: 0.25rem;
+    padding: 4px;
+    border-radius: 6px;
     font-weight: bold;
 
     &:hover {
         color: darken($danger, 10%);
         transform: scale(1.1);
+        background: $surface-hover;
     }
 }
 
 .tableNotFound {
-    transition: background-color 0.2s ease;
+    transition: background 0.15s ease;
 
     &:hover {
-        background-color: $surface-hover;
+        background: $surface-hover;
     }
 }
 
 .notFoundCell {
     text-align: center;
-    padding: 3rem 1.5rem;
-    background-color: $surface;
+    padding: 48px 24px;
+    background: $surface;
 }
 
 .notFoundIcon {
     color: $text-tertiary;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    font-size: 40px;
+    opacity: 0.35;
 }
 
 .notFoundText {
-    font-size: 0.875rem;
+    font-size: 13px;
     font-weight: 500;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.5px;
     color: $text-tertiary;
     display: block;
 }
@@ -420,38 +458,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin: 1.5rem;
+    gap: 16px;
+    margin: 24px;
 }
 
 .paginationBtn {
-    background-color: $primary;
+    background: $primary;
     color: white;
     border: none;
-    border-radius: 1rem;
-    padding: 0.5rem 1.5rem;
-    font-weight: 500;
-    font-size: 1rem;
+    border-radius: 12px;
+    padding: 8px 24px;
+    font-weight: 600;
+    font-size: 13px;
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
+    font-family: inherit;
+    transition: background 0.15s, transform 0.15s;
     box-shadow: $shadow;
 
     &:hover:not(:disabled) {
-        background-color: $primary-dark;
+        background: $primary-dark;
         transform: scale(0.97);
+        box-shadow: $shadow-hover;
     }
 
     &:disabled {
-        background-color: $border;
+        background: $border;
         color: $text-tertiary;
         cursor: not-allowed;
         box-shadow: none;
+        transform: none;
     }
 }
 
 .paginationInfostyles {
     color: $text-secondary;
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 0 0.5rem;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 8px;
 }

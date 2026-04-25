@@ -3,8 +3,8 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 5rem;
-  background-color: #ffffff;
+  padding: 16px 80px;
+  background: #ffffff;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -15,14 +15,14 @@ nav {
 
 .logo h1 {
   margin: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 800;
   letter-spacing: 2px;
 }
 .logo h1 a {
   text-decoration: none;
   color: #0f172a;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
   position: relative;
 }
 .logo h1 a::after {
@@ -33,7 +33,7 @@ nav {
   width: 0;
   height: 2px;
   background: linear-gradient(90deg, #2563eb, #3b82f6);
-  transition: width 0.3s ease;
+  transition: width 0.2s ease;
 }
 .logo h1 a:hover {
   color: #2563eb;
@@ -47,16 +47,16 @@ nav {
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 2rem;
+  gap: 32px;
 }
 .options_website ul li a {
   text-decoration: none;
   color: #475569;
-  font-weight: 500;
-  font-size: 1rem;
-  padding: 0.5rem 0;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 0;
   position: relative;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 .options_website ul li a::after {
   content: "";
@@ -66,7 +66,7 @@ nav {
   width: 0;
   height: 2px;
   background: #2563eb;
-  transition: width 0.3s ease;
+  transition: width 0.2s ease;
 }
 .options_website ul li a:hover {
   color: #2563eb;
@@ -84,7 +84,7 @@ nav {
 .options_right {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 24px;
 }
 .options_right span {
   display: flex;
@@ -93,25 +93,25 @@ nav {
 .options_right span a {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   color: #475569;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
   border: 1px solid transparent;
 }
 .options_right span a svg {
-  font-size: 1.2rem;
+  font-size: 18px;
   color: #64748b;
-  transition: color 0.3s ease;
+  transition: color 0.15s ease;
 }
 .options_right span a:hover {
-  background-color: #f8fafc;
+  background: #f8fafc;
   color: #2563eb;
   border-color: #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 .options_right span a:hover svg {
   color: #2563eb;
@@ -121,18 +121,18 @@ nav {
   align-items: center;
   justify-content: center;
   color: #64748b;
-  transition: all 0.3s ease;
-  padding: 0.5rem;
+  transition: all 0.15s ease;
+  padding: 8px;
   border-radius: 8px;
   border: 1px solid transparent;
 }
 .options_right a svg {
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
 }
 .options_right a:hover {
   color: #ef4444;
-  background-color: #f8fafc;
+  background: #f8fafc;
   border-color: #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  transform: scale(1.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
 }/*# sourceMappingURL=navbar.module.css.map */

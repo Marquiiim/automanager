@@ -6,7 +6,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
@@ -16,8 +16,9 @@
 }
 
 .modalContent {
-    background-color: $surface;
-    border-radius: 1rem;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 16px;
     width: 320px;
     max-width: 90%;
     box-shadow: $shadow-hover;
@@ -28,14 +29,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.25rem;
+    padding: 16px 20px;
     border-bottom: 1px solid $border;
 
     h3 {
-        font-size: 1.125rem;
-        font-weight: 600;
+        font-size: 18px;
+        font-weight: 700;
         color: $text-primary;
         margin: 0;
+        letter-spacing: -0.3px;
     }
 
     button {
@@ -45,21 +47,23 @@
         color: $text-tertiary;
         display: flex;
         align-items: center;
-        padding: 0.25rem;
-        transition: all 0.2s;
+        padding: 4px;
+        border-radius: 6px;
+        transition: all 0.15s;
 
         &:hover {
             color: $danger;
             transform: scale(1.1);
+            background: $surface-hover;
         }
     }
 }
 
 .modalBody {
-    padding: 1.25rem;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 12px;
     max-height: 300px;
     overflow-y: auto;
 }
@@ -67,19 +71,20 @@
 .checkboxLabel {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
     cursor: pointer;
     color: $text-secondary;
-    font-size: 0.875rem;
-    transition: color 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.15s;
 
     &:hover {
         color: $primary;
     }
 
     input {
-        width: 1rem;
-        height: 1rem;
+        width: 16px;
+        height: 16px;
         cursor: pointer;
         accent-color: $primary;
     }
@@ -87,37 +92,40 @@
 
 .modalFooter {
     display: flex;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
+    gap: 12px;
+    padding: 16px 20px;
     border-top: 1px solid $border;
 
     button {
         flex: 1;
-        padding: 0.5rem 0.75rem;
+        padding: 8px 12px;
         border: none;
-        border-radius: 0.5rem;
-        font-size: 0.875rem;
-        font-weight: 500;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
         cursor: pointer;
-        transition: all 0.2s;
+        font-family: inherit;
+        transition: all 0.15s;
 
         &:first-child {
-            background-color: $surface-hover;
+            background: $surface-hover;
             color: $text-secondary;
 
             &:hover {
-                background-color: $border;
+                background: $border;
                 color: $text-primary;
+                box-shadow: $shadow-hover;
             }
         }
 
         &:last-child {
-            background-color: $primary;
+            background: $primary;
             color: white;
 
             &:hover {
-                background-color: $primary-dark;
+                background: $primary-dark;
                 transform: scale(0.98);
+                box-shadow: $shadow-hover;
             }
         }
     }
@@ -127,7 +135,6 @@
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
@@ -138,7 +145,6 @@
         transform: translateY(-20px);
         opacity: 0;
     }
-
     to {
         transform: translateY(0);
         opacity: 1;

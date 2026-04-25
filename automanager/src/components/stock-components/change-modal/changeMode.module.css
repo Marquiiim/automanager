@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -22,7 +22,8 @@
 }
 
 .modalContent {
-  background-color: #ffffff;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   width: 90%;
   max-width: 600px;
@@ -60,26 +61,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 1.5rem 1rem 1.5rem;
+  padding: 24px 24px 16px 24px;
   border-bottom: 1px solid #f1f5f9;
 }
 
 .modalTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: #0f172a;
   margin: 0;
+  letter-spacing: -0.3px;
 }
 
 .closeButton {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 24px;
   cursor: pointer;
   color: #64748b;
-  padding: 0.25rem;
+  padding: 4px;
   line-height: 1;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   width: 32px;
   height: 32px;
   display: flex;
@@ -89,42 +91,44 @@
 }
 .closeButton:hover {
   color: #0f172a;
-  background-color: #f8fafc;
+  background: #f8fafc;
+  transform: scale(1.05);
 }
 
 .modalForm {
-  padding: 1.5rem;
+  padding: 24px;
 }
 
 .formGroup {
-  margin-bottom: 1.25rem;
+  margin-bottom: 20px;
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .formLabel {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   color: #475569;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .formInput,
 .formSelect {
   width: 100%;
-  padding: 0.625rem 0.875rem;
-  font-size: 0.875rem;
+  padding: 10px 14px;
+  font-size: 13px;
   color: #0f172a;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  transition: all 0.2s ease;
-  background-color: #ffffff;
+  transition: all 0.15s ease;
+  background: #ffffff;
+  font-family: inherit;
 }
 .formInput:focus:focus,
 .formSelect:focus:focus {
@@ -143,10 +147,10 @@
      -moz-appearance: none;
           appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
-  background-position: right 0.75rem center;
+  background-position: right 12px center;
   background-repeat: no-repeat;
-  background-size: 1.25em 1.25em;
-  padding-right: 2.5rem;
+  background-size: 20px 20px;
+  padding-right: 40px;
 }
 
 .formInput[type=number] {
@@ -160,19 +164,20 @@
 .modalActions {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px solid #f1f5f9;
 }
 
 .saveButton, .deleteButton, .cancelButton {
-  padding: 0.625rem 1.25rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  font-family: inherit;
+  transition: all 0.15s ease;
 }
 .saveButton:active, .deleteButton:active, .cancelButton:active {
   transform: translateY(0);
@@ -181,22 +186,23 @@
 .lastUpdateInfo {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
-  background-color: rgba(100, 116, 139, 0.05);
+  padding: 12px 16px;
+  background: rgba(100, 116, 139, 0.05);
   border-radius: 10px;
-  margin: 1rem 0 0.5rem 0;
+  margin: 16px 0 8px 0;
   border: 1px solid rgba(226, 232, 240, 0.3);
 }
 
 .lastUpdateLabel {
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   color: #475569;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .lastUpdateDate {
-  font-size: 0.75rem;
+  font-size: 12px;
   color: #64748b;
   font-family: monospace;
   margin-left: auto;
@@ -204,33 +210,34 @@
 
 .cancelButton {
   color: #475569;
-  background-color: #ffffff;
+  background: #ffffff;
   border: 1px solid #e2e8f0;
 }
 .cancelButton:hover {
-  background-color: #f8fafc;
+  background: #f8fafc;
   border-color: #64748b;
   color: #0f172a;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .deleteButton {
   color: white;
-  background-color: #c0392b;
+  background: #ef4444;
   border: none;
 }
 .deleteButton:hover {
-  background-color: #c0392b;
+  background: rgb(234.9802955665, 21.0197044335, 21.0197044335);
   transform: translateY(-1px);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .saveButton {
   color: white;
-  background-color: #2563eb;
+  background: #2563eb;
   border: none;
 }
 .saveButton:hover {
-  background-color: #1d4ed8;
+  background: #1d4ed8;
   transform: translateY(-1px);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }/*# sourceMappingURL=changeMode.module.css.map */

@@ -7,7 +7,8 @@
 }
 
 .content {
-    background-color: $surface;
+    background: $surface;
+    border: 1px solid $border;
     border-radius: 16px;
     padding: 32px;
     box-shadow: $shadow;
@@ -27,6 +28,7 @@
     font-weight: 700;
     color: $text-primary;
     margin-bottom: 8px;
+    letter-spacing: -0.5px;
 }
 
 .subtitle {
@@ -40,17 +42,20 @@
 }
 
 .cartButton {
-    background-color: $primary;
+    background: $primary;
     color: $surface;
     border: none;
-    padding: 10px 24px;
     border-radius: 8px;
+    padding: 10px 24px;
     font-weight: 600;
+    font-size: 13px;
     cursor: pointer;
-    transition: all 0.2s;
+    font-family: inherit;
+    transition: background 0.15s, box-shadow 0.15s;
 
     &:hover {
-        background-color: $primary-dark;
+        background: $primary-dark;
+        box-shadow: $shadow-hover;
     }
 }
 
@@ -65,8 +70,9 @@
 
 .productsTitle {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     color: $text-primary;
+    letter-spacing: -0.3px;
 }
 
 .searchWrapper {
@@ -79,13 +85,15 @@
     padding: 10px 16px;
     border: 1px solid $border;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 13px;
     color: $text-primary;
-    background-color: $surface;
+    background: $surface;
+    font-family: inherit;
+    transition: border-color 0.15s;
 
     &:focus {
         outline: none;
-        border-color: $primary;
+        border-color: $primary-light;
     }
 
     &::placeholder {
@@ -101,14 +109,16 @@
 }
 
 .filterButton {
-    background-color: $surface;
+    background: $surface;
     color: $text-secondary;
     border: 1px solid $border;
-    padding: 8px 20px;
     border-radius: 20px;
-    font-size: 14px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    font-family: inherit;
+    transition: all 0.15s;
 
     &:hover {
         border-color: $primary;
@@ -117,13 +127,14 @@
 }
 
 .filterButtonActive {
-    background-color: $primary;
+    background: $primary;
     color: $surface;
     border-color: $primary;
 
     &:hover {
-        background-color: $primary-dark;
+        background: $primary-dark;
         color: $surface;
+        border-color: $primary-dark;
     }
 }
 
@@ -135,7 +146,7 @@
 }
 
 .productCard {
-    background-color: $surface;
+    background: $surface;
     border: 1px solid $border;
     border-radius: 12px;
     overflow: hidden;
@@ -153,12 +164,13 @@
 }
 
 .productCategory {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     color: $primary;
     text-transform: uppercase;
     margin-bottom: 8px;
     display: inline-block;
+    letter-spacing: 0.5px;
 }
 
 .productName {
@@ -169,7 +181,7 @@
 }
 
 .productDescription {
-    font-size: 14px;
+    font-size: 13px;
     color: $text-tertiary;
     margin-bottom: 16px;
     line-height: 1.5;
@@ -177,47 +189,50 @@
 
 .productPrice {
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 800;
     color: $primary;
     margin-bottom: 16px;
+    letter-spacing: -0.8px;
 }
 
 .productActions {
     display: flex;
     gap: 12px;
-    align-items: stretch; // Alinha os botões na mesma altura
+    align-items: stretch;
 }
 
 .buyButton {
-    flex: 3; // 3 partes do espaço disponível
-    background-color: $primary;
+    flex: 3;
+    background: $primary;
     color: $surface;
     border: none;
-    padding: 12px 20px;
     border-radius: 8px;
+    padding: 12px 20px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
-    transition: all 0.2s;
+    font-family: inherit;
+    transition: all 0.15s;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
 
     &:hover {
-        background-color: $primary-dark;
+        background: $primary-dark;
         transform: translateY(-2px);
+        box-shadow: $shadow-hover;
     }
 }
 
 .favoriteButton {
     flex: 1;
-    background-color: $surface;
+    background: $surface;
     color: $text-secondary;
     border: 1px solid $border;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,18 +241,19 @@
     svg {
         width: 20px;
         height: 20px;
-        transition: all 0.2s;
+        transition: all 0.15s;
     }
 
     &:hover {
         border-color: $danger;
         color: $danger;
         transform: scale(1.02);
+        background: $surface-hover;
     }
 }
 
 .favoriteButtonActive {
-    background-color: rgba($danger, 0.1);
+    background: rgba($danger, 0.1);
     border-color: $danger;
     color: $danger;
 
@@ -250,20 +266,20 @@
     grid-column: 1 / -1;
     text-align: center;
     padding: 60px 20px;
-    background-color: $surface-hover;
+    background: $surface-hover;
     border-radius: 12px;
     border: 1px solid $border-light;
 }
 
 .emptyText {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
     color: $text-secondary;
     margin-bottom: 8px;
 }
 
 .emptySubtext {
-    font-size: 14px;
+    font-size: 13px;
     color: $text-tertiary;
 }
 
@@ -271,70 +287,75 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin: 1.5rem;
+    gap: 16px;
+    margin: 24px;
 }
 
 .paginationBtn {
-    background-color: $primary;
+    background: $primary;
     color: white;
     border: none;
-    border-radius: 1rem;
-    padding: 0.5rem 1.5rem;
-    font-weight: 500;
-    font-size: 1rem;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 13px;
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
+    font-family: inherit;
+    transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
     box-shadow: $shadow;
 
     &:hover:not(:disabled) {
-        background-color: $primary-dark;
+        background: $primary-dark;
         transform: scale(0.97);
+        box-shadow: $shadow-hover;
     }
 
     &:disabled {
-        background-color: $border;
+        background: $border;
         color: $text-tertiary;
         cursor: not-allowed;
         box-shadow: none;
+        transform: none;
     }
 }
 
 .paginationInfostyles {
     color: $text-secondary;
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 0 0.5rem;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 12px;
 }
 
 .clearFiltersBtn {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
     background: $danger;
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
+    border-radius: 8px;
+    padding: 8px 16px;
     cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.15s ease;
 
-.clearFiltersBtn:hover:not(:disabled) {
-    background: #dc2626;
-    transform: translateY(-1px);
-    box-shadow: $shadow-hover;
-}
+    svg {
+        font-size: 14px;
+    }
 
-.clearFiltersBtn:disabled {
-    background: $text-tertiary;
-    cursor: not-allowed;
-    opacity: 0.6;
-    transform: none;
-}
+    &:hover:not(:disabled) {
+        background: #dc2626;
+        transform: translateY(-1px);
+        box-shadow: $shadow-hover;
+    }
 
-.clearFiltersBtn svg {
-    font-size: 1rem;
+    &:disabled {
+        background: $text-tertiary;
+        cursor: not-allowed;
+        opacity: 0.6;
+        transform: none;
+        box-shadow: none;
+    }
 }

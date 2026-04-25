@@ -1,13 +1,12 @@
 @use '../variables' as *;
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 5rem;
-    background-color: $surface;
+    padding: 16px 80px;
+    background: $surface;
     box-shadow: $shadow;
     position: sticky;
     top: 0;
@@ -19,14 +18,14 @@ nav {
 .logo {
     h1 {
         margin: 0;
-        font-size: 1.8rem;
-        font-weight: 700;
+        font-size: 28px;
+        font-weight: 800;
         letter-spacing: 2px;
 
         a {
             text-decoration: none;
             color: $text-primary;
-            transition: color 0.3s ease;
+            transition: color 0.2s ease;
             position: relative;
 
             &::after {
@@ -37,7 +36,7 @@ nav {
                 width: 0;
                 height: 2px;
                 background: linear-gradient(90deg, $primary, $primary-light);
-                transition: width 0.3s ease;
+                transition: width 0.2s ease;
             }
 
             &:hover {
@@ -57,17 +56,17 @@ nav {
         list-style: none;
         margin: 0;
         padding: 0;
-        gap: 2rem;
+        gap: 32px;
 
         li {
             a {
                 text-decoration: none;
                 color: $text-secondary;
-                font-weight: 500;
-                font-size: 1rem;
-                padding: 0.5rem 0;
+                font-weight: 600;
+                font-size: 14px;
+                padding: 8px 0;
                 position: relative;
-                transition: color 0.3s ease;
+                transition: color 0.2s ease;
 
                 &::after {
                     content: '';
@@ -77,7 +76,7 @@ nav {
                     width: 0;
                     height: 2px;
                     background: $primary;
-                    transition: width 0.3s ease;
+                    transition: width 0.2s ease;
                 }
 
                 &:hover {
@@ -103,7 +102,7 @@ nav {
 .options_right {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 24px;
 
     span {
         display: flex;
@@ -112,26 +111,26 @@ nav {
         a {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
             color: $text-secondary;
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
-            padding: 0.5rem 1rem;
+            padding: 8px 16px;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.15s ease;
             border: 1px solid transparent;
 
             svg {
-                font-size: 1.2rem;
+                font-size: 18px;
                 color: $text-tertiary;
-                transition: color 0.3s ease;
+                transition: color 0.15s ease;
             }
 
             &:hover {
-                background-color: $surface-hover;
+                background: $surface-hover;
                 color: $primary;
                 border-color: $border;
-                box-shadow: $shadow;
+                box-shadow: $shadow-hover;
 
                 svg {
                     color: $primary;
@@ -145,21 +144,21 @@ nav {
         align-items: center;
         justify-content: center;
         color: $text-tertiary;
-        transition: all 0.3s ease;
-        padding: 0.5rem;
+        transition: all 0.15s ease;
+        padding: 8px;
         border-radius: 8px;
         border: 1px solid transparent;
 
         svg {
-            transition: all 0.3s ease;
+            transition: all 0.15s ease;
         }
 
         &:hover {
             color: $danger;
-            background-color: $surface-hover;
+            background: $surface-hover;
             border-color: $border;
-            box-shadow: $shadow;
-            transform: scale(1.1);
+            box-shadow: $shadow-hover;
+            transform: scale(1.05);
         }
     }
 }

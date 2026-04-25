@@ -6,7 +6,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
@@ -16,8 +16,9 @@
 }
 
 .modalContent {
-    background-color: $surface;
-    border-radius: 1rem;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 16px;
     width: 500px;
     max-width: 90%;
     max-height: 90vh;
@@ -31,17 +32,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.25rem;
+    padding: 16px 20px;
     border-bottom: 1px solid $border;
 
     h3 {
-        font-size: 1.125rem;
-        font-weight: 600;
+        font-size: 18px;
+        font-weight: 700;
         color: $text-primary;
         margin: 0;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 8px;
+        letter-spacing: -0.3px;
     }
 
     button {
@@ -51,18 +53,20 @@
         color: $text-tertiary;
         display: flex;
         align-items: center;
-        padding: 0.25rem;
-        transition: all 0.2s;
+        padding: 4px;
+        border-radius: 6px;
+        transition: all 0.15s;
 
         &:hover {
             color: $danger;
             transform: scale(1.1);
+            background: $surface-hover;
         }
     }
 }
 
 .modalBody {
-    padding: 1.25rem;
+    padding: 20px;
     flex: 1;
     overflow-y: auto;
     max-height: 400px;
@@ -71,18 +75,18 @@
 .cartList {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 16px;
 }
 
 .cartItem {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    background-color: $surface-hover;
-    border-radius: 0.5rem;
+    gap: 12px;
+    padding: 12px;
+    background: $surface-hover;
+    border-radius: 8px;
     border: 1px solid $border-light;
-    transition: all 0.2s;
+    transition: all 0.15s;
 
     &:hover {
         border-color: $primary-light;
@@ -97,7 +101,7 @@
 }
 
 .itemName {
-    font-size: 0.875rem;
+    font-size: 14px;
     font-weight: 600;
     color: $text-primary;
     margin: 0;
@@ -105,7 +109,7 @@
 }
 
 .itemPrice {
-    font-size: 0.75rem;
+    font-size: 12px;
     color: $text-tertiary;
     margin: 0;
 }
@@ -114,17 +118,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 16px;
 }
 
 .quantityControl {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    background-color: $surface;
+    gap: 8px;
+    background: $surface;
     border: 1px solid $border;
-    border-radius: 0.5rem;
-    padding: 0.25rem;
+    border-radius: 8px;
+    padding: 4px;
 }
 
 .quantityBtn {
@@ -134,14 +138,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.25rem;
+    padding: 4px;
     color: $primary;
-    border-radius: 0.25rem;
-    transition: all 0.2s;
+    border-radius: 4px;
+    transition: all 0.15s;
 
     &:hover:not(:disabled) {
-        background-color: $primary-light;
+        background: $primary-light;
         color: white;
+        transform: scale(1.05);
     }
 
     &:disabled {
@@ -152,7 +157,7 @@
 }
 
 .quantity {
-    font-size: 0.875rem;
+    font-size: 14px;
     font-weight: 600;
     color: $text-primary;
     min-width: 24px;
@@ -160,7 +165,7 @@
 }
 
 .itemTotal {
-    font-size: 0.875rem;
+    font-size: 14px;
     font-weight: 700;
     color: $primary;
     min-width: 80px;
@@ -174,14 +179,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.25rem;
+    padding: 4px;
     color: $text-tertiary;
-    border-radius: 0.25rem;
-    transition: all 0.2s;
+    border-radius: 4px;
+    transition: all 0.15s;
 
     &:hover {
         color: $danger;
         transform: scale(1.1);
+        background: $surface-hover;
     }
 }
 
@@ -190,8 +196,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 2rem;
+    gap: 8px;
+    padding: 32px;
     text-align: center;
 
     svg {
@@ -200,14 +206,14 @@
     }
 
     p {
-        font-size: 1rem;
-        font-weight: 500;
+        font-size: 16px;
+        font-weight: 600;
         color: $text-secondary;
         margin: 0;
     }
 
     span {
-        font-size: 0.875rem;
+        font-size: 14px;
         color: $text-tertiary;
     }
 }
@@ -216,47 +222,52 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
+    gap: 16px;
+    padding: 16px 20px;
     border-top: 1px solid $border;
-    background-color: $surface-hover;
-    border-radius: 0 0 1rem 1rem;
+    background: $surface-hover;
+    border-radius: 0 0 16px 16px;
 }
 
 .totalSection {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 4px;
 }
 
 .totalLabel {
-    font-size: 0.75rem;
+    font-size: 12px;
     color: $text-tertiary;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .totalValue {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 800;
     color: $primary;
+    letter-spacing: -0.5px;
 }
 
 .checkoutButton {
     flex: 1;
-    background-color: $primary;
+    background: $primary;
     color: white;
     border: none;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    font-family: inherit;
+    transition: all 0.15s;
     max-width: 200px;
 
     &:hover {
-        background-color: $primary-dark;
+        background: $primary-dark;
         transform: translateY(-2px);
-        box-shadow: $shadow;
+        box-shadow: $shadow-hover;
     }
 
     &:active {

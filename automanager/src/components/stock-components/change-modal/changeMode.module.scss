@@ -1,7 +1,6 @@
 @use '../../variables' as *;
 
-
-@mixin transition($property: all, $duration: 0.2s, $timing: ease) {
+@mixin transition($property: all, $duration: 0.15s, $timing: ease) {
     transition: $property $duration $timing;
 }
 
@@ -19,7 +18,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
@@ -39,7 +38,8 @@
 }
 
 .modalContent {
-    background-color: $surface;
+    background: $surface;
+    border: 1px solid $border;
     border-radius: 16px;
     width: 90%;
     max-width: 600px;
@@ -83,24 +83,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    padding: 24px 24px 16px 24px;
     border-bottom: 1px solid $border-light;
 }
 
 .modalTitle {
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
     color: $text-primary;
     margin: 0;
+    letter-spacing: -0.3px;
 }
 
 .closeButton {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 24px;
     cursor: pointer;
     color: $text-tertiary;
-    padding: 0.25rem;
+    padding: 4px;
     line-height: 1;
     @include transition();
     width: 32px;
@@ -112,43 +113,45 @@
 
     &:hover {
         color: $text-primary;
-        background-color: $surface-hover;
+        background: $surface-hover;
+        transform: scale(1.05);
     }
 }
 
 .modalForm {
-    padding: 1.5rem;
+    padding: 24px;
 }
 
 .formGroup {
-    margin-bottom: 1.25rem;
+    margin-bottom: 20px;
 }
 
 .formRow {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
+    gap: 16px;
+    margin-bottom: 20px;
 }
 
 .formLabel {
     display: block;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     color: $text-secondary;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
 }
 
 .formInput,
 .formSelect {
     width: 100%;
-    padding: 0.625rem 0.875rem;
-    font-size: 0.875rem;
+    padding: 10px 14px;
+    font-size: 13px;
     color: $text-primary;
     border: 1px solid $border;
     border-radius: 8px;
     @include transition();
-    background-color: $surface;
+    background: $surface;
+    font-family: inherit;
 
     &:focus {
         @include focus-ring();
@@ -163,10 +166,10 @@
     cursor: pointer;
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
-    background-position: right 0.75rem center;
+    background-position: right 12px center;
     background-repeat: no-repeat;
-    background-size: 1.25em 1.25em;
-    padding-right: 2.5rem;
+    background-size: 20px 20px;
+    padding-right: 40px;
 }
 
 .formInput[type="number"] {
@@ -182,18 +185,19 @@
 .modalActions {
     display: flex;
     justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 16px;
     border-top: 1px solid $border-light;
 }
 
 %button-base {
-    padding: 0.625rem 1.25rem;
-    font-size: 0.875rem;
-    font-weight: 500;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
+    font-family: inherit;
     @include transition();
 
     &:active {
@@ -204,22 +208,23 @@
 .lastUpdateInfo {
     display: flex;
     align-items: center;
-    padding: 0.75rem 1rem;
-    background-color: rgba($text-tertiary, 0.05);
+    padding: 12px 16px;
+    background: rgba($text-tertiary, 0.05);
     border-radius: 10px;
-    margin: 1rem 0 0.5rem 0;
+    margin: 16px 0 8px 0;
     border: 1px solid rgba($border, 0.3);
 }
 
 .lastUpdateLabel {
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
     color: $text-secondary;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .lastUpdateDate {
-    font-size: 0.75rem;
+    font-size: 12px;
     color: $text-tertiary;
     font-family: monospace;
     margin-left: auto;
@@ -228,24 +233,25 @@
 .cancelButton {
     @extend %button-base;
     color: $text-secondary;
-    background-color: $surface;
+    background: $surface;
     border: 1px solid $border;
 
     &:hover {
-        background-color: $surface-hover;
+        background: $surface-hover;
         border-color: $text-tertiary;
         color: $text-primary;
+        box-shadow: $shadow-hover;
     }
 }
 
 .deleteButton {
     @extend %button-base;
     color: white;
-    background-color: $delete-button;
+    background: $danger;
     border: none;
 
     &:hover {
-        background-color: $delete-button-bg-hover;
+        background: darken($danger, 10%);
         transform: translateY(-1px);
         box-shadow: $shadow-hover;
     }
@@ -254,11 +260,11 @@
 .saveButton {
     @extend %button-base;
     color: white;
-    background-color: $primary;
+    background: $primary;
     border: none;
 
     &:hover {
-        background-color: $primary-dark;
+        background: $primary-dark;
         transform: translateY(-1px);
         box-shadow: $shadow-hover;
     }

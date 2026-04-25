@@ -54,8 +54,8 @@ export default function NavBar() {
                             </Link>
                         </li>
                         <li>
-                            <Link to='/reports'>
-                                Relatórios
+                            <Link to='/dashboard'>
+                                Dashboard
                             </Link>
                         </li>
                     </ul>
