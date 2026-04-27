@@ -81,23 +81,23 @@ const stock = {
     stockMovement: async (itemData, userId) => {
         let newQuantity
 
-        const currentStock = await query(
-            `SELECT current_stock FROM stock WHERE id = ?`, [itemData.id]
+        const itemInformation = await query(
+            `SELECT current_stock, cost, sale_price  FROM stock WHERE id = ?`, [itemData.id]
         )
 
         if (itemData.type === 'input') {
-            newQuantity = currentStock[0].current_stock + itemData.quantity
+            newQuantity = itemInformation[0].current_stock + itemData.quantity
         } else if (itemData.type === 'output') {
-            if (currentStock[0].current_stock < itemData.quantity)
+            if (itemInformation[0].current_stock < itemData.quantity)
                 throw new Error('Quantidade insuficiente em estoque')
-            newQuantity = currentStock[0].current_stock - itemData.quantity
+            newQuantity = itemInformation[0].current_stock - itemData.quantity
         } else {
             throw new Error('Tipo de movimentação inválida')
         }
 
         const movement = await query(
-            `INSERT INTO stock_movement (item_id, type_movement, quantity, user_id, notes)
-            VALUES (?, ?, ?, ?, ?)`, [itemData.id, itemData.type, itemData.quantity, userId, itemData.reason]
+            `INSERT INTO stock_movement (item_id, type_movement, quantity, cost, unit_value, user_id, notes)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`, [itemData.id, itemData.type, itemData.quantity, itemInformation[0].cost, itemInformation[0].sale_price, userId, itemData.reason]
         )
 
         if (movement.affectedRows === 0) throw new Error('Não foi possível fazer essa movimentação do item')

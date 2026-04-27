@@ -20,6 +20,8 @@ const router = express.Router()
 router.post('/create', createItemMiddleware, createItemController)
 router.post('/delete', deleteItemMiddleware, deleteItemController)
 router.post('/change', updateItemMiddleware, updateItemController)
+
+//ROTAS ABAIXO NECESSITAM SER MUDADAS PARA GET
 router.post('/fetch', fetchItemMiddleware, fetchItemController)
 router.post('/in-stock', fetchAllController)
 

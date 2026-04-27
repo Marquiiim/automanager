@@ -273,8 +273,6 @@
     }
 }
 
-/* Removido: estilos não utilizados do Recharts (recharts-legend-wrapper, recharts-default-legend, etc.) */
-
 .bottomGrid {
     display: grid;
     grid-template-columns: 1fr 360px;
@@ -400,8 +398,6 @@
         color: $success;
     }
 }
-
-/* badgeInactive e badgePending removidos - não usados */
 
 .btnOutline {
     background: transparent;

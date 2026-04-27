@@ -1,12 +1,13 @@
-import styles from './dashboard.module.css'
+import { /*useState,*/ useEffect } from 'react'
+import api from '../../services/apiInstance'
 import {
-    MdPeople,
-    MdShoppingCart,
     MdNotifications,
-    MdTrendingDown,
     MdMoreVert,
     MdArrowUpward,
     MdArrowDownward,
+    MdWarning,
+    MdErrorOutline,
+    MdDangerous
 } from 'react-icons/md'
 import {
     BarChart,
@@ -21,6 +22,7 @@ import {
     ResponsiveContainer,
     Cell
 } from 'recharts';
+import styles from './dashboard.module.css'
 
 export default function Dashboard() {
 
@@ -40,6 +42,19 @@ export default function Dashboard() {
         { name: 'Estética', value: 12, color: '#8b5cf6' },
         { name: 'Outros', value: 8, color: '#ef4444' },
     ];
+
+    const fetchKpiMetrics = async () => {
+        try {
+            const response = await api.get('/api/dashboard/kpi')
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchKpiMetrics()
+    }, [])
 
     return (
         <div className={styles.layout}>
@@ -78,9 +93,9 @@ export default function Dashboard() {
 
                         <div className={styles.kpiCard}>
                             <div className={styles.kpiCardHeader}>
-                                <span className={styles.kpiCardLabel}>Novos Usuários</span>
-                                <div className={`${styles.kpiCardIcon} ${styles.kpiCardIconGreen}`}>
-                                    <MdPeople />
+                                <span className={styles.kpiCardLabel}>Produtos Críticos</span>
+                                <div className={`${styles.kpiCardIcon} ${styles.kpiCardIconRed}`}>
+                                    <MdDangerous />
                                 </div>
                             </div>
                             <div className={styles.kpiCardValue}>0</div>
@@ -88,31 +103,28 @@ export default function Dashboard() {
                                 <span className={`${styles.kpiCardDelta} ${styles.kpiCardDeltaPositive}`}>
                                     <MdArrowUpward /> +0%
                                 </span>
-                                <span className={styles.kpiCardPeriod}>vs mês anterior</span>
+                                <span className={styles.kpiCardPeriod}>do catálogo</span>
                             </div>
                         </div>
 
                         <div className={styles.kpiCard}>
                             <div className={styles.kpiCardHeader}>
-                                <span className={styles.kpiCardLabel}>Pedidos Ativos</span>
+                                <span className={styles.kpiCardLabel}>Taxa de Ruptura</span>
                                 <div className={`${styles.kpiCardIcon} ${styles.kpiCardIconYellow}`}>
-                                    <MdShoppingCart />
+                                    <MdWarning />
                                 </div>
                             </div>
                             <div className={styles.kpiCardValue}>0</div>
                             <div className={styles.kpiCardFooter}>
-                                <span className={`${styles.kpiCardDelta} ${styles.kpiCardDeltaNegative}`}>
-                                    <MdArrowDownward /> -0%
-                                </span>
                                 <span className={styles.kpiCardPeriod}>vs mês anterior</span>
                             </div>
                         </div>
 
                         <div className={styles.kpiCard}>
                             <div className={styles.kpiCardHeader}>
-                                <span className={styles.kpiCardLabel}>Taxa de Churn</span>
-                                <div className={`${styles.kpiCardIcon} ${styles.kpiCardIconRed}`}>
-                                    <MdTrendingDown />
+                                <span className={styles.kpiCardLabel}>Giro de Estoque</span>
+                                <div className={`${styles.kpiCardIcon} ${styles.kpiCardIconGreen}`}>
+                                    <MdErrorOutline />
                                 </div>
                             </div>
                             <div className={styles.kpiCardValue}>0%</div>
