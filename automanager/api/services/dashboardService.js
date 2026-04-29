@@ -2,13 +2,22 @@ import dashboard from "../models/dashboardmodels.js"
 
 async function getKpiMetrics() {
     try {
-        const metrics = await dashboard.fetchMetricsFromDB()
+        const metrics = await dashboard.fetchKpiMetricsDB()
 
         return {
-            total_revenue: 0,
-            total_newUsers: 0,
-            rupture_rate: 0,
-            stock_turnover: 0
+            data: metrics
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
+async function getChartMetrics() {
+    try {
+        const metrics = await dashboard.fetchChartMetricsDB()
+
+        return {
+            data: metrics
         }
     } catch (error) {
         throw error
@@ -16,5 +25,6 @@ async function getKpiMetrics() {
 }
 
 export {
-    getKpiMetrics
+    getKpiMetrics,
+    getChartMetrics
 }

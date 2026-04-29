@@ -1,0 +1,100 @@
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.kpiCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: default;
+}
+.kpiCard:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+.kpiCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.kpiCardLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.kpiCardIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.kpiCardIconBlue {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.kpiCardIconGreen {
+  background: #ecfdf5;
+  color: #10b981;
+}
+.kpiCardIconYellow {
+  background: #fffbeb;
+  color: #f59e0b;
+}
+.kpiCardIconRed {
+  background: #fef2f2;
+  color: #ef4444;
+}
+.kpiCardValue {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.6px;
+  line-height: 1;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+.kpiCardFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.kpiCardDelta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.kpiCardDeltaPositive {
+  background: #ecfdf5;
+  color: #10b981;
+}
+.kpiCardDeltaNegative {
+  background: #fef2f2;
+  color: #ef4444;
+}
+.kpiCardDeltaNeutral {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+.kpiCardPeriod {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+}/*# sourceMappingURL=kpis.module.css.map */

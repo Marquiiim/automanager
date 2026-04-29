@@ -1,0 +1,52 @@
+.chartRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+}
+
+.chartCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  padding: 22px 24px;
+  overflow: visible;
+}
+.chartCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.chartCardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.chartCardLegend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.chartCardLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+}
+.chartCardLegendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.chartCardLegendDotBlue {
+  background: #2563eb;
+}
+.chartCardLegendDotGreen {
+  background: #10b981;
+}/*# sourceMappingURL=charts.module.css.map */

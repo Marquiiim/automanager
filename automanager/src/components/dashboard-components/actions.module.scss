@@ -1,0 +1,276 @@
+@use '../../components/variables' as *;
+
+.bottomGrid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 18px;
+}
+
+.tableCard {
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 14px;
+    box-shadow: $shadow;
+    overflow-x: auto;
+    min-width: 0;
+}
+
+.tableCardHeader {
+    padding: 18px 24px;
+    border-bottom: 1px solid $border-light;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tableCardTitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: $text-primary;
+}
+
+.tableCardActions {
+    display: flex;
+    gap: 8px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.table th {
+    text-align: left;
+    padding: 10px 24px;
+    font-size: 11px;
+    font-weight: 700;
+    color: $text-tertiary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: $surface-hover;
+    border-bottom: 1px solid $border;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 14px 24px;
+    font-size: 13px;
+    color: $text-secondary;
+    border-bottom: 1px solid $border-light;
+    white-space: nowrap;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover td {
+    background: $surface-hover;
+}
+
+.tableCell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tableAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $primary, $primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.tableName {
+    font-weight: 600;
+    color: $text-primary;
+}
+
+.tableRowActions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tableEmpty td {
+    text-align: center;
+    padding: 48px;
+    color: $text-tertiary;
+    font-size: 13px;
+    font-style: italic;
+    white-space: normal;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badgeActive {
+    background: #ecfdf5;
+    color: $success;
+}
+
+.btnOutline {
+    background: transparent;
+    color: $text-secondary;
+    border: 1px solid $border;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.btnOutline:hover {
+    background: $surface-hover;
+    color: $text-primary;
+}
+
+.btnDelete {
+    background: $delete-button-bg;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 11px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+
+.btnDelete:hover {
+    background: $delete-button-bg-hover;
+    box-shadow: $shadow-hover;
+}
+
+.btnIconSm {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid $border;
+    background: $surface;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: $text-tertiary;
+    font-size: 16px;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+
+.btnIconSm:hover {
+    background: $surface-hover;
+    color: $text-primary;
+}
+
+.activityCard {
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 14px;
+    box-shadow: $shadow;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.activityCardHeader {
+    padding: 18px 24px;
+    border-bottom: 1px solid $border-light;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.activityCardTitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: $text-primary;
+}
+
+.activityList {
+    padding: 6px 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.activityItem {
+    display: flex;
+    gap: 14px;
+    padding: 14px 24px;
+    transition: background 0.15s;
+}
+
+.activityItem:hover {
+    background: $surface-hover;
+}
+
+.activityDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.activityDotGreen {
+    background: $success;
+}
+
+.activityDotBlue {
+    background: $info;
+}
+
+.activityDotYellow {
+    background: $warning;
+}
+
+.activityDotRed {
+    background: $danger;
+}
+
+.activityBody {
+    flex: 1;
+    min-width: 0;
+}
+
+.activityText {
+    font-size: 13px;
+    color: $text-primary;
+    line-height: 1.45;
+    word-break: break-word;
+}
+
+.activityText strong {
+    font-weight: 600;
+}
+
+.activityTime {
+    font-size: 11px;
+    color: $text-tertiary;
+    margin-top: 3px;
+    display: block;
+}

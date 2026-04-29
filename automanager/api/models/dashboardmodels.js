@@ -1,7 +1,7 @@
 import { query } from '../config/database/database.js'
 
 const dashboard = {
-    fetchMetricsFromDB: async () => {
+    fetchKpiMetricsDB: async () => {
         const kpiRevenue = await query(
             `SELECT
                 SUM(CASE 
@@ -98,6 +98,40 @@ const dashboard = {
                 total: totalInventoryTurnover,
                 percentage: percentageInventory
             }
+        }
+    },
+
+    fetchChartMetricsDB: async () => {
+        const barMetrics = await query(
+            `SELECT 
+                DATE_FORMAT(movement_date, '%b') AS month,
+                SUM(quantity * unit_value) AS revenue,
+                SUM(quantity) AS total_quantity
+            FROM stock_movement
+            WHERE type_movement = 'output'
+                AND YEAR(movement_date) = YEAR(CURDATE())
+            GROUP BY MONTH(movement_date)
+            ORDER BY MONTH(movement_date) ASC`
+        )
+
+        if (barMetrics.length === 0) throw new Error('Sem dados para gráfico de barras')
+
+        const pieMetrics = await query(
+            `SELECT 
+                c.name AS category,
+                COUNT(s.id) AS quantity
+            FROM categories c
+                LEFT JOIN stock s ON s.category_id = c.id 
+                AND s.status = 'ativo'
+            GROUP BY c.id, c.name
+            ORDER BY quantity DESC`
+        )
+
+        if (pieMetrics.length === 0) throw new Error('Sem dados para mix de produtos')
+
+        return {
+            bar: barMetrics,
+            pie: pieMetrics
         }
     }
 }
