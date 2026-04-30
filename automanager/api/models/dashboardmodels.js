@@ -133,6 +133,32 @@ const dashboard = {
             bar: barMetrics,
             pie: pieMetrics
         }
+    },
+
+    fetchAllUsersDB: async (limit, offset) => {
+        const usersFound = await query(
+            `SELECT
+                id,
+                name, 
+                email, 
+                role,
+                status
+            FROM users
+                ORDER BY id LIMIT ? OFFSET ?`, [limit, offset]
+        )
+
+        if (usersFound.length === 0) throw new Error('Nenhum usuário foi encontrado')
+
+        return usersFound
+    },
+
+    deleteUserDB: async (userId) => {
+        const deleteUser = await query(
+            `DELETE FROM users WHERE id = ?`, [userId]
+
+        )
+
+        if (deleteUser.affectedRows === 0) throw new Error('Não foi possível excluir usuário')
     }
 }
 

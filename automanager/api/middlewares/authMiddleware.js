@@ -1,4 +1,9 @@
-import { userSchema, forgetPasswordSchema, changePasswordSchema } from "../schemas/user.schema.js"
+import {
+    userSchema,
+    forgetPasswordSchema,
+    changePasswordSchema
+} from "../schemas/user.schema.js"
+import { z } from 'zod'
 
 async function loginMiddleware(req, res, next) {
     try {
@@ -12,9 +17,17 @@ async function loginMiddleware(req, res, next) {
         userSchema.parse(req.body.signData)
         next()
     } catch (error) {
-        return res.status(422).json({
+        if (error instanceof z.ZodError) {
+            return res.status(422).json({
+                success: false,
+                message: error.issues[0]?.message || 'Erro de validação',
+                details: error.issues
+            });
+        }
+
+        return res.status(500).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao validar dados enviados'
+            message: error.message || 'Erro interno do servidor'
         })
     }
 }
@@ -36,9 +49,17 @@ async function changePasswordMiddleware(req, res, next) {
         changePasswordSchema.parse(req.body.changePasswordData)
         next()
     } catch (error) {
-        return res.status(422).json({
+        if (error instanceof z.ZodError) {
+            return res.status(422).json({
+                success: false,
+                message: error.issues[0]?.message || 'Erro de validação',
+                details: error.issues
+            });
+        }
+
+        return res.status(500).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao validar dados enviados'
+            message: error.message || 'Erro interno do servidor'
         })
     }
 }

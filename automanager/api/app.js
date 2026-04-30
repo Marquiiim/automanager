@@ -10,7 +10,9 @@ const app = express()
 app.set('query parser', (str) => {
     return qs.parse(str, {
         allowPrototypes: false,
-        depth: 10
+        depth: 10,
+        arrayLimit: 100,
+        parameterLimit: 1000
     });
 });
 
@@ -24,6 +26,7 @@ app.use(cookieParser())
 
 app.use(globalLimiter)
 app.use('/api/auth/login', authLimiter)
+app.use('/api/auth/register', authLimiter)
 
 app.use('/api', routes)
 

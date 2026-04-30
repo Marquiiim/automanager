@@ -16,8 +16,8 @@ import { textFormat } from '../../utils/general/formatTextBd'
 import api from '../../services/apiInstance'
 import styles from './availablePage.module.css'
 
-import Cart from '../../components/available-components/cart/cart'
-import Filter from '../../components/available-components/filter/filter'
+import Cart from '../../components/available-components/modals/cart'
+import Filter from '../../components/available-components/modals/filter'
 
 export default function AvailablePage() {
     const [availableFilters, setAvailableFilters] = useState({

@@ -1,15 +1,15 @@
 import {
-    changeItem,
-    fetchItem,
-    findAll,
-    stockMovement,
-    createItem,
-    deleteItem
+    changeItemService,
+    fetchItemService,
+    findAllService,
+    stockMovementService,
+    createItemService,
+    deleteItemService
 } from '../services/stockService.js'
 
 async function updateItemController(req, res) {
     try {
-        await changeItem(req.body)
+        await changeItemService(req.body)
 
         return res.status(200).json({
             success: true,
@@ -25,7 +25,7 @@ async function updateItemController(req, res) {
 
 async function fetchItemController(req, res) {
     try {
-        const itemInfo = await fetchItem(req.body.id)
+        const itemInfo = await fetchItemService(req.body.id)
 
         return res.status(200).json({
             success: true,
@@ -43,7 +43,7 @@ async function fetchAllController(req, res) {
     try {
         const { page, limit } = req.body
 
-        const itemsFound = await findAll(page, limit)
+        const itemsFound = await findAllService(page, limit)
 
         return res.status(200).json({
             success: true,
@@ -59,7 +59,7 @@ async function fetchAllController(req, res) {
 
 async function stockMovementController(req, res) {
     try {
-        await stockMovement(req.body, req.user)
+        await stockMovementService(req.body, req.user)
 
         return res.status(200).json({
             success: true,
@@ -75,7 +75,7 @@ async function stockMovementController(req, res) {
 
 async function createItemController(req, res) {
     try {
-        await createItem(req.body)
+        await createItemService(req.body)
 
         return res.status(500).json({
             success: true,
@@ -91,7 +91,7 @@ async function createItemController(req, res) {
 
 async function deleteItemController(req, res) {
     try {
-        await deleteItem(req.body.id)
+        await deleteItemService(req.body.id)
 
         return res.status(200).json({
             success: true,

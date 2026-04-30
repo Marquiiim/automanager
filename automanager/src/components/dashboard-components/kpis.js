@@ -1,3 +1,9 @@
+import {
+    useState,
+    useEffect,
+    useCallback
+} from 'react'
+import api from '../../services/apiInstance'
 import Delta from '../../utils/dashboard/deltaStyle'
 import {
     MdWarning,
@@ -6,7 +12,29 @@ import {
 } from 'react-icons/md'
 import styles from './kpis.module.css'
 
-export default function KPIs({ metrics }) {
+export default function KPIs() {
+    const [metrics, setMetrics] = useState({
+        kpi: {
+            revenue: { total: 0, percentage: 0 },
+            criticalProducts: { total: 0, percentage: 0 },
+            breakageRate: { percentage: 0, proportion: 0 },
+            inventoryTurnover: { total: 0, percentage: 0 }
+        },
+    })
+
+    const fetchKpiMetrics = useCallback(async () => {
+        try {
+            const response = await api.get('/api/dashboard/kpis')
+            setMetrics(data => ({ ...data, kpi: response.data.kpis }))
+        } catch (error) {
+            console.log(error)
+        }
+    }, [])
+
+    useEffect(() => {
+        fetchKpiMetrics()
+    }, [fetchKpiMetrics])
+
     return (
         <div className={styles.kpiGrid}>
             <div className={styles.kpiCard}>

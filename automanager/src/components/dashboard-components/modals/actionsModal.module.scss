@@ -1,0 +1,407 @@
+@use '../../variables' as *;
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modalContent {
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 16px;
+    width: 900px;
+    max-width: 90%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: $shadow-hover;
+    animation: slideUp 0.3s ease-out;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid $border;
+
+    h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: $text-primary;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: -0.3px;
+    }
+
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: $text-tertiary;
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        border-radius: 6px;
+        transition: all 0.15s;
+
+        &:hover {
+            color: $danger;
+            transform: scale(1.1);
+            background: $surface-hover;
+        }
+    }
+}
+
+.modalBody {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(90vh - 120px);
+}
+
+// Header da tabela
+.tableHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $border-light;
+}
+
+.tableTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-secondary;
+}
+
+.tableActions {
+    display: flex;
+    gap: 8px;
+}
+
+// Tabela de usuários
+.usersTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.usersTable th {
+    text-align: left;
+    padding: 12px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: $text-tertiary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: $surface-hover;
+    border-bottom: 1px solid $border;
+    white-space: nowrap;
+}
+
+.usersTable td {
+    padding: 14px 12px;
+    font-size: 13px;
+    color: $text-secondary;
+    border-bottom: 1px solid $border-light;
+    white-space: nowrap;
+}
+
+.usersTable tr:last-child td {
+    border-bottom: none;
+}
+
+.usersTable tr:hover td {
+    background: $surface-hover;
+}
+
+// Celular com nome e avatar
+.userCell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.userName {
+    font-weight: 600;
+    color: $text-primary;
+}
+
+// Badges
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badgeActive {
+    background: #ecfdf5;
+    color: $success;
+}
+
+.badgeInactive {
+    background: #fef2f2;
+    color: $danger;
+}
+
+.roleBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.roleAdmin {
+    background: #eef2ff;
+    color: $primary;
+}
+
+.roleUser {
+    background: #f1f5f9;
+    color: $secondary;
+}
+
+// Ações da linha
+.rowActions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btnDelete {
+    background: $delete-button-bg;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 11px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+
+    &:hover {
+        background: $delete-button-bg-hover;
+        transform: translateY(-1px);
+        box-shadow: $shadow-hover;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.btnIcon {
+    background: none;
+    border: 1px solid $border;
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: $text-tertiary;
+    transition: all 0.15s;
+
+    &:hover {
+        background: $surface-hover;
+        color: $primary;
+        border-color: $primary-light;
+        transform: scale(1.05);
+    }
+}
+
+.btnOutline {
+    background: transparent;
+    color: $text-secondary;
+    border: 1px solid $border;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    white-space: nowrap;
+
+    &:hover {
+        background: $surface-hover;
+        color: $text-primary;
+        border-color: $primary-light;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.tableEmpty td {
+    text-align: center;
+    padding: 48px;
+    color: $text-tertiary;
+    font-size: 13px;
+    font-style: italic;
+    white-space: normal;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid $border-light;
+}
+
+.paginationControls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.paginationBtn {
+    background: transparent;
+    color: $text-secondary;
+    border: 1px solid $border;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &:hover:not(:disabled) {
+        background: $surface-hover;
+        color: $text-primary;
+        border-color: $primary-light;
+        transform: translateY(-1px);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.paginationPages {
+    display: flex;
+    gap: 4px;
+}
+
+.pageNumber {
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: $text-secondary;
+    border: 1px solid $border;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+        background: $surface-hover;
+        color: $text-primary;
+        border-color: $primary-light;
+    }
+
+    &.active {
+        background: $primary;
+        color: white;
+        border-color: $primary;
+
+        &:hover {
+            background: $primary-dark;
+        }
+    }
+}
+
+.paginationInfo {
+    font-size: 12px;
+    color: $text-tertiary;
+}
+
+.modalFooter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid $border;
+    background: $surface-hover;
+    border-radius: 0 0 16px 16px;
+}
+
+.closeButton {
+    background: transparent;
+    color: $text-secondary;
+    border: 1px solid $border;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+
+    &:hover {
+        background: $surface;
+        color: $text-primary;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

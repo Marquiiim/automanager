@@ -77,20 +77,6 @@
     gap: 10px;
 }
 
-.tableAvatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, $primary, $primary-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    flex-shrink: 0;
-}
-
 .tableName {
     font-weight: 600;
     color: $text-primary;

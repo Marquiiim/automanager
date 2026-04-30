@@ -1,7 +1,7 @@
 import stock from '../models/stockmodels.js'
 import dataBaseMetrics from '../utils/databaseMetrics.js'
 
-async function changeItem(itemData) {
+async function changeItemService(itemData) {
     try {
         await stock.updateItem(itemData)
     } catch (error) {
@@ -9,16 +9,16 @@ async function changeItem(itemData) {
     }
 }
 
-async function fetchItem(itemId) {
+async function fetchItemService(itemId) {
     try {
         const ItemInfo = stock.findById(itemId)
         return ItemInfo
     } catch (error) {
         throw error
-    }
+    } Service
 }
 
-async function findAll(page, limit) {
+async function findAllService(page, limit) {
     try {
         const offset = (page - 1) * limit
 
@@ -35,7 +35,7 @@ async function findAll(page, limit) {
     }
 }
 
-async function stockMovement(movementData, userId) {
+async function stockMovementService(movementData, userId) {
     try {
         await stock.stockMovement(movementData, userId)
     } catch (error) {
@@ -43,7 +43,7 @@ async function stockMovement(movementData, userId) {
     }
 }
 
-async function createItem(itemData) {
+async function createItemService(itemData) {
     try {
         await stock.createItem(itemData)
     } catch (error) {
@@ -51,7 +51,7 @@ async function createItem(itemData) {
     }
 }
 
-async function deleteItem(itemId) {
+async function deleteItemService(itemId) {
     try {
         await stock.deleteItem(itemId)
     } catch (error) {
@@ -60,10 +60,10 @@ async function deleteItem(itemId) {
 }
 
 export {
-    changeItem,
-    fetchItem,
-    findAll,
-    stockMovement,
-    createItem,
-    deleteItem
+    changeItemService,
+    fetchItemService,
+    findAllService,
+    stockMovementService,
+    createItemService,
+    deleteItemService
 }

@@ -99,19 +99,3 @@ export const stockMovementSchema = z.object({
         .trim()
         .optional()
 })
-
-export const deleteItemSchema = z.coerce.number({
-    required_error: 'Identificação é obrigatório',
-    invalid_type_error: 'Identificação deve ser um número'
-})
-    .int('Identificação do item deve ser um número')
-    .positive('Identificação do item deve ser positivo')
-    .min(1, 'Identificação inválida')
-
-export const fetchStockSchema = z.coerce.number({
-    required_error: 'Identificação é obrigatório',
-    invalid_type_error: 'Identificação deve ser um número'
-})
-    .int('Identificação do item deve ser um número')
-    .positive('Identificação do item deve ser positivo')
-    .min(1, 'Identificação inválida')

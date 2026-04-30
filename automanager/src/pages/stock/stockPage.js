@@ -15,8 +15,8 @@ import {
 import api from '../../services/apiInstance';
 import { textFormat } from '../../utils/general/formatTextBd'
 
-import ChangeMode from '../../components/stock-components/change-modal/changeMode';
-import StockMovement from '../../components/stock-components/stockmovement-modal/stockMovement';
+import ChangeMode from '../../components/stock-components/modals/changeMode';
+import StockMovement from '../../components/stock-components/modals/stockMovement';
 import styles from './stockPage.module.css';
 
 export default function StockPage() {

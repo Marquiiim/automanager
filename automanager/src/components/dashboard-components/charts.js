@@ -1,4 +1,10 @@
 import {
+    useState,
+    useEffect,
+    useCallback
+} from 'react'
+import api from '../../services/apiInstance'
+import {
     BarChart,
     Bar,
     PieChart,
@@ -14,6 +20,26 @@ import {
 import styles from './charts.module.css'
 
 export default function Charts({ revenueData, productsData }) {
+    const [metrics, setMetrics] = useState({
+        chart: {
+            bar: [],
+            pie: []
+        },
+    })
+
+    const fetchChartMetrics = useCallback(async () => {
+        try {
+            const response = await api.get('/api/dashboard/charts')
+            setMetrics(data => ({ ...data, chart: response.data.charts }))
+        } catch (error) {
+            console.log(error)
+        }
+    }, [])
+
+    useEffect(() => {
+        fetchChartMetrics()
+    }, [fetchChartMetrics])
+
     return (
         <div className={styles.chartRow}>
             <div className={styles.chartCard}>
@@ -31,7 +57,7 @@ export default function Charts({ revenueData, productsData }) {
                     </div>
                 </div>
                 <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={revenueData}>
+                    <BarChart data={metrics.chart.bar}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="month" />
                         <YAxis yAxisId="left" />
@@ -50,7 +76,7 @@ export default function Charts({ revenueData, productsData }) {
                 <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                         <Pie
-                            data={productsData.filter(item => item.quantity > 0)}
+                            data={metrics.chart.pie.filter(item => item.quantity > 0)}
                             cx="50%"
                             cy="50%"
                             innerRadius={60}
@@ -61,10 +87,10 @@ export default function Charts({ revenueData, productsData }) {
                             label={({ category, percent }) => `${category} ${(percent * 100).toFixed(0)}%`}
                             labelLine={true}
                         >
-                            {productsData.filter(item => item.quantity > 0).map((entry, index) => (
+                            {metrics.chart.pie.filter(item => item.quantity > 0).map((entry, index) => (
                                 <Cell
                                     key={`cell-${index}`}
-                                    fill={`hsl(${index * 360 / productsData.filter(item => item.quantity > 0).length}, 70%, 55%)`}
+                                    fill={`hsl(${index * 360 / metrics.chart.pie.filter(item => item.quantity > 0).length}, 70%, 55%)`}
                                 />
                             ))}
                         </Pie>

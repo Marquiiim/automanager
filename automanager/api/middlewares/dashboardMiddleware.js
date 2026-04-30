@@ -1,11 +1,9 @@
-import {
-    filterSchema
-} from "../schemas/available.schema.js";
 import { z } from 'zod'
+import { idGlobalSchema } from '../schemas/global.schema.js';
 
-async function filteredItemsMiddleware(req, res, next) {
+async function deleteUserMiddleware(req, res, next) {
     try {
-        filterSchema.parse(req.query.selectedFilters)
+        idGlobalSchema.parse(req.body.user)
         next()
     } catch (error) {
         if (error instanceof z.ZodError) {
@@ -24,5 +22,5 @@ async function filteredItemsMiddleware(req, res, next) {
 }
 
 export {
-    filteredItemsMiddleware
+    deleteUserMiddleware
 }

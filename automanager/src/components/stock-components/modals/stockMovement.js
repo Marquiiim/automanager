@@ -25,7 +25,7 @@ export default function StockMovement({ itemId, type, onClose }) {
     };
 
     return (
-        <div className={styles.modalOverlay}>
+        <div className={styles.modalOverlay} onClick={onClose}>
             <div className={styles.modalContent}>
                 <div className={styles.modalHeader}>
                     <h2 className={styles.modalTitle}>

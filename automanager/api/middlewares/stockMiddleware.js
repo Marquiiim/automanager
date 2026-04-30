@@ -1,11 +1,11 @@
 import { jwttokens } from '../utils/jwt.js'
 import {
     updateStockSchema,
-    fetchStockSchema,
     stockMovementSchema,
-    createItemSchema,
-    deleteItemSchema
+    createItemSchema
 } from "../schemas/stock.schema.js";
+import { idGlobalSchema } from '../schemas/global.schema.js';
+import { z } from 'zod'
 
 async function updateItemMiddleware(req, res, next) {
     try {
@@ -14,21 +14,37 @@ async function updateItemMiddleware(req, res, next) {
         updateStockSchema.parse(data)
         next()
     } catch (error) {
-        return res.status(422).json({
+        if (error instanceof z.ZodError) {
+            return res.status(422).json({
+                success: false,
+                message: error.issues[0]?.message || 'Erro de validação',
+                details: error.issues
+            });
+        }
+
+        return res.status(500).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao alterar informações do item'
+            message: error.message || 'Erro interno do servidor'
         })
     }
 }
 
 async function fetchItemMiddleware(req, res, next) {
     try {
-        fetchStockSchema.parse(req.body.id)
+        idGlobalSchema.parse(req.body.id)
         next()
     } catch (error) {
-        return res.status(422).json({
+        if (error instanceof z.ZodError) {
+            return res.status(422).json({
+                success: false,
+                message: error.issues[0]?.message || 'Erro de validação',
+                details: error.issues
+            });
+        }
+
+        return res.status(500).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao buscar item'
+            message: error.message || 'Erro interno do servidor'
         })
     }
 }
@@ -47,9 +63,17 @@ async function stockMovementMiddleware(req, res, next) {
         stockMovementSchema.parse(data)
         next()
     } catch (error) {
-        return res.status(422).json({
+        if (error instanceof z.ZodError) {
+            return res.status(422).json({
+                success: false,
+                message: error.issues[0]?.message || 'Erro de validação',
+                details: error.issues
+            });
+        }
+
+        return res.status(500).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao movimentar item'
+            message: error.message || 'Erro interno do servidor'
         })
     }
 }
@@ -59,21 +83,37 @@ async function createItemMiddleware(req, res, next) {
         createItemSchema.parse(req.body)
         next()
     } catch (error) {
-        return res.status(422).json({
+        if (error instanceof z.ZodError) {
+            return res.status(422).json({
+                success: false,
+                message: error.issues[0]?.message || 'Erro de validação',
+                details: error.issues
+            });
+        }
+
+        return res.status(500).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao criar item'
+            message: error.message || 'Erro interno do servidor'
         })
     }
 }
 
 async function deleteItemMiddleware(req, res, next) {
     try {
-        deleteItemSchema.parse(req.body.id)
+        idGlobalSchema.parse(req.body.id)
         next()
     } catch (error) {
-        return res.status(422).json({
+        if (error instanceof z.ZodError) {
+            return res.status(422).json({
+                success: false,
+                message: error.issues[0]?.message || 'Erro de validação',
+                details: error.issues
+            });
+        }
+
+        return res.status(500).json({
             success: false,
-            message: error.issues[0]?.message || 'Erro ao deletar item'
+            message: error.message || 'Erro interno do servidor'
         })
     }
 }

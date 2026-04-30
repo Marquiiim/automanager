@@ -1,11 +1,13 @@
 import {
-    getKpiMetrics,
-    getChartMetrics
+    getKpiMetricsService,
+    getChartMetricsService,
+    getAllUsersService,
+    deleteUserService
 } from '../services/dashboardService.js'
 
 async function getKpi(req, res) {
     try {
-        const kpis = await getKpiMetrics()
+        const kpis = await getKpiMetricsService()
 
         return res.status(200).json({
             success: true,
@@ -21,7 +23,7 @@ async function getKpi(req, res) {
 
 async function getChart(req, res) {
     try {
-        const charts = await getChartMetrics()
+        const charts = await getChartMetricsService()
 
         return res.status(200).json({
             success: true,
@@ -35,7 +37,43 @@ async function getChart(req, res) {
     }
 }
 
+async function getUsers(req, res) {
+    try {
+        const { page, limit } = req.body
+
+        const users = await getAllUsersService(page, limit)
+
+        return res.status(200).json({
+            success: true,
+            users: users
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+async function deleteUser(req, res) {
+    try {
+        const isDeleted = await deleteUserService(req.body.user)
+
+        return res.status(200).json({
+            success: true,
+            message: 'Usuário deletado com sucesso'
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 export {
     getKpi,
-    getChart
+    getChart,
+    getUsers,
+    deleteUser
 }
