@@ -80,12 +80,6 @@
   color: #0f172a;
 }
 
-.tableRowActions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
 .tableEmpty td {
   text-align: center;
   padding: 48px;
@@ -125,45 +119,6 @@
 }
 
 .btnOutline:hover {
-  background: #f8fafc;
-  color: #0f172a;
-}
-
-.btnDelete {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 5px 11px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background 0.15s;
-}
-
-.btnDelete:hover {
-  background: #c0392b;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.btnIconSm {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #64748b;
-  font-size: 16px;
-  transition: all 0.15s;
-  flex-shrink: 0;
-}
-
-.btnIconSm:hover {
   background: #f8fafc;
   color: #0f172a;
 }
@@ -222,18 +177,6 @@
 
 .activityDotGreen {
   background: #10b981;
-}
-
-.activityDotBlue {
-  background: #3b82f6;
-}
-
-.activityDotYellow {
-  background: #f59e0b;
-}
-
-.activityDotRed {
-  background: #ef4444;
 }
 
 .activityBody {

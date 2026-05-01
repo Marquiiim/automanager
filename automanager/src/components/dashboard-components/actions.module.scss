@@ -82,12 +82,6 @@
     color: $text-primary;
 }
 
-.tableRowActions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
 .tableEmpty td {
     text-align: center;
     padding: 48px;
@@ -127,45 +121,6 @@
 }
 
 .btnOutline:hover {
-    background: $surface-hover;
-    color: $text-primary;
-}
-
-.btnDelete {
-    background: $delete-button-bg;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 5px 11px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    transition: background 0.15s;
-}
-
-.btnDelete:hover {
-    background: $delete-button-bg-hover;
-    box-shadow: $shadow-hover;
-}
-
-.btnIconSm {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    border: 1px solid $border;
-    background: $surface;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: $text-tertiary;
-    font-size: 16px;
-    transition: all 0.15s;
-    flex-shrink: 0;
-}
-
-.btnIconSm:hover {
     background: $surface-hover;
     color: $text-primary;
 }
@@ -224,18 +179,6 @@
 
 .activityDotGreen {
     background: $success;
-}
-
-.activityDotBlue {
-    background: $info;
-}
-
-.activityDotYellow {
-    background: $warning;
-}
-
-.activityDotRed {
-    background: $danger;
 }
 
 .activityBody {

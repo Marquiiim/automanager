@@ -1,106 +1,95 @@
-import {
-    MdClose,
-    MdMoreVert,
-    MdNavigateBefore,
-    MdNavigateNext
-    , MdPersonOutline
-} from 'react-icons/md';
+import { MdEdit, MdBlock, MdDelete, MdPersonOff } from 'react-icons/md';
+import { useCallback, useRef, useEffect, useState } from 'react';
+import api from '../../../services/apiInstance';
 import styles from './actionsModal.module.css';
 
-export default function ActionsModal({ data, pagination, onClose }) {
+export default function ActionsModal({ position, onClose, userId }) {
+    const menuRef = useRef(null);
+    const [finalPosition, setFinalPosition] = useState({ top: 0, left: 0 });
+
+    useEffect(() => {
+        if (menuRef.current) {
+            const menuRect = menuRef.current.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            let left = position.left + 8;
+            let top = position.top;
+
+            if (left + menuRect.width > viewportWidth) {
+                left = position.left - menuRect.width - 8;
+            }
+
+            if (top + menuRect.height > viewportHeight) {
+                top = position.top - menuRect.height;
+            }
+
+            if (top < 0) {
+                top = 8;
+            }
+
+            setFinalPosition({ top, left });
+        }
+    }, [position]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                onClose();
+            }
+        };
+
+        const handleEscape = (event) => {
+            if (event.key === 'Escape') {
+                onClose();
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleEscape);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleEscape);
+        };
+    }, [onClose]);
+
+    const handleDelete = useCallback(async () => {
+        try {
+            await api.delete('/api/dashboard/users/delete', { data: { user: userId } });
+            onClose();
+        } catch (error) {
+            console.log(error);
+        }
+    }, [userId, onClose]);
+
     return (
-        <div className={styles.modalOverlay} onClick={onClose}>
-            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.modalHeader}>
-                    <h3>
-                        <MdPersonOutline size={20} />
-                        Todos os Usuários
-                    </h3>
-                    <button onClick={onClose}>
-                        <MdClose size={18} />
-                    </button>
-                </div>
-
-                <div className={styles.modalBody}>
-                    <div className={styles.tableHeader}>
-                        <span className={styles.tableTitle}>Lista completa de usuários</span>
-                        <div className={styles.tableActions}>
-                        </div>
-                    </div>
-
-                    <table className={styles.usersTable}>
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Função</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data && data.length > 0 ? (
-                                data.map(user => (
-                                    <tr key={user.id}>
-                                        <td>
-                                            <div className={styles.userCell}>
-                                                <span className={styles.userName}>{user.name}</span>
-                                            </div>
-                                        </td>
-                                        <td>{user.email}</td>
-                                        <td>
-                                            <span className={`${styles.roleBadge} ${user.role === 'admin' ? styles.roleAdmin : styles.roleUser}`}>
-                                                {user.role === 'admin' ? 'Administrador' : 'Usuário'}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span className={`${styles.badge} ${user.status === 'ativo' ? styles.badgeActive : styles.badgeInactive}`}>
-                                                {user.status === 'ativo' ? 'Ativo' : 'Inativo'}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <div className={styles.rowActions}>
-                                                <button className={styles.btnDelete}>Remover</button>
-                                                <button className={styles.btnIcon}>
-                                                    <MdMoreVert size={16} />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr className={styles.tableEmpty}>
-                                    <td colSpan={5}>
-                                        <span>Nenhum usuário encontrado</span>
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-
-                    <div className={styles.pagination}>
-                        <div className={styles.paginationControls}>
-                            <button onClick={() => pagination('previous')}
-                                className={styles.paginationBtn}>
-                                <MdNavigateBefore size={16} />
-                                Anterior
-                            </button>
-                            <button onClick={() => pagination('next')}
-                                className={styles.paginationBtn}>
-                                Próximo
-                                <MdNavigateNext size={16} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.modalFooter}>
-                    <button onClick={onClose}
-                        className={styles.closeButton}>
-                        Fechar
-                    </button>
-                </div>
-            </div>
+        <div
+            ref={menuRef}
+            className={styles.dropdownMenu}
+            style={{
+                position: 'fixed',
+                top: finalPosition.top,
+                left: finalPosition.left,
+                zIndex: 1001
+            }}
+        >
+            <button onClick={() => { }} className={styles.dropdownItem}>
+                <MdEdit size={18} />
+                <span>Editar</span>
+            </button>
+            <button onClick={() => { }} className={styles.dropdownItem}>
+                <MdPersonOff size={18} />
+                <span>Desativar</span>
+            </button>
+            <button onClick={() => { }} className={styles.dropdownItem}>
+                <MdBlock size={18} />
+                <span>Bloquear</span>
+            </button>
+            <button onClick={handleDelete} className={`${styles.dropdownItem} ${styles.dropdownItemDanger}`}>
+                <MdDelete size={18} />
+                <span>Excluir</span>
+            </button>
         </div>
     );
 }

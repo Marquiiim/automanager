@@ -4,8 +4,7 @@ import {
     useCallback
 } from 'react'
 import api from '../../services/apiInstance'
-import { MdMoreVert } from 'react-icons/md'
-import ActionsModal from './modals/actionsModal'
+import UsersModal from './modals/usersModal'
 import styles from './actions.module.css'
 
 export default function Actions() {
@@ -31,15 +30,6 @@ export default function Actions() {
                     { recentUsers: response.data.users }
                 )
             }))
-        } catch (error) {
-            console.log(error)
-        }
-    }, [])
-
-    const handleDelete = useCallback(async (id) => {
-        try {
-            const response = await api.delete('/api/dashboard/users/delete', { data: { user: id } })
-            console.log(response.data)
         } catch (error) {
             console.log(error)
         }
@@ -89,7 +79,7 @@ export default function Actions() {
         <div className={styles.bottomGrid}>
             <div className={styles.tableCard}>
                 <div className={styles.tableCardHeader}>
-                    <span className={styles.tableCardTitle}>Usuários do Sistema</span>
+                    <span className={styles.tableCardTitle}>Usuários do Recentes</span>
                     <div className={styles.tableCardActions}>
                         <button onClick={seeAllUsers}
                             className={styles.btnOutline}>
@@ -105,7 +95,6 @@ export default function Actions() {
                             <th>Email</th>
                             <th>Função</th>
                             <th>Status</th>
-                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -124,22 +113,11 @@ export default function Actions() {
                                             {user.status}
                                         </span>
                                     </td>
-                                    <td>
-                                        <div className={styles.tableRowActions}>
-                                            <button onClick={() => handleDelete(user.id)}
-                                                className={styles.btnDelete}>
-                                                Remover
-                                            </button>
-                                            <button className={styles.btnIconSm}>
-                                                <MdMoreVert />
-                                            </button>
-                                        </div>
-                                    </td>
                                 </tr>
                             ))
                         ) : (
                             <tr className={styles.tableEmpty}>
-                                <td colSpan={5}>
+                                <td colSpan={4}>
                                     <span>Nenhum usuário encontrado</span>
                                 </td>
                             </tr>
@@ -167,10 +145,9 @@ export default function Actions() {
                 </div>
             </div>
             {data.seeAll.active &&
-                <ActionsModal
+                <UsersModal
                     data={data.seeAll.allUsers}
                     pagination={handlePagination}
-                    delete={handleDelete}
                     onClose={onClose} />
             }
         </div>

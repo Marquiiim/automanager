@@ -34,7 +34,7 @@ async function findAllUsers(page, limit) {
 
 async function removeUsers(userId) {
     try {
-        await dashboard.removeUsers(userId)
+        await dashboard.removeUser(userId)
     } catch (error) {
         throw error
     }

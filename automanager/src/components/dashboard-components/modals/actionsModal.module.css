@@ -1,382 +1,45 @@
-.modalOverlay {
+.dropdownMenu {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.2s ease-out;
-}
-
-.modalContent {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  width: 900px;
-  max-width: 90%;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  animation: slideUp 0.3s ease-out;
-}
-
-.modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  border-bottom: 1px solid #e2e8f0;
-}
-.modalHeader h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  letter-spacing: -0.3px;
-}
-.modalHeader button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #64748b;
-  display: flex;
-  align-items: center;
-  padding: 4px;
-  border-radius: 6px;
-  transition: all 0.15s;
-}
-.modalHeader button:hover {
-  color: #ef4444;
-  transform: scale(1.1);
-  background: #f8fafc;
-}
-
-.modalBody {
-  padding: 20px;
-  flex: 1;
-  overflow-y: auto;
-  max-height: calc(90vh - 120px);
-}
-
-.tableHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.tableTitle {
-  font-size: 14px;
-  font-weight: 600;
-  color: #475569;
-}
-
-.tableActions {
-  display: flex;
-  gap: 8px;
-}
-
-.usersTable {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.usersTable th {
-  text-align: left;
-  padding: 12px 12px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
-  white-space: nowrap;
-}
-
-.usersTable td {
-  padding: 14px 12px;
-  font-size: 13px;
-  color: #475569;
-  border-bottom: 1px solid #f1f5f9;
-  white-space: nowrap;
-}
-
-.usersTable tr:last-child td {
-  border-bottom: none;
-}
-
-.usersTable tr:hover td {
-  background: #f8fafc;
-}
-
-.userCell {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.userName {
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 9px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.badgeActive {
-  background: #ecfdf5;
-  color: #10b981;
-}
-
-.badgeInactive {
-  background: #fef2f2;
-  color: #ef4444;
-}
-
-.roleBadge {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 9px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.roleAdmin {
-  background: #eef2ff;
-  color: #2563eb;
-}
-
-.roleUser {
-  background: #f1f5f9;
-  color: #64748b;
-}
-
-.rowActions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.btnDelete {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 5px 11px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.15s;
-}
-.btnDelete:hover {
-  background: #c0392b;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-.btnDelete:active {
-  transform: translateY(0);
-}
-
-.btnIcon {
-  background: none;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #64748b;
-  transition: all 0.15s;
-}
-.btnIcon:hover {
-  background: #f8fafc;
-  color: #2563eb;
-  border-color: #3b82f6;
-  transform: scale(1.05);
-}
-
-.btnOutline {
-  background: transparent;
-  color: #475569;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.btnOutline:hover {
-  background: #f8fafc;
-  color: #0f172a;
-  border-color: #3b82f6;
-  transform: translateY(-1px);
-}
-.btnOutline:active {
-  transform: translateY(0);
-}
-
-.tableEmpty td {
-  text-align: center;
-  padding: 48px;
-  color: #64748b;
-  font-size: 13px;
-  font-style: italic;
-  white-space: normal;
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid #f1f5f9;
-}
-
-.paginationControls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.paginationBtn {
-  background: transparent;
-  color: #475569;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.paginationBtn:hover:not(:disabled) {
-  background: #f8fafc;
-  color: #0f172a;
-  border-color: #3b82f6;
-  transform: translateY(-1px);
-}
-.paginationBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.paginationPages {
-  display: flex;
-  gap: 4px;
-}
-
-.pageNumber {
-  min-width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: #475569;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.pageNumber:hover {
-  background: #f8fafc;
-  color: #0f172a;
-  border-color: #3b82f6;
-}
-.pageNumber.active {
-  background: #2563eb;
-  color: white;
-  border-color: #2563eb;
-}
-.pageNumber.active:hover {
-  background: #1d4ed8;
-}
-
-.paginationInfo {
-  font-size: 12px;
-  color: #64748b;
-}
-
-.modalFooter {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  padding: 16px 20px;
-  border-top: 1px solid #e2e8f0;
-  background: #f8fafc;
-  border-radius: 0 0 16px 16px;
-}
-
-.closeButton {
-  background: transparent;
-  color: #475569;
-  border: 1px solid #e2e8f0;
-  padding: 10px 20px;
   border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  min-width: 160px;
+  z-index: 1001;
+  border: 1px solid #e2e8f0;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
   cursor: pointer;
-  font-family: inherit;
-  transition: all 0.15s;
+  font-size: 14px;
+  color: #475569;
+  transition: background 0.2s;
 }
-.closeButton:hover {
-  background: #ffffff;
-  color: #0f172a;
-  transform: translateY(-1px);
+.dropdownItem:hover {
+  background: #f8fafc;
 }
-.closeButton:active {
-  transform: translateY(0);
+
+.dropdownItemDanger {
+  color: #ef4444;
+}
+.dropdownItemDanger:hover {
+  background: rgba(239, 68, 68, 0.1);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
-  }
-}
-@keyframes slideUp {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+    transform: scale(1);
   }
 }/*# sourceMappingURL=actionsModal.module.css.map */
