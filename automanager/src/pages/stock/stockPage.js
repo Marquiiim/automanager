@@ -4,20 +4,17 @@ import {
     MdAdd,
     MdRemove
 } from 'react-icons/md'
-
 import {
     useEffect,
     useMemo,
     useState,
     useCallback
 } from 'react';
-
-import api from '../../services/apiInstance';
 import { textFormat } from '../../utils/general/formatTextBd'
-
 import ChangeMode from '../../components/stock-components/modals/changeMode';
 import StockMovement from '../../components/stock-components/modals/stockMovement';
 import styles from './stockPage.module.css';
+import api from '../../services/apiInstance';
 
 export default function StockPage() {
     const [itemsData, setItemsData] = useState([])

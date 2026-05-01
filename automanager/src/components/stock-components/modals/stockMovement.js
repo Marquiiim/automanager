@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import {
+    useState,
+    useCallback
+} from 'react';
 import api from '../../../services/apiInstance';
 import styles from './stockMovement.module.css';
 
@@ -13,7 +16,7 @@ export default function StockMovement({ itemId, type, onClose }) {
     const title = type === 'input' ? 'Entrada de produto' : type === 'output' ? 'Saída de produto' : ''
     const isEntry = type === 'input' ? true : type === 'output' ? false : null
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
         try {
             await api.post(`/api/stock/movement/${type}`, dataStockMovement)
@@ -22,7 +25,7 @@ export default function StockMovement({ itemId, type, onClose }) {
             console.log(error)
             onClose();
         }
-    };
+    }, [dataStockMovement, type, onClose])
 
     return (
         <div className={styles.modalOverlay} onClick={onClose}>

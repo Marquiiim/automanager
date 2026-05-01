@@ -1,5 +1,9 @@
 import styles from './changeMode.module.css';
-import { useEffect, useState } from 'react';
+import {
+    useEffect,
+    useState,
+    useCallback
+} from 'react';
 import { getChangedFields } from '../../../utils/stock/changedFields'
 import api from '../../../services/apiInstance'
 
@@ -14,50 +18,44 @@ export default function ChangeMode({ itemId, onClose }) {
         location: ''
     })
 
-    useEffect(() => {
-        const fetchItem = async (itemId) => {
-            try {
-                const response = await api.post('/api/stock/fetch', { id: itemId })
-                const { name, category_name, supplier, sale_price, current_stock, location, updated_at } = response.data.result
-                setOriginalItemData(response.data.result)
-                setItemData({
-                    name,
-                    category_name,
-                    supplier,
-                    sale_price,
-                    current_stock,
-                    location,
-                    updated_at
-                })
-            } catch (error) {
-                console.log(error)
-            }
+    const fetchItem = useCallback(async (itemId) => {
+        try {
+            const response = await api.post('/api/stock/fetch', { id: itemId })
+            const { name, category_name, supplier, sale_price, current_stock, location, updated_at } = response.data.result
+            setOriginalItemData(response.data.result)
+            setItemData({
+                name,
+                category_name,
+                supplier,
+                sale_price,
+                current_stock,
+                location,
+                updated_at
+            })
+        } catch (error) {
+            console.log(error)
         }
-
-        if (itemId) fetchItem(itemId)
-    }, [itemId])
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
-
         setItemData(prev => ({
             ...prev,
             [name]: value
         }))
     }
 
-    const handleDelete = async (e) => {
+    const handleDelete = useCallback(async (e) => {
         e.preventDefault()
         try {
-            const response = await api.post('/api/stock/delete', { id: itemId })
-            console.log(response.data)
+            await api.post('/api/stock/delete', { id: itemId })
             onClose()
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [itemId, onClose])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault()
         try {
             const changedInfo = getChangedFields(originalItemData, itemData)
@@ -72,7 +70,11 @@ export default function ChangeMode({ itemId, onClose }) {
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [itemData, itemId, onClose, originalItemData])
+
+    useEffect(() => {
+        if (itemId) fetchItem(itemId)
+    }, [fetchItem, itemId])
 
     return (
         <div className={styles.modalOverlay} onClick={onClose}>

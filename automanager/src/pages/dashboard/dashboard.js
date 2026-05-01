@@ -5,7 +5,6 @@ import { MdNotifications } from 'react-icons/md'
 import styles from './dashboard.module.css'
 
 export default function Dashboard() {
-
     return (
         <div className={styles.layout}>
             <div className={styles.main}>
