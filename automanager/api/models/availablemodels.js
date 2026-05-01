@@ -11,7 +11,7 @@ const available = {
         return foundFilters
     },
 
-    fetchItemsFilter: async (filters) => {
+    filterItems: async (filters) => {
         const filtersId = filters.map(f => f.id)
 
         if (filtersId.length > 0) {

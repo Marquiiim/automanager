@@ -1,6 +1,6 @@
 import { jwttokens } from '../utils/jwt.js'
 
-export async function validate(access_token, refresh_token) {
+export async function validateSession(access_token, refresh_token) {
     try {
         await jwttokens.verifyAccessToken(access_token)
         return { validAccess: true }

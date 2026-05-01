@@ -1,7 +1,7 @@
 import { query } from '../config/database/database.js'
 
 const dashboard = {
-    fetchKpiMetricsDB: async () => {
+    getKpis: async () => {
         const kpiRevenue = await query(
             `SELECT
                 SUM(CASE 
@@ -101,7 +101,7 @@ const dashboard = {
         }
     },
 
-    fetchChartMetricsDB: async () => {
+    getCharts: async () => {
         const barMetrics = await query(
             `SELECT 
                 DATE_FORMAT(movement_date, '%b') AS month,
@@ -135,7 +135,7 @@ const dashboard = {
         }
     },
 
-    fetchAllUsersDB: async (limit, offset) => {
+    findAllUsers: async (limit, offset) => {
         const usersFound = await query(
             `SELECT
                 id,
@@ -152,7 +152,7 @@ const dashboard = {
         return usersFound
     },
 
-    deleteUserDB: async (userId) => {
+    removeUser: async (userId) => {
         const deleteUser = await query(
             `DELETE FROM users WHERE id = ?`, [userId]
 

@@ -21,7 +21,7 @@ const user = {
         return rows[0]
     },
 
-    changePassword: async (email, password_hash) => {
+    updatePassword: async (email, password_hash) => {
         const rows = await query(
             `UPDATE users SET password_hash = ? WHERE email = ?`, [password_hash, email]
         )

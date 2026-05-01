@@ -1,15 +1,15 @@
 import stock from '../models/stockmodels.js'
 import dataBaseMetrics from '../utils/databaseMetrics.js'
 
-async function changeItemService(itemData) {
+async function updateItem(itemData) {
     try {
-        await stock.updateItem(itemData)
+        await stock.update(itemData)
     } catch (error) {
         throw error
     }
 }
 
-async function fetchItemService(itemId) {
+async function getItem(itemId) {
     try {
         const ItemInfo = stock.findById(itemId)
         return ItemInfo
@@ -18,12 +18,12 @@ async function fetchItemService(itemId) {
     } Service
 }
 
-async function findAllService(page, limit) {
+async function findAll(page, limit) {
     try {
         const offset = (page - 1) * limit
 
-        const itemsForPagination = await stock.findByPagination(limit, offset)
-        const itemsForMetricsCalculation = await stock.searchForMetrics()
+        const itemsForPagination = await stock.findAll(limit, offset)
+        const itemsForMetricsCalculation = await stock.getMetrics()
         const calculationsMetrics = await dataBaseMetrics(itemsForMetricsCalculation)
 
         return {
@@ -35,35 +35,35 @@ async function findAllService(page, limit) {
     }
 }
 
-async function stockMovementService(movementData, userId) {
+async function moveStock(movementData, userId) {
     try {
-        await stock.stockMovement(movementData, userId)
+        await stock.move(movementData, userId)
     } catch (error) {
         throw error
     }
 }
 
-async function createItemService(itemData) {
+async function createItem(itemData) {
     try {
-        await stock.createItem(itemData)
+        await stock.create(itemData)
     } catch (error) {
         throw error
     }
 }
 
-async function deleteItemService(itemId) {
+async function removeItem(itemId) {
     try {
-        await stock.deleteItem(itemId)
+        await stock.remove(itemId)
     } catch (error) {
         throw error
     }
 }
 
 export {
-    changeItemService,
-    fetchItemService,
-    findAllService,
-    stockMovementService,
-    createItemService,
-    deleteItemService
+    updateItem,
+    getItem,
+    findAll,
+    moveStock,
+    createItem,
+    removeItem
 }

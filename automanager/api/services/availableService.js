@@ -12,9 +12,9 @@ async function getFilters() {
     }
 }
 
-async function fetchItemsFilter(filters) {
+async function filterItems(filters) {
     try {
-        const data = await available.fetchItemsFilter(filters)
+        const data = await available.filterItems(filters)
 
         return {
             found: data
@@ -26,5 +26,5 @@ async function fetchItemsFilter(filters) {
 
 export {
     getFilters,
-    fetchItemsFilter
+    filterItems
 }

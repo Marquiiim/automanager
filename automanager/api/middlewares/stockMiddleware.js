@@ -7,7 +7,7 @@ import {
 import { idGlobalSchema } from '../schemas/global.schema.js';
 import { z } from 'zod'
 
-async function updateItemMiddleware(req, res, next) {
+async function validateUpdateItem(req, res, next) {
     try {
         const { id, ...data } = req.body
 
@@ -29,7 +29,7 @@ async function updateItemMiddleware(req, res, next) {
     }
 }
 
-async function fetchItemMiddleware(req, res, next) {
+async function validateGetItem(req, res, next) {
     try {
         idGlobalSchema.parse(req.body.id)
         next()
@@ -49,7 +49,7 @@ async function fetchItemMiddleware(req, res, next) {
     }
 }
 
-async function stockMovementMiddleware(req, res, next) {
+async function validateStockMovement(req, res, next) {
     try {
         const { id, ...data } = req.body
         const { access_token } = req.cookies
@@ -78,7 +78,7 @@ async function stockMovementMiddleware(req, res, next) {
     }
 }
 
-async function createItemMiddleware(req, res, next) {
+async function validateCreateItem(req, res, next) {
     try {
         createItemSchema.parse(req.body)
         next()
@@ -98,7 +98,7 @@ async function createItemMiddleware(req, res, next) {
     }
 }
 
-async function deleteItemMiddleware(req, res, next) {
+async function validateDeleteItem(req, res, next) {
     try {
         idGlobalSchema.parse(req.body.id)
         next()
@@ -119,9 +119,9 @@ async function deleteItemMiddleware(req, res, next) {
 }
 
 export {
-    updateItemMiddleware,
-    fetchItemMiddleware,
-    stockMovementMiddleware,
-    createItemMiddleware,
-    deleteItemMiddleware
+    validateUpdateItem,
+    validateGetItem,
+    validateStockMovement,
+    validateCreateItem,
+    validateDeleteItem
 }

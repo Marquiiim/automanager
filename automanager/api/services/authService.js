@@ -53,7 +53,7 @@ async function changePassword(changePasswordData) {
     if (passwordValidate) throw new Error('A senha não pode coincidir com a atual')
 
     const password_hash = await bcrypt.hash(password, 10)
-    await user.changePassword(email, password_hash)
+    await user.updatePassword(email, password_hash)
 }
 
 export {

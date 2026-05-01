@@ -1,9 +1,12 @@
 import express from 'express'
-import { validateSessionController, destroySessionController } from '../controllers/sessionsController.js'
+import {
+    validateSession,
+    destroySession
+} from '../controllers/sessionsController.js'
 
 const router = express.Router()
 
-router.post('/private-routes', validateSessionController)
-router.post('/logout', destroySessionController)
+router.post('/private-routes', validateSession)
+router.post('/logout', destroySession)
 
 export default router

@@ -3,7 +3,7 @@ import {
 } from "../schemas/available.schema.js";
 import { z } from 'zod'
 
-async function filteredItemsMiddleware(req, res, next) {
+async function validateFilters(req, res, next) {
     try {
         filterSchema.parse(req.query.selectedFilters)
         next()
@@ -24,5 +24,5 @@ async function filteredItemsMiddleware(req, res, next) {
 }
 
 export {
-    filteredItemsMiddleware
+    validateFilters
 }

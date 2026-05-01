@@ -1,11 +1,8 @@
-import {
-    getFilters,
-    fetchItemsFilter
-} from '../services/availableService.js'
+import * as availableService from '../services/availableService.js'
 
-async function getFiltersController(req, res) {
+async function getFilters(req, res) {
     try {
-        const filters = await getFilters()
+        const filters = await availableService.getFilters()
 
         return res.status(200).json({
             success: true,
@@ -19,9 +16,9 @@ async function getFiltersController(req, res) {
     }
 }
 
-async function filteredItemsController(req, res) {
+async function getfilteredItems(req, res) {
     try {
-        const filteredItems = await fetchItemsFilter(req.query.selectedFilters)
+        const filteredItems = await availableService.filterItems(req.query.selectedFilters)
 
         return res.status(200).json({
             success: true,
@@ -36,6 +33,6 @@ async function filteredItemsController(req, res) {
 }
 
 export {
-    getFiltersController,
-    filteredItemsController
+    getFilters,
+    getfilteredItems
 }

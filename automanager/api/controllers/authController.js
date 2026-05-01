@@ -1,10 +1,10 @@
-import { login, forgetPassword, changePassword } from "../services/authService.js"
+import * as authService from "../services/authService.js"
 import { cookies_options } from '../config/cookies/cookies.js'
 import { jwttokens } from '../utils/jwt.js'
 
-async function loginController(req, res) {
+async function loginUser(req, res) {
     try {
-        const user = await login(req.body.signData, req.cookies)
+        const user = await authService.login(req.body.signData, req.cookies)
 
         if (!req.cookiesExisting) {
             const accessToken = await jwttokens.generateAccessToken({
@@ -37,9 +37,9 @@ async function loginController(req, res) {
     }
 }
 
-async function forgetPasswordController(req, res) {
+async function forgetPassword(req, res) {
     try {
-        await forgetPassword(req.body.forgetData)
+        await authService.forgetPassword(req.body.forgetData)
 
         return res.status(200).json({
             success: true,
@@ -53,9 +53,9 @@ async function forgetPasswordController(req, res) {
     }
 }
 
-async function changePasswordController(req, res) {
+async function updatePassword(req, res) {
     try {
-        await changePassword(req.body.changePasswordData)
+        await authService.changePassword(req.body.changePasswordData)
 
         return res.status(200).json({
             success: true,
@@ -70,7 +70,7 @@ async function changePasswordController(req, res) {
 }
 
 export {
-    loginController,
-    forgetPasswordController,
-    changePasswordController
+    loginUser,
+    forgetPassword,
+    updatePassword
 }

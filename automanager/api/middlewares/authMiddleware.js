@@ -5,7 +5,7 @@ import {
 } from "../schemas/user.schema.js"
 import { z } from 'zod'
 
-async function loginMiddleware(req, res, next) {
+async function login(req, res, next) {
     try {
         req.cookiesExisting = !!(req.cookies?.access_token && req.cookies?.refresh_token)
 
@@ -32,7 +32,7 @@ async function loginMiddleware(req, res, next) {
     }
 }
 
-async function forgetPasswordMiddleware(req, res, next) {
+async function validateForgetPassword(req, res, next) {
     try {
         forgetPasswordSchema.parse(req.body.forgetData)
         next()
@@ -44,7 +44,7 @@ async function forgetPasswordMiddleware(req, res, next) {
     }
 }
 
-async function changePasswordMiddleware(req, res, next) {
+async function validateChangePassword(req, res, next) {
     try {
         changePasswordSchema.parse(req.body.changePasswordData)
         next()
@@ -65,7 +65,7 @@ async function changePasswordMiddleware(req, res, next) {
 }
 
 export {
-    loginMiddleware,
-    forgetPasswordMiddleware,
-    changePasswordMiddleware
+    login,
+    validateForgetPassword,
+    validateChangePassword
 }

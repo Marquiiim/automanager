@@ -1,11 +1,13 @@
 import express from 'express'
-
-import { filteredItemsMiddleware } from '../middlewares/availableMiddleware.js'
-import { getFiltersController, filteredItemsController } from '../controllers/availableController.js'
+import { validateFilters } from '../middlewares/availableMiddleware.js'
+import {
+    getFilters,
+    getfilteredItems
+} from '../controllers/availableController.js'
 
 const router = express.Router()
 
-router.get('/getfilters', getFiltersController)
-router.get('/filtered-items', filteredItemsMiddleware, filteredItemsController)
+router.get('/getfilters', getFilters)
+router.get('/filtered-items', validateFilters, getfilteredItems)
 
 export default router

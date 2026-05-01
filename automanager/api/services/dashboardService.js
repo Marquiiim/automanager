@@ -1,8 +1,8 @@
 import dashboard from "../models/dashboardmodels.js"
 
-async function getKpiMetricsService() {
+async function getKpis() {
     try {
-        const metrics = await dashboard.fetchKpiMetricsDB()
+        const metrics = await dashboard.getKpis()
 
         return metrics
     } catch (error) {
@@ -10,9 +10,9 @@ async function getKpiMetricsService() {
     }
 }
 
-async function getChartMetricsService() {
+async function getCharts() {
     try {
-        const metrics = await dashboard.fetchChartMetricsDB()
+        const metrics = await dashboard.getCharts()
 
         return metrics
     } catch (error) {
@@ -20,11 +20,11 @@ async function getChartMetricsService() {
     }
 }
 
-async function getAllUsersService(page, limit) {
+async function findAllUsers(page, limit) {
     try {
         const offset = (page - 1) * limit
 
-        const users = await dashboard.fetchAllUsersDB(limit, offset)
+        const users = await dashboard.findAllUsers(limit, offset)
 
         return users
     } catch (error) {
@@ -32,17 +32,17 @@ async function getAllUsersService(page, limit) {
     }
 }
 
-async function deleteUserService(userId) {
+async function removeUsers(userId) {
     try {
-        await dashboard.deleteUserDB(userId)
+        await dashboard.removeUsers(userId)
     } catch (error) {
         throw error
     }
 }
 
 export {
-    getKpiMetricsService,
-    getChartMetricsService,
-    getAllUsersService,
-    deleteUserService
+    getKpis,
+    getCharts,
+    findAllUsers,
+    removeUsers
 }

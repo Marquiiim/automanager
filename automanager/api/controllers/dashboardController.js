@@ -1,13 +1,8 @@
-import {
-    getKpiMetricsService,
-    getChartMetricsService,
-    getAllUsersService,
-    deleteUserService
-} from '../services/dashboardService.js'
+import * as dashboardService from '../services/dashboardService.js'
 
 async function getKpi(req, res) {
     try {
-        const kpis = await getKpiMetricsService()
+        const kpis = await dashboardService.getKpis()
 
         return res.status(200).json({
             success: true,
@@ -23,7 +18,7 @@ async function getKpi(req, res) {
 
 async function getChart(req, res) {
     try {
-        const charts = await getChartMetricsService()
+        const charts = await dashboardService.getCharts()
 
         return res.status(200).json({
             success: true,
@@ -37,11 +32,11 @@ async function getChart(req, res) {
     }
 }
 
-async function getUsers(req, res) {
+async function listUsers(req, res) {
     try {
         const { page, limit } = req.body
 
-        const users = await getAllUsersService(page, limit)
+        const users = await dashboardService.findAllUsers(page, limit)
 
         return res.status(200).json({
             success: true,
@@ -55,9 +50,9 @@ async function getUsers(req, res) {
     }
 }
 
-async function deleteUser(req, res) {
+async function removeUser(req, res) {
     try {
-        const isDeleted = await deleteUserService(req.body.user)
+        const isDeleted = await dashboardService.removeUsers(req.body.user)
 
         return res.status(200).json({
             success: true,
@@ -74,6 +69,6 @@ async function deleteUser(req, res) {
 export {
     getKpi,
     getChart,
-    getUsers,
-    deleteUser
+    listUsers,
+    removeUser
 }

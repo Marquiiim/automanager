@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { idGlobalSchema } from '../schemas/global.schema.js';
 
-async function deleteUserMiddleware(req, res, next) {
+async function validateDeleteUser(req, res, next) {
     try {
         idGlobalSchema.parse(req.body.user)
         next()
@@ -22,5 +22,5 @@ async function deleteUserMiddleware(req, res, next) {
 }
 
 export {
-    deleteUserMiddleware
+    validateDeleteUser
 }

@@ -16,7 +16,7 @@ const stock = {
         return result[0]
     },
 
-    findByPagination: async (limit, offset) => {
+    findAll: async (limit, offset) => {
         const result = await query(
             `SELECT p.*,
                 c.name AS category_name
@@ -31,7 +31,7 @@ const stock = {
         return result
     },
 
-    searchForMetrics: async () => {
+    getMetrics: async () => {
         const result = await query(
             `SELECT p.*,
                 c.name AS category_name, 
@@ -51,7 +51,7 @@ const stock = {
         }
     },
 
-    updateItem: async (itemData) => {
+    update: async (itemData) => {
         const { id, ...updateData } = itemData
 
         const getLocation = await query(
@@ -78,7 +78,7 @@ const stock = {
         return result[0]
     },
 
-    stockMovement: async (itemData, userId) => {
+    move: async (itemData, userId) => {
         let newQuantity
 
         const itemInformation = await query(
@@ -114,7 +114,7 @@ const stock = {
         }
     },
 
-    createItem: async (itemData) => {
+    create: async (itemData) => {
         const itemExisting = await query(
             `SELECT COUNT(*) as total 
             FROM stock s
@@ -143,7 +143,7 @@ const stock = {
         return createItem[0]
     },
 
-    deleteItem: async (itemId) => {
+    remove: async (itemId) => {
         const check = await query(
             `SELECT status, deleted_in FROM stock
             WHERE id = ?`, [itemId]

@@ -1,12 +1,12 @@
-import { validate } from '../services/sessionsService.js'
+import * as sessionsService from '../services/sessionsService.js'
 import { cookies_options } from '../config/cookies/cookies.js'
 
-async function validateSessionController(req, res) {
+async function validateSession(req, res) {
     try {
         const { access_token, refresh_token } = req.cookies
 
         if (!access_token || !refresh_token) throw new Error('Sessão inválida')
-        const isValid = await validate(access_token, refresh_token)
+        const isValid = await sessionsService.validateSession(access_token, refresh_token)
 
         if (isValid.newAccessToken) res.cookie('access_token', isValid.newAccessToken, cookies_options.access_token)
 
@@ -25,7 +25,7 @@ async function validateSessionController(req, res) {
     }
 }
 
-async function destroySessionController(req, res) {
+async function destroySession(req, res) {
     try {
         res.clearCookie('access_token', cookies_options.clear_options)
         res.clearCookie('refresh_token', cookies_options.clear_options)
@@ -43,6 +43,6 @@ async function destroySessionController(req, res) {
 }
 
 export {
-    validateSessionController,
-    destroySessionController
+    validateSession,
+    destroySession
 }

@@ -1,31 +1,31 @@
 import express from 'express'
 import {
-    updateItemController,
-    fetchItemController,
-    fetchAllController,
-    stockMovementController,
-    createItemController,
-    deleteItemController
+    updateItem,
+    getItem,
+    listItems,
+    moveStock,
+    createItem,
+    removeItem
 } from '../controllers/stockController.js'
 import {
-    updateItemMiddleware,
-    fetchItemMiddleware,
-    stockMovementMiddleware,
-    createItemMiddleware,
-    deleteItemMiddleware
+    validateUpdateItem,
+    validateGetItem,
+    validateStockMovement,
+    validateCreateItem,
+    validateDeleteItem
 } from '../middlewares/stockMiddleware.js'
 
 const router = express.Router()
 
-router.post('/create', createItemMiddleware, createItemController)
-router.post('/delete', deleteItemMiddleware, deleteItemController)
-router.post('/change', updateItemMiddleware, updateItemController)
+router.post('/create', validateCreateItem, createItem)
+router.post('/delete', validateDeleteItem, removeItem)
+router.post('/change', validateUpdateItem, updateItem)
 
 //ROTAS ABAIXO NECESSITAM SER MUDADAS PARA GET
-router.post('/fetch', fetchItemMiddleware, fetchItemController)
-router.post('/in-stock', fetchAllController)
+router.post('/fetch', validateGetItem, getItem)
+router.post('/in-stock', listItems)
 
-router.post('/movement/input', stockMovementMiddleware, stockMovementController)
-router.post('/movement/output', stockMovementMiddleware, stockMovementController)
+router.post('/movement/input', validateStockMovement, moveStock)
+router.post('/movement/output', validateStockMovement, moveStock)
 
 export default router
