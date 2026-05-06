@@ -3,10 +3,11 @@ import {
     getKpi,
     getChart,
     listUsers,
-    removeUser
+    removeUser,
+    disableUser
 } from '../controllers/dashboardController.js'
 
-import { validateDeleteUser } from '../middlewares/dashboardMiddleware.js'
+import { globalValidateUser } from '../middlewares/dashboardMiddleware.js'
 
 const router = express.Router()
 
@@ -14,10 +15,9 @@ router.get('/kpis', getKpi)
 router.get('/charts', getChart)
 
 router.post('/users', listUsers)
-router.delete('/users/delete', validateDeleteUser, removeUser)
 
-//router.patch('/users/change/role', CONTROLLER)
-//router.patch('/users/change/status', CONTROLLER)
+router.delete('/users/delete/:id', globalValidateUser, removeUser)
+router.patch('/users/disable/:id', globalValidateUser, disableUser)
 
 //router.get('/activy', activyUsersController)
 

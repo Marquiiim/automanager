@@ -239,7 +239,7 @@ export default function StockPage() {
                             >
                                 Anterior
                             </button>
-                            <span className={styles.paginationInfostyles}>
+                            <span className={styles.paginationInfo}>
                                 Página {pagination.page} de {Math.ceil(metricsAndInfo.totalItems / pagination.limit) || 1}
                             </span>
                             <button

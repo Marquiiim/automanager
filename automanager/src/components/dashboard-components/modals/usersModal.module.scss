@@ -13,7 +13,6 @@
     justify-content: center;
     z-index: 1000;
     animation: fadeIn 0.2s ease-out;
-    /* REMOVIDO overflow: visible */
 }
 
 .modalContent {
@@ -27,7 +26,6 @@
     flex-direction: column;
     box-shadow: $shadow-hover;
     animation: slideUp 0.3s ease-out;
-    /* REMOVIDO overflow: visible */
 }
 
 .modalHeader {

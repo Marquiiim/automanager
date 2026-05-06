@@ -135,7 +135,7 @@ export default function UsersModal({ data, pagination, onClose }) {
                 <ActionsModal
                     position={actionsModal.position}
                     onClose={handleCloseActions}
-                    userId={actionsModal.selectedUser?.id}
+                    user={actionsModal.selectedUser}
                 />,
                 document.body
             )}

@@ -107,10 +107,14 @@ export default function Actions() {
                                         </div>
                                     </td>
                                     <td>{user.email}</td>
-                                    <td>{user.role}</td>
                                     <td>
-                                        <span className={`${styles.badge} ${styles.badgeActive}`}>
-                                            {user.status}
+                                        <span className={`${styles.roleBadge} ${user.role === 'admin' ? styles.roleAdmin : styles.roleUser}`}>
+                                            {user.role === 'admin' ? 'Administrador' : 'Usuário'}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span className={`${styles.badge} ${user.status === 'ativo' ? styles.badgeActive : styles.badgeInactive}`}>
+                                            {user.status === 'ativo' ? 'Ativo' : 'Inativo'}
                                         </span>
                                     </td>
                                 </tr>

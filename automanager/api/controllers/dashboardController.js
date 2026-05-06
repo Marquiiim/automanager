@@ -52,7 +52,7 @@ async function listUsers(req, res) {
 
 async function removeUser(req, res) {
     try {
-        const isDeleted = await dashboardService.removeUsers(req.body.user)
+        await dashboardService.removeUsers(req.params.id)
 
         return res.status(200).json({
             success: true,
@@ -66,9 +66,26 @@ async function removeUser(req, res) {
     }
 }
 
+async function disableUser(req, res) {
+    try {
+        await dashboardService.disableUsers(req.params.id)
+
+        return res.status(200).json({
+            success: true,
+            message: 'Usuário desabilitado com sucesso'
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 export {
     getKpi,
     getChart,
     listUsers,
-    removeUser
+    removeUser,
+    disableUser
 }

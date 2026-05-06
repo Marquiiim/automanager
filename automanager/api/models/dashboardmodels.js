@@ -155,10 +155,37 @@ const dashboard = {
     removeUser: async (userId) => {
         const deleteUser = await query(
             `DELETE FROM users WHERE id = ?`, [userId]
-
         )
 
         if (deleteUser.affectedRows === 0) throw new Error('Não foi possível excluir usuário')
+    },
+
+    disableUser: async (userId) => {
+        const isDisabled = await query(
+            `SELECT status 
+            FROM users
+            WHERE id = ?`, [userId]
+        )
+
+        if (isDisabled[0].status === 'inativo') {
+            const enableUser = await query(
+                `UPDATE users
+                SET status = 'ativo'
+                WHERE id = ?`, [userId]
+            )
+
+            if (enableUser.affctedRows === 0) throw new Error('Não foi possível desabilitar o usuário')
+
+            return enableUser
+        }
+
+        const disableUser = await query(
+            `UPDATE users
+            SET status = 'inativo'
+            WHERE id = ?`, [userId]
+        )
+
+        if (disableUser.affctedRows === 0) throw new Error('Não foi possível desabilitar o usuário')
     }
 }
 

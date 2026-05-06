@@ -23,18 +23,18 @@ export default function StockMovement({ itemId, type, onClose }) {
             onClose();
         } catch (error) {
             console.log(error)
-            onClose();
         }
     }, [dataStockMovement, type, onClose])
 
     return (
         <div className={styles.modalOverlay} onClick={onClose}>
-            <div className={styles.modalContent}>
+            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.modalHeader}>
                     <h2 className={styles.modalTitle}>
                         {title}
                     </h2>
                     <button
+                        type='button'
                         className={styles.closeButton}
                         onClick={onClose}
                     >

@@ -1,9 +1,9 @@
 import { z } from 'zod'
 import { idGlobalSchema } from '../schemas/global.schema.js';
 
-async function validateDeleteUser(req, res, next) {
+async function globalValidateUser(req, res, next) {
     try {
-        idGlobalSchema.parse(req.body.user)
+        idGlobalSchema.parse(req.params.id)
         next()
     } catch (error) {
         if (error instanceof z.ZodError) {
@@ -22,5 +22,5 @@ async function validateDeleteUser(req, res, next) {
 }
 
 export {
-    validateDeleteUser
+    globalValidateUser
 }

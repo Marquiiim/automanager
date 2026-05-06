@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const idGlobalSchema = z.number({
+export const idGlobalSchema = z.coerce.number({
     required_error: 'Identificação é obrigatório',
     invalid_type_error: 'Identificação deve ser um número'
 })

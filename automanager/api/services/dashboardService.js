@@ -40,9 +40,18 @@ async function removeUsers(userId) {
     }
 }
 
+async function disableUsers(userId) {
+    try {
+        await dashboard.disableUser(userId)
+    } catch (error) {
+        throw error
+    }
+}
+
 export {
     getKpis,
     getCharts,
     findAllUsers,
-    removeUsers
+    removeUsers,
+    disableUsers
 }
