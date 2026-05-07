@@ -82,10 +82,29 @@ async function disableUser(req, res) {
     }
 }
 
+async function getUsersActivity(req, res) {
+    try {
+        const { page, limit } = req.query.pagination
+
+        const actions = await dashboardService.getAllActivities(page, limit)
+
+        return res.status(200).json({
+            success: true,
+            activities: actions
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            error: error.mesage
+        })
+    }
+}
+
 export {
     getKpi,
     getChart,
     listUsers,
     removeUser,
-    disableUser
+    disableUser,
+    getUsersActivity
 }

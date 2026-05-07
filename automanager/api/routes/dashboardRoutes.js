@@ -4,7 +4,8 @@ import {
     getChart,
     listUsers,
     removeUser,
-    disableUser
+    disableUser,
+    getUsersActivity
 } from '../controllers/dashboardController.js'
 
 import { globalValidateUser } from '../middlewares/dashboardMiddleware.js'
@@ -19,6 +20,6 @@ router.post('/users', listUsers)
 router.delete('/users/delete/:id', globalValidateUser, removeUser)
 router.patch('/users/disable/:id', globalValidateUser, disableUser)
 
-//router.get('/activy', activyUsersController)
+router.get('/users/activity', getUsersActivity)
 
 export default router

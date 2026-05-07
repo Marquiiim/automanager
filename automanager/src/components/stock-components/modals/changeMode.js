@@ -20,7 +20,11 @@ export default function ChangeMode({ itemId, onClose }) {
 
     const fetchItem = useCallback(async (itemId) => {
         try {
-            const response = await api.post('/api/stock/fetch', { id: itemId })
+            const response = await api.get('/api/stock/fetch', {
+                params: {
+                    itemId
+                }
+            })
             const { name, category_name, supplier, sale_price, current_stock, location, updated_at } = response.data.result
             setOriginalItemData(response.data.result)
             setItemData({

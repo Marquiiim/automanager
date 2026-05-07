@@ -18,7 +18,7 @@ async function updateItem(req, res) {
 
 async function getItem(req, res) {
     try {
-        const itemInfo = await stockService.getItem(req.body.id)
+        const itemInfo = await stockService.getItem(req.query.itemId)
 
         return res.status(200).json({
             success: true,
@@ -34,7 +34,7 @@ async function getItem(req, res) {
 
 async function listItems(req, res) {
     try {
-        const { page, limit } = req.body
+        const { page, limit } = req.query.pagination
 
         const itemsFound = await stockService.findAll(page, limit)
 

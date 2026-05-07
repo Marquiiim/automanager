@@ -46,7 +46,11 @@ export default function StockPage() {
 
     const fetchAllStock = useCallback(async (pagination) => {
         try {
-            const response = await api.post(`/api/stock/in-stock`, pagination)
+            const response = await api.get(`/api/stock/in-stock`, {
+                params: {
+                    pagination
+                }
+            })
             const formattedData = textFormat(response.data.result.paginatedItems, ['category_name'])
             setItemsData(formattedData)
             setMetricsAndInfo({ totalItems: response.data.result.metricsResult.totalItems, metrics: response.data.result.metricsResult.metrics })

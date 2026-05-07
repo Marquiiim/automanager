@@ -21,9 +21,8 @@ router.post('/create', validateCreateItem, createItem)
 router.post('/delete', validateDeleteItem, removeItem)
 router.post('/change', validateUpdateItem, updateItem)
 
-//ROTAS ABAIXO NECESSITAM SER MUDADAS PARA GET
-router.post('/fetch', validateGetItem, getItem)
-router.post('/in-stock', listItems)
+router.get('/in-stock', listItems)
+router.get('/fetch', validateGetItem, getItem)
 
 router.post('/movement/input', validateStockMovement, moveStock)
 router.post('/movement/output', validateStockMovement, moveStock)

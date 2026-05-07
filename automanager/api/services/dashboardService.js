@@ -48,10 +48,23 @@ async function disableUsers(userId) {
     }
 }
 
+async function getAllActivities(page, limit) {
+    try {
+        const offset = (page - 1) * limit
+
+        const activities = await dashboard.findActivities(limit, offset)
+
+        return activities
+    } catch (error) {
+        throw error
+    }
+}
+
 export {
     getKpis,
     getCharts,
     findAllUsers,
     removeUsers,
-    disableUsers
+    disableUsers,
+    getAllActivities
 }

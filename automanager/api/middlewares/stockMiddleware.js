@@ -31,7 +31,7 @@ async function validateUpdateItem(req, res, next) {
 
 async function validateGetItem(req, res, next) {
     try {
-        idGlobalSchema.parse(req.body.id)
+        idGlobalSchema.parse(req.query.itemId)
         next()
     } catch (error) {
         if (error instanceof z.ZodError) {

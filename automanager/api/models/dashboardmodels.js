@@ -174,7 +174,7 @@ const dashboard = {
                 WHERE id = ?`, [userId]
             )
 
-            if (enableUser.affctedRows === 0) throw new Error('Não foi possível desabilitar o usuário')
+            if (enableUser.affectedRows === 0) throw new Error('Não foi possível desabilitar o usuário')
 
             return enableUser
         }
@@ -185,7 +185,31 @@ const dashboard = {
             WHERE id = ?`, [userId]
         )
 
-        if (disableUser.affctedRows === 0) throw new Error('Não foi possível desabilitar o usuário')
+        if (disableUser.affectedRows === 0) throw new Error('Não foi possível desabilitar o usuário')
+    },
+
+    findActivities: async (limit, offset) => {
+        const activities = await query(
+            `SELECT 
+                m.id,
+                m.type_movement,
+                m.movement_date,
+                m.quantity,
+                m.unit_value,
+                m.notes,
+                u.name AS user_name,
+                s.name AS product_name
+            FROM stock_movement m
+                INNER JOIN users u ON m.user_id = u.id
+                INNER JOIN stock s ON m.item_id = s.id
+            ORDER BY m.movement_date DESC
+                LIMIT ? 
+                OFFSET ?`, [limit, offset]
+        )
+
+        if (activities.length === 0) throw new Error('Nenhuma ação foi encontrada')
+
+        return activities
     }
 }
 

@@ -9,7 +9,11 @@ import styles from './actions.module.css'
 
 export default function Actions() {
     const [data, setData] = useState({
-        pagination: {
+        paginationUsers: {
+            page: 1,
+            limit: 4
+        },
+        paginationActivities: {
             page: 1,
             limit: 4
         },
@@ -17,12 +21,13 @@ export default function Actions() {
             active: false,
             allUsers: []
         },
-        recentUsers: []
+        recentUsers: [],
+        recentActivities: []
     })
 
-    const fetchUsers = useCallback(async (pagination) => {
+    const fetchUsers = useCallback(async () => {
         try {
-            const response = await api.post('/api/dashboard/users', pagination)
+            const response = await api.post('/api/dashboard/users', data.paginationUsers)
             setData(data => ({
                 ...data,
                 ...(data.seeAll.active ?
@@ -33,12 +38,29 @@ export default function Actions() {
         } catch (error) {
             console.log(error)
         }
-    }, [])
+    }, [data.paginationUsers])
+
+    const fetchUsersActivity = useCallback(async () => {
+        try {
+            const response = await api.get('/api/dashboard/users/activity', {
+                params: {
+                    pagination: data.paginationActivities
+                }
+            })
+            setData(data => ({
+                ...data,
+                recentActivities: response.data.activities
+            }))
+            console.log(response.data.activities)
+        } catch (error) {
+            console.log(error)
+        }
+    }, [data.paginationActivities])
 
     const seeAllUsers = useCallback(() => {
         setData(data => ({
             ...data,
-            pagination: { page: 1, limit: 10 },
+            paginationUsers: { page: 1, limit: 10 },
             seeAll: { active: true, allUsers: [] }
         }))
     }, [])
@@ -46,17 +68,17 @@ export default function Actions() {
     const handlePagination = useCallback((type) => {
         if (type === 'previous') setData(data => ({
             ...data,
-            pagination: {
-                page: Math.max(data.pagination.page - 1, 1),
-                limit: data.pagination.limit
+            paginationUsers: {
+                page: Math.max(data.paginationUsers.page - 1, 1),
+                limit: data.paginationUsers.limit
             }
         }))
 
         if (type === 'next') setData(data => ({
             ...data,
-            pagination: {
-                page: data.pagination.page + 1,
-                limit: data.pagination.limit
+            paginationUsers: {
+                page: data.paginationUsers.page + 1,
+                limit: data.paginationUsers.limit
             }
         }))
     }, [])
@@ -72,8 +94,9 @@ export default function Actions() {
     }, [])
 
     useEffect(() => {
-        fetchUsers(data.pagination)
-    }, [fetchUsers, data.pagination])
+        fetchUsers()
+        fetchUsersActivity()
+    }, [fetchUsers, fetchUsersActivity])
 
     return (
         <div className={styles.bottomGrid}>
@@ -133,21 +156,25 @@ export default function Actions() {
             <div className={styles.activityCard}>
                 <div className={styles.activityCardHeader}>
                     <span className={styles.activityCardTitle}>Atividade Recente</span>
-                    <button className={styles.btnOutline}>Ver tudo</button>
                 </div>
 
                 <div className={styles.activityList}>
-                    <div className={styles.activityItem}>
-                        <div className={`${styles.activityDot} ${styles.activityDotGreen}`} />
-                        <div className={styles.activityBody}>
-                            <p className={styles.activityText}>
-                                <strong>Usuário</strong> realizou uma ação
-                            </p>
-                            <span className={styles.activityTime}>agora mesmo</span>
-                        </div>
-                    </div>
+                    {data.recentActivities && data.recentActivities.length > 0 &&
+                        data.recentActivities.map(activity => (
+                            <div key={activity.id} className={styles.activityItem}>
+                                <div className={`${styles.activityDot} ${activity.type_movement === 'output' ? styles.activityOutput : styles.activityInput}`} />
+                                <div className={styles.activityBody}>
+                                    <p className={styles.activityText}>
+                                        <strong>{activity.user_name}</strong> realizou uma {activity.type_movement === 'output' ? 'venda' : 'compra'}
+                                    </p>
+                                    <span className={styles.activityTime}>{new Date(activity.movement_date).toLocaleString('pt-br')}</span>
+                                </div>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
+
             {data.seeAll.active &&
                 <UsersModal
                     data={data.seeAll.allUsers}

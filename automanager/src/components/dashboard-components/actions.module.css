@@ -89,7 +89,6 @@
   white-space: normal;
 }
 
-/* BADGES - IGUAL AO usersModal */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -110,7 +109,6 @@
   color: #ef4444;
 }
 
-/* ROLE BADGES */
 .roleBadge {
   display: inline-flex;
   align-items: center;
@@ -202,7 +200,11 @@
   flex-shrink: 0;
 }
 
-.activityDotGreen {
+.activityOutput {
+  background: #ef4444;
+}
+
+.activityInput {
   background: #10b981;
 }
 
