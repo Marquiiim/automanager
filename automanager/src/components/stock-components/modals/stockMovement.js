@@ -19,7 +19,7 @@ export default function StockMovement({ itemId, type, onClose }) {
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
         try {
-            await api.post(`/api/stock/movement/${type}`, dataStockMovement)
+            await api.patch(`/api/stock/movement/${type}`, dataStockMovement)
             onClose();
         } catch (error) {
             console.log(error)

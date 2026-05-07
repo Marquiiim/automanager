@@ -15,8 +15,7 @@ const router = express.Router()
 router.post('/login', loginUser, login)
 
 router.post('/forget-password/verify', validateForgetPassword, forgetPassword)
-router.post('/forget-password/change', validateChangePassword, updatePassword
-)
+router.post('/forget-password/change', validateChangePassword, updatePassword)
 
 
 export default router

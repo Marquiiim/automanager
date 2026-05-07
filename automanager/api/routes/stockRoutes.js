@@ -24,7 +24,7 @@ router.post('/change', validateUpdateItem, updateItem)
 router.get('/in-stock', listItems)
 router.get('/fetch', validateGetItem, getItem)
 
-router.post('/movement/input', validateStockMovement, moveStock)
-router.post('/movement/output', validateStockMovement, moveStock)
+router.patch('/movement/input', validateStockMovement, moveStock)
+router.patch('/movement/output', validateStockMovement, moveStock)
 
 export default router
