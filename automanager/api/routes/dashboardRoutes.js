@@ -9,8 +9,11 @@ import {
 } from '../controllers/dashboardController.js'
 
 import { globalValidateUser } from '../middlewares/dashboardMiddleware.js'
+import { validateSession } from '../controller/sessionsController.js'
 
 const router = express.Router()
+
+router.use(validateSession)
 
 router.get('/kpis', getKpi)
 router.get('/charts', getChart)

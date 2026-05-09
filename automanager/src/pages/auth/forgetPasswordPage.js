@@ -63,7 +63,7 @@ export default function ForgetPasswordPage() {
         <form className={styles.form}>
           <div className={styles.formGroup}>
             <label htmlFor='fullName' className={styles.label}>
-              Nome completo
+              Nome
             </label>
             <input
               id='fullName'

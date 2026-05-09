@@ -30,7 +30,7 @@ async function loginUser(req, res) {
             message: 'Login realizado com sucesso'
         })
     } catch (error) {
-        return res.status(401).json({
+        return res.status(error.statusCode).json({
             success: false,
             message: error.message
         })
@@ -46,7 +46,7 @@ async function forgetPassword(req, res) {
             message: 'Credenciais validadas, redefina sua senha'
         })
     } catch (error) {
-        return res.status(500).json({
+        return res.status(error.statusCode).json({
             success: false,
             message: error.message
         })
@@ -62,7 +62,7 @@ async function updatePassword(req, res) {
             message: 'Senha alterada com sucesso'
         })
     } catch (error) {
-        return res.status(500).json({
+        return res.status(error.statusCode).json({
             success: false,
             message: error.message
         })

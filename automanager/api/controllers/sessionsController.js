@@ -1,14 +1,14 @@
 import * as sessionsService from '../services/sessionsService.js'
 import { cookies_options } from '../config/cookies/cookies.js'
+import { SessionError } from '../utils/erros.js'
 
 async function validateSession(req, res) {
     try {
         const { access_token, refresh_token } = req.cookies
 
-        if (!access_token || !refresh_token) throw new Error('Sessão inválida')
-        const isValid = await sessionsService.validateSession(access_token, refresh_token)
+        const result = await sessionsService.validateSession(access_token, refresh_token)
 
-        if (isValid.newAccessToken) res.cookie('access_token', isValid.newAccessToken, cookies_options.access_token)
+        if (result.newAccessToken) res.cookie('access_token', result.newAccessToken, cookies_options.access_token)
 
         return res.status(200).json({
             success: true,
@@ -17,10 +17,10 @@ async function validateSession(req, res) {
     } catch (error) {
         res.clearCookie('access_token', cookies_options.clear_options)
         res.clearCookie('refresh_token', cookies_options.clear_options)
-        return res.status(400).json({
+        return res.status(error.statusCode).json({
             success: false,
             valid: false,
-            message: error.message || 'Sessão inválida'
+            message: error.message
         })
     }
 }

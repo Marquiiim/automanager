@@ -31,7 +31,7 @@ export default function StockPage() {
         itemId: null,
         type: null
     })
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState('')
 
     const filteredItems = useMemo(() => {
         if (!searchTerm.trim()) return itemsData

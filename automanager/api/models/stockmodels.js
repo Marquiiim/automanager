@@ -149,7 +149,7 @@ const stock = {
             WHERE id = ?`, [itemId]
         )
 
-        if (!check || check.lenght === 0) throw new Error('Item não encontrado')
+        if (!check || check.length === 0) throw new Error('Item não encontrado')
         if (check[0].status !== 'ativo') throw new Error('Item já está inativo')
         if (check[0].deleted_in !== null) throw new Error('Item já foi deletado anteriormente')
 

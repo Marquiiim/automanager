@@ -35,7 +35,7 @@ export default function ChangePassword() {
             confirmPassword: data.confirmPassword
         }
         try {
-            const response = await api.post('/api/auth/forget-password/change', { changePasswordData })
+            const response = await api.patch('/api/auth/forget-password/change', { changePasswordData })
             if (response.data?.success === true || response?.status === 200) navigate('/auth', { replace: true })
         } catch (error) {
             console.log(error)

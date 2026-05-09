@@ -15,7 +15,11 @@ import {
     validateDeleteItem
 } from '../middlewares/stockMiddleware.js'
 
+import { validateSession } from '../controller/sessionsController.js'
+
 const router = express.Router()
+
+router.use(validateSession)
 
 router.post('/create', validateCreateItem, createItem)
 router.post('/delete', validateDeleteItem, removeItem)

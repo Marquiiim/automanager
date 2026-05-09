@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../context/authContext'
 import api from '../services/apiInstance'
 
-const ProtectedRoutes = () => {
+export default function ProtectedRoutes() {
 
     const { loggedIn, setLoggedIn } = useAuth()
     const [loading, setLoading] = useState(true)
@@ -28,5 +28,3 @@ const ProtectedRoutes = () => {
 
     return <Outlet />
 }
-
-export default ProtectedRoutes

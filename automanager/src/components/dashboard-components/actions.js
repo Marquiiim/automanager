@@ -51,7 +51,6 @@ export default function Actions() {
                 ...data,
                 recentActivities: response.data.activities
             }))
-            console.log(response.data.activities)
         } catch (error) {
             console.log(error)
         }

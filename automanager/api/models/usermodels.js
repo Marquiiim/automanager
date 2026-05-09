@@ -1,4 +1,5 @@
 import { query } from '../config/database/database.js'
+import { AppError } from '../utils/erros.js'
 
 const user = {
     findByEmail: async (email) => {
@@ -6,7 +7,7 @@ const user = {
             `SELECT * FROM users WHERE email = ?`, [email]
         )
 
-        if (rows.length === 0) throw new Error('Usuário não encontrado')
+        if (rows.length === 0) return null
 
         return rows[0]
     },
@@ -16,7 +17,8 @@ const user = {
             `SELECT * FROM users WHERE id = ?`, [id]
         )
 
-        if (rows.length === 0) throw new Error('Usuário não encontrado')
+        if (rows.length === 0) throw new AppError('Usuário não encontrado', 401)
+        if (rows[0].status === 'inativo') throw new AppError('Conta inativa', 403)
 
         return rows[0]
     },
@@ -26,7 +28,7 @@ const user = {
             `UPDATE users SET password_hash = ? WHERE email = ?`, [password_hash, email]
         )
 
-        if (rows.affectedRows === 0) throw new Error('Não foi possível fazer a alteração da senha')
+        if (rows.affectedRows === 0) throw new AppError('Não foi possível fazer a alteração da senha', 400)
 
         return rows[0]
     }
