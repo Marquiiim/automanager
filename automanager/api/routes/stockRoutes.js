@@ -15,7 +15,7 @@ import {
     validateDeleteItem
 } from '../middlewares/stockMiddleware.js'
 
-import { validateSession } from '../controller/sessionsController.js'
+import { validateSession } from '../controllers/sessionsController.js'
 
 const router = express.Router()
 
