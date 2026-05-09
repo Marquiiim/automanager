@@ -9,7 +9,7 @@ import {
 } from '../controllers/dashboardController.js'
 
 import { globalValidateUser } from '../middlewares/dashboardMiddleware.js'
-import { validateSession } from '../controllers/sessionsController.js'
+import { validateSession } from '../middlewares/validateSessionMiddleware.js'
 
 const router = express.Router()
 

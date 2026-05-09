@@ -51,7 +51,7 @@ async function changePassword(changePasswordData) {
     const userFound = await user.findByEmail(email)
     if (!userFound) throw new AuthError('Usuário não encontrado', 404)
 
-    const passwordValidate = await bcrypt.compare(password, userInfo.password_hash)
+    const passwordValidate = await bcrypt.compare(password, userFound.password_hash)
     if (passwordValidate) throw new AuthError('A senha não pode coincidir com a atual', 400)
 
     const password_hash = await bcrypt.hash(password, 10)

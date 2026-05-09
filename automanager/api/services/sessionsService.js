@@ -11,8 +11,6 @@ export async function validateSession(access_token, refresh_token) {
 
             const userFound = await user.findById(decoded.userId)
 
-            console.log('AccessToken', userFound.status)
-
             if (!userFound) throw new AppError('Usuário não encontrado', 401)
             if (userFound.status === 'inativo') throw new AppError('Conta inativa', 403)
 
