@@ -55,7 +55,7 @@ api.interceptors.response.use(
 
         if (status === 401 && !window.location.pathname.includes('/auto-manager/auth')) {
             setTimeout(() => {
-                window.location.href = '/auto-manager/auth'
+                window.location.href = '/auth'
             }, 2000)
         }
         return Promise.reject(error)

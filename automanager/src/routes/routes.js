@@ -45,4 +45,4 @@ export const routeConfig = [
     }
 ]
 
-export const basename = '/auto-manager'
+export const basename = '/'
