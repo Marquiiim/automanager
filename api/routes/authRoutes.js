@@ -12,7 +12,7 @@ import {
 
 const router = express.Router()
 
-router.post('/login', loginUser, login)
+router.post('/login', login, loginUser)
 
 router.post('/forget-password/verify', validateForgetPassword, forgetPassword)
 router.patch('/forget-password/change', validateChangePassword, updatePassword)
