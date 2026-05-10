@@ -9,8 +9,11 @@ import {
     validateForgetPassword,
     validateChangePassword
 } from '../middlewares/authMiddleware.js'
+import { authLimiter } from '../middlewares/rateLimiters.js'
 
 const router = express.Router()
+
+router.use(authLimiter)
 
 router.post('/login', login, loginUser)
 

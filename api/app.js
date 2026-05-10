@@ -25,7 +25,6 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use(globalLimiter)
-app.use('/api/auth/login', authLimiter)
 
 app.use('/api', routes)
 
